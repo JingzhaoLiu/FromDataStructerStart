@@ -138,11 +138,11 @@ public class LinkedList<E> {
         return removedNode.e;
     }
 
-    public E removeFirst(int index) {
+    public E removeFirst() {
         return remove(0);
     }
 
-    public E removeLast(int index) {
+    public E removeLast() {
         return remove(size - 1);
     }
 
