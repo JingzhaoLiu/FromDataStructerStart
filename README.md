@@ -5,9 +5,10 @@
 # Stack
 [数组实现Stack](./Stack/src/ArrayStack.java)
 
-Stack实现计算表达式
+Stack实现计算表达式[+-*/()]
 
 - [Stack实现10以内计算表达式](./Stack/src/Compute.java)
+- [Stack实现计算表达式](./Stack/src/ComputeAnything.java)
 
 Stack实现浏览器前进后退功能
 # Queue
