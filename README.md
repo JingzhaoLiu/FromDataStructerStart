@@ -10,7 +10,8 @@ Stack实现计算表达式[+-*/()]
 - [Stack实现10以内计算表达式](./Stack/src/Compute.java)
 - [Stack实现计算表达式](./Stack/src/ComputeAnything.java)
 
-Stack实现浏览器前进后退功能
+
+[Stack实现浏览器前进后退功能](./Stack/src/BrowserStack.java)
 # Queue
 数组实现Queue
 数组实现loopQueue
