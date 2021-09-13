@@ -12,14 +12,24 @@ Stack实现计算表达式[+-*/()]
 
 
 [Stack实现浏览器前进后退功能](./Stack/src/BrowserStack.java)
+
+### leetcode上关于栈的题目
+20,155,232,844,224,682,496 
+
 # Queue
+
 数组实现Queue
+
 数组实现loopQueue
 
 # LinkedList
 
-链表实现Queue
+[链表实现Queue](./Linked/src/LinkedListQueue.java)
+
 链表实现loopQueue
+
+### leetcode上关于栈的题目
+206，141，21，19，876
 
 # Recursion
 将原来的问题转成更小的同一个问题
