@@ -29,7 +29,10 @@ Stack实现计算表达式[+-*/()]
 链表实现loopQueue
 
 ### leetcode上关于栈的题目
-206，141，21，19，876
+
+[LeetCode 206 reverse-linked-list](./Linked/src/Reverse.java)
+
+141，21，19，876
 
 # Recursion
 将原来的问题转成更小的同一个问题
@@ -59,4 +62,4 @@ Stack实现计算表达式[+-*/()]
 # 链表和递归
 
 
-[LeetCode 203](./Linked/src/Solution.java)
+[LeetCode 203 remove-linked-list-elements](./Linked/src/Solution.java)
