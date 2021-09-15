@@ -284,3 +284,35 @@ china.name = "nation";
 ```
 
 ### 多态
+
+#### 向上转型
+向上转型又称为自动转型、隐式转型。向上转型就是父类引用指向子类实例，也就是子类的对象可以赋值给父类对象
+
+``` java
+World china = new China();
+
+```
+
+#### 向下转型
+向上转型是父类引用指向子类实例，那么如何让子类引用指向父类实例呢？使用向下转型就可以实现。向下转型也被称为强制类型转换
+
+``` java
+World china = new China();
+China newChina = (China) china;
+
+```
+
+
+#### instanceof 运算符
+
+``` java
+<对象引用> instanceof 特定类型
+```
+
+``` java
+World china = new China();
+if(china instanceof China) {
+  China newChina = (China) china;
+}
+
+```
