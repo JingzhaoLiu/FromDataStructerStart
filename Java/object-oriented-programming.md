@@ -316,3 +316,32 @@ if(china instanceof China) {
 }
 
 ```
+
+
+### 抽象类
+
+``` java
+
+// 声明抽象类
+abstract class Person {
+    
+}
+
+
+```
+
+#### 抽象方法
+
+抽象类可以定义一个完整的编程接口，从而为子类提供实现该编程接口所需的所有方法的方法声明。抽象类可以只声明方法，而不关心这些方法的具体实现，而`子类必须去实现这些方法`
+
+``` java
+
+// 声明抽象类
+abstract class Person {
+    abstract String getName();
+}
+
+
+```
+
+
