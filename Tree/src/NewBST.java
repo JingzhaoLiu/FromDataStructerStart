@@ -27,22 +27,20 @@ public class NewBST<E extends Comparable<E>> {
   }
 
   public void add(E e) {
-      root = add(root, e);
+    root = add(root, e);
   }
 
   private Node add(Node node, E e) {
-
-    if(node == null) {
+    if (node == null) {
       ++size;
       return new Node(e);
     }
 
-    if (e.compareTo(node.e) > 0) {
-      node.right = add(node.rigth, e);
-    } else if(e.compareTo(node.e) < 0){
+    if (e.compareTo(node.e) < 0) {
       node.left = add(node.left, e);
+    } else if (e.compareTo(node.e) > 0) {
+      node.right = add(node.right, e);
     }
-
     return node;
 
   }
