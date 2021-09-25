@@ -5,7 +5,7 @@ public class EatPear {
   // 第二天，吃剩下的梨子的一半，还不过瘾，又多吃了一个；以后每天都吃前一天剩下的一半多一个，
   // 到第10天想再吃时，只剩下一个梨子了。问第一天共摘了多少个梨子
   private int pearNumber(int n) {
-      if(n < 1) {
+      if(n < 1 || n > 10) {
         return -1;
       }
       if( n == 10){
