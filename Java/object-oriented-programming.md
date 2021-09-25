@@ -18,6 +18,27 @@ class World {
 }
 ```
 
+对于静态方法（即 static 关键字修饰的方法），可以直接对象名.方法名()的方式去调动方法，或者直接使用方法。
+
+```java
+class World {
+
+    public void printText() {
+        System.out.println("你好");
+        System.out.println("Java帝国");
+    }
+
+    public static void main(String[] args) {
+	    
+	    // 调用printText方法
+	    World.printText();
+	    printText();
+	}
+}
+```
+
+![执行顺序](../img/java_base_static.png)
+
 ### 可变参数
 
 ```java
