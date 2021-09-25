@@ -18,6 +18,8 @@ class World {
 }
 ```
 
+### static
+
 对于静态方法（即 static 关键字修饰的方法），可以直接对象名.方法名()的方式去调动方法，或者直接使用方法。
 
 ```java
@@ -38,6 +40,14 @@ class World {
 ```
 
 ![执行顺序](../img/java_base_static.png)
+
+
+``` java
+// 静态导入包
+import static java.lang.Math.PI;
+
+```
+
 
 ### 可变参数
 
@@ -366,3 +376,13 @@ abstract class Person {
 ```
 
 
+## interface
+
+实现了接口的类，需要重写接口的所有方法
+1. 约束和实现分离（接口的本质是契约）
+2. 定义一些方法，面向接口编程
+3. 默认方法定义 public abstract
+4. 默认变量定义 public static final
+5. 接口不能被实例化，接口中没有构造方法
+6. implements 可以实现多个接口
+7. 必须要重写接口中的方法
