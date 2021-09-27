@@ -4,6 +4,7 @@
 
 # Java 
 [面向对象](./Java/src/object-oriented-programming.md)
+[反射](./Java/src/Reflection.md)
 
 # Array
 [实现动态数组](./Array/src/Array.java)
@@ -66,7 +67,7 @@ Stack实现计算表达式[+-*/()]
 
 [猴子吃梨](./Recursion/src/EatPear.java)
 
-老鼠出迷宫
+[老鼠出迷宫](./Recursion/src/Mouse.java)
 
 汉诺塔
 
