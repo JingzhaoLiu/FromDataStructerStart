@@ -1,6 +1,8 @@
 ## MySQL
 
 
+
+
 ### 约束条件
 
 ``` SQL
@@ -14,6 +16,17 @@ CREATE TABLE IF NOT EXISTS `Person`(
 
 1. PRIMARY KEY
    主键
+   联合主键：
+   ``` SQL
+   CREATE TABLE IF NOT EXISTS `Score`(
+      `s_id` VARCHAR(20),
+		`s_score` INT(3),
+		`c_id` VARCHAR(20),
+		PRIMARY KEY(`s_id`,`c_id`)
+   );
+   ```
+
+
 2. NOT NULL
    非空的约束，也就是不能向表里插入空值（NULL），字符串""不是空值
    ``` SQL
