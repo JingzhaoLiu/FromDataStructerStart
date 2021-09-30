@@ -1,5 +1,18 @@
 ## MySQL
 
+1. DDL(Data Definition Language)数据定义语言
+用来定义数据库对象：数据库，表，列等。关键字：create, drop,alter等
+
+2. DML(Data Manipulation Language)数据操作语言
+用来对数据库中表的数据进行增删改。关键字：insert, delete, update等
+
+3. DQL(Data Query Language)数据查询语言
+用来查询数据库中表的记录(数据)。关键字：select, where等
+
+4. DCL(Data Control Language)数据控制语言(了解)
+用来定义数据库的访问权限和安全级别，及创建用户。关键字：GRANT， REVOKE等
+
+
 
 
 
