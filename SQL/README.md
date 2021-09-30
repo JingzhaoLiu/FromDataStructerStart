@@ -58,8 +58,11 @@ CREATE TABLE IF NOT EXISTS `Person`(
 
 ### MySQL案例
 
+#### 创建
 
 
+
+#### 插入
 ``` SQL
 INSERT INTO  `Student` VALUES
 ('01' , '赵雷' , '1990-01-01' , '男'),
@@ -88,3 +91,5 @@ INSERT INTO `Teacher` VALUES
 ('03' , '王' );
 
 ```
+
+#### 查询
