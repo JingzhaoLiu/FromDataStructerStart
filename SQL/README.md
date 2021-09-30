@@ -60,6 +60,38 @@ CREATE TABLE IF NOT EXISTS `Person`(
 
 #### 创建
 
+``` SQL
+CREATE TABLE `Student`(
+   `s_id` VARCHAR(20) PRIMARY KEY,
+   `s_name` VARCHAR(20) NOT NULL DEFAULT '',
+   `s_birth` VARCHAR(20) NOT NULL DEFAULT '',
+   `s_sex` VARCHAR(10) NOT NULL DEFAULT ''
+);
+``` 
+
+``` SQL
+CREATE TABLE `Course`(
+   `c_id` VARCHAR(20) PRIMARY KEY,
+   `c_name` VARCHAR(20) NOT NULL DEFAULT '',
+   `t_id` VARCHAR(20) NOT NULL
+);
+``` 
+
+``` SQL
+CREATE TABLE `Teacher`(
+   `t_id` VARCHAR(20) PRIMARY KEY,
+   `t_name` VARCHAR(20) NOT NULL DEFAULT ''
+);
+``` 
+
+``` SQL
+CREATE TABLE `Score`(
+   `s_id` VARCHAR(20),
+   `c_id` VARCHAR(20),
+   `s_score` INT(3),
+   PRIMARY KEY(`s_id`,`c_id`)
+);
+``` 
 
 
 #### 插入
@@ -89,6 +121,29 @@ INSERT INTO `Teacher` VALUES
 ('01' , '周' ),
 ('02' , '刘' ),
 ('03' , '王' );
+
+```
+
+``` SQL
+INSERT INTO `Score` VALUES
+('01' , '01' , 80),
+('01' , '02' , 90),
+('01' , '03' , 99),
+('02' , '01' , 70),
+('02' , '02' , 60),
+('02' , '03' , 80),
+('03' , '01' , 80),
+('03' , '02' , 80),
+('03' , '03' , 80),
+('04' , '01' , 50),
+('04' , '02' , 30),
+('04' , '03' , 20),
+('05' , '01' , 76),
+('05' , '02' , 87),
+('06' , '01' , 31),
+('06' , '03' , 34),
+('07' , '02' , 89),
+('07' , '03' , 98);
 
 ```
 
