@@ -120,3 +120,9 @@ Stack实现计算表达式[+-*/()]
 
 ## Linux
 
+linux世界中，一切皆文件（硬件也是映射成一个文件）
+
+### Linux目录
+![](./img/linux-desc.png)
+
+
