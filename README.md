@@ -126,3 +126,4 @@ linux世界中，一切皆文件（硬件也是映射成一个文件）
 ![](./img/linux-desc.png)
 
 
+### vim
