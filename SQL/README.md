@@ -1,5 +1,13 @@
 ## MySQL
 
+```
+编码查询 mysql 命令模式下
+show variables like '%char%';
+```
+
+如果MySQL的版本≥5.5.3，可以把编码设置为`utf8mb4`，`utf8mb4`和`utf8`完全兼容，但它支持最新的Unicode标准，可以显示`emoji字符`
+
+
 1. DDL(Data Definition Language)数据定义语言
 用来定义数据库对象：数据库，表，列等。关键字：create, drop,alter等
 
