@@ -65,3 +65,16 @@ INSERT INTO students (name, gender, grade, score) VALUES ('小十', 1, 3, 90);
 INSERT INTO students (name, gender, grade, score) VALUES ('十一', 0, 3, 91);
 INSERT INTO students (name, gender, grade, score) VALUES ('十二', 0, 3, 97);
 ```
+
+### Maven添加依赖
+
+``` xml
+<dependencies>
+   <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.25</version>
+      <scope>runtime</scope>
+   </dependency>
+</dependencies>
+```
