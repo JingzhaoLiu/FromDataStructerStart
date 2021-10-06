@@ -80,6 +80,10 @@ CREATE TABLE IF NOT EXISTS `Person`(
 ### MySQL案例
 
 #### 创建
+``` SQL
+CREATE DATABASE IF NOT EXISTS `LearnSQL`;
+
+``` 
 
 ``` SQL
 CREATE TABLE `Student`(
