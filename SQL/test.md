@@ -11,5 +11,9 @@ CREATE TABLE `emp` (
   `resume` TEXT
 ) CHARSET utf8;
 
+CREATE TABLE `info` (
+  `id` INT,
+  `resume` TEXT
+) CHARSET utf8;
 
 ```
