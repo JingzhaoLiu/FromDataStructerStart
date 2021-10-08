@@ -1,12 +1,48 @@
 ## MySQL
 
 ```
+mysql -V 查看版本
+```
+
+### 登录
+
+1. 格式1
+
+``` 
+mysql -u用户名 -p密码
+例如：mysql –uroot -proot
+
+后插入密码
+mysql -u用户名 -p回车
+
+```
+
+2. 格式2
+
+``` 
+mysql -hip地址 -u用户名 -p密码
+例如：mysql –h127.0.0.1 –uroot -proot
+
+```
+
+3. 格式3
+
+``` 
+登录格式3：mysql --host=ip地址 --user=用户名 --password=密码
+例如：mysql --host=127.0.0.1 --user=root --password=root
+
+
+```
+
+
+```
 编码查询 mysql 命令模式下
 show variables like '%char%';
 ```
 
 如果MySQL的版本≥5.5.3，可以把编码设置为`utf8mb4`，`utf8mb4`和`utf8`完全兼容，但它支持最新的Unicode标准，可以显示`emoji字符`
 
+### 分类
 
 1. DDL(Data Definition Language)数据定义语言
 用来定义数据库对象：数据库，表，列等。关键字：create, drop,alter等
@@ -21,6 +57,60 @@ show variables like '%char%';
 用来定义数据库的访问权限和安全级别，及创建用户。关键字：GRANT， REVOKE等
 
 
+### SQL通用语法
+
+1. SQL语句可以单行或多行书写，以分号结尾。
+
+2. 可使用空格和缩进来增强语句的可读性。
+
+3. MySQL数据库的SQL语句不区分大小写，关键字建议使用大写。
+
+
+### DDL
+
+1. 直接创建数据库
+```
+CREATE DATABASE 数据库名;
+CREATE DATABASE `learning1`;
+```
+
+2. 判断是否存在并创建数据库
+```
+CREATE DATABASE IF NOT EXISTS 数据库名;
+CREATE DATABASE IF NOT EXISTS `learning2`;
+```
+3. 创建数据库并指定字符集(编码表)
+```
+CREATE DATABASE 数据库名 CHARACTER SET 字符集;
+CREATE DATABASE `learning3` CHARACTER SET utf8;
+```
+
+4. 查看数据库
+```
+查看所有的数据库
+SHOW DATABASES;  
+查看某个数据库的定义信息
+SHOW CREATE DATABASE learning2;
+```
+5. 修改数据库
+```
+ALTER DATABASE `learning2` DEFAULT CHARACTER SET gbk;
+```
+
+6. 删除数据库
+```
+DROP DATABASE `learning2`;
+```
+
+7. 使用数据库
+
+```
+SELECT DATABASE(); 
+查看正在使用的数据库
+
+USE `learning1`;
+使用/切换数据库
+```
 
 
 
