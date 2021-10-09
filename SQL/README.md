@@ -67,6 +67,7 @@ show variables like '%char%';
 
 
 ### DDL
+#### 操作数据库
 
 1. 直接创建数据库
 ```
@@ -111,6 +112,45 @@ SELECT DATABASE();
 USE `learning1`;
 使用/切换数据库
 ```
+
+#### 操作表
+
+``` 
+CREATE TABLE `Student` (
+   `id` INT,
+   `name` VARCHAR(32),
+   `birthday` DATE
+)
+```
+
+MySQL中的我们常使用的数据类型如下：
+
+| 类型      | 描述 |
+| ----------- | ----------- |
+| int      | 整型      |
+| double   | 浮点型       |
+| varchar   | 字符串型       |
+| data   | 日期类型：yyyy-MM-dd        |
+|  |  |
+
+```
+1. 查看某个数据库中的所有表
+SHOW TABLES;
+2. 查看表结构
+DESC `Student`
+3. 查看创建表的SQL语句
+SHOW CREATE TABLE `Student`;
+4. 快速创建一个表结构相同的表
+CREATE TABLE `s2` LIKE `Student`;
+DESC `s2`;
+5. 删除表
+DROP TABLE `s2`;
+DROP TABLE IF EXISTS `s2`;
+
+```
+
+
+
 
 
 
