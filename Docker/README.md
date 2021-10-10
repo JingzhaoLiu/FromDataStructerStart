@@ -39,7 +39,7 @@ sudo docker run -p 3308:3306 --name mysql \
 ● -p 3308:3306：将容器的3306端口映射到主机的3308端口，外部主机可以直接通过宿主机ip:3308访问到 MySQL 的服务
 ● --name：给容器命名
 ● -v /mydata/mysql/log:/var/log/mysql：将配置文件挂载到主机/mydata/..
-● -e MYSQL_ROOT_PASSWORD=root：初始化root用户的密码为root
+● -e MYSQL_ROOT_PASSWORD=root123：初始化root用户的密码为root123
 
 ### 进入容器
 每一个容器都是有完整的环境目录
