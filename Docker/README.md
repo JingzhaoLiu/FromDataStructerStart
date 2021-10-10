@@ -73,3 +73,40 @@ skip-character-set-client-handshake
 skip-name-resolve
 
 ```
+
+## docker安装reids
+
+```
+docker pull redis
+```
+
+### redis配置文件目录
+```
+mkdir -p /mydata/redis/conf
+touch /mydata/redis/conf/redis.conf
+```
+### 启动
+```
+docker run -p 6379:6379 --name redis \
+-v /mydata/redis/data:/data \
+-v /mydata/redis/conf/redis.conf:/etc/redis/redis.conf \
+-d redis redis-server /etc/redis/redis.conf
+```
+
+### 配置redis持久化
+```
+echo "appendonly yes"  >> /mydata/redis/conf/redis.conf
+```
+### 重启生效
+```
+docker restart redis
+```
+### 容器随docker启动自动运行
+# mysql
+```
+docker update mysql --restart=always
+```
+# redis
+```
+docker update redis --restart=always
+```
