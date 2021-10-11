@@ -48,25 +48,26 @@ Spring boot简单步骤
 
 
 
-entity/User
+`/***写具体的sql语句***/`
+
 ``` java
+
+// entity/User
 @Data
 public class User {
     private Integer id;
     private String name;
 }
-```
 
-mapper接口
-``` java
+// mapper接口
+
 public interface UserMapper {
     @Select("select * from User")
     List<User> findAll();
 }
-```
 
-controller/HelloController
-``` java
+
+// controller/HelloController
 @RestController
 @RequestMapping("/v3")
 public class HelloController {
@@ -80,3 +81,51 @@ public class HelloController {
     }
 }
 ```
+
+`/***建立mapper的xml文件***/`
+
+``` xml
+// resources/mapper/UserMapper.xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.testdemo.mapper.UserMapper">
+    <select id="findList" resultType="com.example.testdemo.entity.User">
+        SELECT * FROM User
+    </select>
+</mapper>
+
+<!-- namespace="com.example.testdemo.mapper.UserMapper"  是mapper接口的全路径名称
+resultType="com.example.testdemo.entity.User"  是实体类全路径  -->
+```
+
+``` java
+
+// entity/User
+@Data
+public class User {
+    private Integer id;
+    private String name;
+}
+
+// mapper接口
+
+public interface UserMapper {
+    List<User> findList();
+}
+
+
+// controller/HelloController
+@RestController
+@RequestMapping("/v3")
+public class HelloController {
+
+    @Resource
+    UserMapper userMapper;
+
+    @GetMapping("/Users")
+    public List<User> getUser() {
+        return userMapper.findList();
+    }
+}
+```
+
