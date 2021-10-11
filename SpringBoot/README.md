@@ -98,6 +98,11 @@ public class HelloController {
 resultType="com.example.testdemo.entity.User"  是实体类全路径  -->
 ```
 
+``` 
+// application.properties
+mybatis.mapper-locations=classpath:/mapper/*.xml
+```
+
 ``` java
 
 // entity/User
