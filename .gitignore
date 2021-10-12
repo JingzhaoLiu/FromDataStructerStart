@@ -9,3 +9,7 @@
 .idea
 out/
 .vscode
+**/mvnw
+**/mvnw.cmd
+**/.mvn
+**/target/
