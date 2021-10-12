@@ -94,13 +94,13 @@ public class HelloController {
     </select>
 </mapper>
 
-<!-- namespace="com.example.testdemo.mapper.UserMapper"  是mapper接口的全路径名称
-resultType="com.example.testdemo.entity.User"  是实体类全路径  -->
+namespace="com.example.testdemo.mapper.UserMapper"  是mapper接口的全路径
+resultType="com.example.testdemo.entity.User"  是实体类全路径 
 ```
 
 ``` 
 // application.properties
-mybatis.mapper-locations=classpath:/mapper/*.xml
+mybatis.mapper-locations=classpath:/mapper/*.xml   resources中xml的路径
 ```
 
 ``` java
