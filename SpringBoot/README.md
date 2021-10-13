@@ -1,6 +1,15 @@
 
 
-## SpringBoot 
+## SpringBoot （一站式开发）
+Spring Boot 目标主要是应用了快速开发，简化整个项目的配置和依赖工作，提升开发效率，更快速地构建应用程序
+
+### application.properties配置
+spring.application.name 设置程序名。如果你是微服务的话，它起到了唯一标识的作用  
+server.port=8088 设置端口
+
+
+mybatis.mapper-locations=classpath:/mapper/*.xml  设置mapper.xml的路径
+
 
 ### 接口返回字符串
 
@@ -34,6 +43,41 @@ public class HelloController {
 
 RequestMapping和GetMapping后面都可以不写`/`,规范要写
 
+
+### 接口返回json
+
+返回的是 Jackson 数据，默认用的 是 Jackson 序列化
+
+``` java
+// Entity/Coupon
+@Data
+public class Coupon {
+    private int id;
+    private String name;
+}
+
+```
+
+
+``` java
+// Controller/CouponController
+import com.example.aliyunlearning.Entity.Coupon;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class CouponController {
+
+    @RequestMapping("/coupon")
+    public Coupon Coupon(){
+
+        Coupon coupon = new Coupon();
+        coupon.setId(1);
+        coupon.setName("couponName");
+        return coupon;
+    }
+}
+```
 ### 使用数据库
 
 Spring boot简单步骤
