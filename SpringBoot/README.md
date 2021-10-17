@@ -3,6 +3,9 @@
 ## SpringBoot （一站式开发）
 Spring Boot 目标主要是应用了快速开发，简化整个项目的配置和依赖工作，提升开发效率，更快速地构建应用程序
 
+- 内嵌Tomcat
+- 无需配置XML，无代码生成
+
 ### application.properties配置
 spring.application.name 设置程序名。如果你是微服务的话，它起到了唯一标识的作用  
 server.port=8088 设置端口
