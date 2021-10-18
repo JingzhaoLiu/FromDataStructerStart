@@ -92,7 +92,32 @@ Spring Boot 目标主要是应用了快速开发，简化整个项目的配置�
 
 
 ## Spring Boot 项目启动机制
+Spring 本质上是一个容器,里面存放的是 Java 对象，放入容器的 Java 对象被称为 Spring 组件（Bean）。
 
+> 神奇的 @SpringBootApplication 注解
+``` java
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+@SpringBootConfiguration
+@EnableAutoConfiguration
+@ComponentScan(excludeFilters = { @Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),
+		@Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) })
+public @interface SpringBootApplication {
+}
+
+```
+
+其实就是一个组合注解，包含了多个注解的功能。
+
+首先是 @SpringBootConfiguration 注解，它继承自 @Configuration 注解，功能也跟 @Configuration 一样。它会将当前类标注为配置类了，我们在启动类中配置 Bean 就可以生效了。
+
+其次是 @ComponentScan 注解，用来指定我们要扫描的包，以便发现 Bean 。注意在默认情况下， SpringBoot 扫描该注解标注类所在包及其子包。当我们的控制器、服务类等 Bean 放到不同的包中时，就需要通过 @ComponentScan 注解指定这些包，以便发现 Bean 。
+
+最重要的是 @EnableAutoConfiguration 注解，用来启动自动配置。开启自动配置后， Spring Boot 会扫描项目中所有的配置类，然后根据配置信息启动 Spring 容器。
+
+拥有了 @SpringBootConfiguration ，我们就拥有了一个可以拿来即用的 Spring 容器环境了
 
 ### application.properties配置
 spring.application.name 设置程序名。如果你是微服务的话，它起到了唯一标识的作用  
