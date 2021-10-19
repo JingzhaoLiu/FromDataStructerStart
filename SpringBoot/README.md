@@ -126,6 +126,24 @@ server.port=8088 设置端口
 
 mybatis.mapper-locations=classpath:/mapper/*.xml  设置mapper.xml的路径
 
+## 模板引擎开发 Web 项目
+1. 使用 FreeMarker
+
+在 pom.xml 中引入相关依赖 
+
+```
+<!-- 引入web项目相关依赖 -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+<!-- freemarker -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-freemarker</artifactId>
+</dependency>
+```
+
 
 ### 接口返回字符串
 
