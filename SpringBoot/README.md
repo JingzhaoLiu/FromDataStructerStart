@@ -143,6 +143,8 @@ mybatis.mapper-locations=classpath:/mapper/*.xml  设置mapper.xml的路径
     <artifactId>spring-boot-starter-freemarker</artifactId>
 </dependency>
 ```
+2. 使用Thymeleaf
+
 
 
 ### 接口返回字符串
