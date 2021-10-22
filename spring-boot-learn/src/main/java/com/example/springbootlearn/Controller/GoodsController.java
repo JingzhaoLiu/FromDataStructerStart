@@ -1,6 +1,7 @@
 package com.example.springbootlearn.Controller;
 
 
+import com.example.springbootlearn.Entity.GoodsDo;
 import com.example.springbootlearn.Service.GoodsList;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,11 +29,7 @@ public class GoodsController {
         return "good";
     }
 
-    @RequestMapping("/goods")
-    public String goods(Model model){
-        model.addAttribute("goodsList",goodsList.getGoodsList());
-        return "good";
-    }
+
 
 
 }
