@@ -12,7 +12,15 @@ public class GoodsDo{
   private String price;
   private String pic;
 
-  public void setName(String name) {
-    this.name = name;
-  }
+//  public void setName(String name) {
+//    this.name = name;
+//  }
+//
+//  public void setPic(String pic) {
+//    this.pic = pic;
+//  }
+//
+//  public void setPrice(String price) {
+//    this.price = price;
+//  }
 }

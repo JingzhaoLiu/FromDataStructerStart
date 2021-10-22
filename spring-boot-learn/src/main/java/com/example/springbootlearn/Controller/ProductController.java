@@ -3,6 +3,7 @@ package com.example.springbootlearn.Controller;
 import com.example.springbootlearn.Entity.GoodsDo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author Martin
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ProductController {
 
+    @ResponseBody
     @RequestMapping("/product")
     public GoodsDo getGoodsById(){
         GoodsDo good = new GoodsDo();
