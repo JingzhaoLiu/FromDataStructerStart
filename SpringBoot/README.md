@@ -145,6 +145,21 @@ mybatis.mapper-locations=classpath:/mapper/*.xml  设置mapper.xml的路径
 ```
 2. 使用Thymeleaf
 
+## 开发 RESTful 风格 Web 项目
+
+1. 根据需求制定 RESTful 风格的接口文档
+``` 
+    GET	查询商品 (id=1) 信息	http://127.0.0.1:8080/goods/1
+    GET	查询商品列表信息	http://127.0.0.1:8080/goods
+    POST	新增商品	http://127.0.0.1:8080/goods
+    PUT	修改商品 (id=1) 信息	http://127.0.0.1:8080/goods/1
+    DELETE	删除商品 (id=1)	http://127.0.0.1:8080/goods/1
+``` 
+2. 按文档开发后端 API 接口
+   
+   
+3. 使用 Postman 测试 API 接口可用
+
 
 
 ### 接口返回字符串
