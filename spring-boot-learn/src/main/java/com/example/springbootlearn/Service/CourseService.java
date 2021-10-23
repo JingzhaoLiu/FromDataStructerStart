@@ -17,12 +17,10 @@ public class CourseService {
      */
     public List<CourseDo> getCourseList(){
         List<CourseDo> list = new ArrayList<>();
-        CourseDo course = new CourseDo();
-        course.setId(1);
-        course.setName("Art");
-        course.setPrice("150.00");
-        course.setPic("Art1.png");
-        list.add(course);
+        list.add(new CourseDo(1, "Art1", "1.31", "art.png"));
+        list.add(new CourseDo(2, "Art2", "1.23", "art.png"));
+        list.add(new CourseDo(3, "Art3", "1.13", "art.png"));
+        list.add(new CourseDo(4, "Art4", "1.53", "art.png"));
         return list;
     }
 
@@ -30,12 +28,12 @@ public class CourseService {
      * course detail
      */
     public CourseDo getCourseById(int id){
-        CourseDo course = new CourseDo();
-        course.setId(1);
-        course.setName("Art");
-        course.setPrice("150.00");
-        course.setPic("Art.png");
-        return course;
+//        CourseDo course = new CourseDo(1, "Art", "北京", "aaa@ccc.com");
+//        course.setId(1);
+//        course.setName("Art");
+//        course.setPrice("150.00");
+//        course.setPic("Art.png");
+        return new CourseDo(1, "Art", "1.3", "art.png");
     }
 
     /**

@@ -160,6 +160,23 @@ mybatis.mapper-locations=classpath:/mapper/*.xml  设置mapper.xml的路径
    
 3. 使用 Postman 测试 API 接口可用
 
+## Swagger2 自动化测试与文档
+1. 引入Swagger2 依赖
+```
+pom.xml
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-boot-starter</artifactId>
+    <version>3.0.0</version>
+<dependency>
+
+```
+
+2. 启用配置Swagger2 功能
+3. 接口测试
+4. 生成api文档
+
+
 
 
 ### 接口返回字符串

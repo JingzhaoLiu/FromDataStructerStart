@@ -12,6 +12,8 @@ public class GoodsDo{
   private String price;
   private String pic;
 
+  
+
 //  public void setName(String name) {
 //    this.name = name;
 //  }
