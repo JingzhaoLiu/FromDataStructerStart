@@ -173,10 +173,33 @@ pom.xml
 ```
 
 2. 启用配置Swagger2 功能
+
 3. 接口测试
 4. 生成api文档
 
+## CORS 跨域
 
+跨域实际上源自浏览器的同源策略，所谓同源，指的是协议、域名、端口都相同的源(域)
+
+``` java
+// WebMvcConfig.java 
+@Configuration
+public class WebMvcConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                // 设置允许跨域请求的域名 注意这里使用allowedOrigins报错
+                .allowedOriginPatterns("*")
+                // 是否允许证书（cookies）
+                .allowCredentials(true)
+                // 设置允许的方法
+                .allowedMethods("*")
+                // 跨域允许时间
+                .maxAge(3600);
+    }
+}
+```
 
 
 ### 接口返回字符串
