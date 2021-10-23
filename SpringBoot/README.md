@@ -160,8 +160,8 @@ mybatis.mapper-locations=classpath:/mapper/*.xml  设置mapper.xml的路径
    
 3. 使用 Postman 测试 API 接口可用
 
-## Swagger2 自动化测试与文档
-1. 引入Swagger2 依赖
+## Swagger 自动化测试与文档
+1. 引入Swagger 依赖
 ```
 pom.xml
 <dependency>
@@ -172,10 +172,123 @@ pom.xml
 
 ```
 
-2. 启用配置Swagger2 功能
+2. 启用配置Swagger3.0 功能
+``` java
+// 启用swagger
+@EnableOpenApi
+@SpringBootApplication
+public class SpringBootLearnApplication {
 
-3. 接口测试
-4. 生成api文档
+    public static void main(String[] args) {
+        SpringApplication.run(SpringBootLearnApplication.class, args);
+    }
+
+}
+```
+
+![swagger_api](../img/swagger_api.png)
+``` java
+// 接口标记
+@Api(tags="课程管理")
+@RestController
+public class CourseController {
+
+    @Resource
+    private CourseService courseService;
+
+    /**
+     * get course detail
+     * GetMapping表示使用get方法
+     * "/goods/{id}"表示请求路径为/goods/{id}的形式，其中{id}为占位符
+     * PathVariable("id")表示将占位符{id}的值传递给id
+     * 也就是说/course/7请求的话，会将7传递给参数id
+     */
+    @ApiOperation("课程详情")
+    @GetMapping("/course/{id}")
+    public CourseDo getDetail(@PathVariable("id") int id){
+        return courseService.getCourseById(id);
+    }
+
+
+    /**
+     * get course list
+     */
+    @ApiOperation("课程列表")
+    @GetMapping("/course/list")
+    public List<CourseDo> getList(){
+        return courseService.getCourseList();
+    }
+
+    /**
+     * add course
+     * PostMapping表示使用post方法
+     * RequestBody表示将请求中的body中信息转换为CourseDo类型的对象信息，该转换也是由SpringMVC自动完成的
+     */
+    @ApiOperation("添加课程")
+    @PostMapping("/course")
+    public void add(@RequestBody CourseDo course) {
+        courseService.addCourse(course);
+    }
+
+    /**
+     * edit course
+     * PutMapping表示使用put方法
+     */
+    @ApiOperation("编辑课程")
+    @PutMapping("/course/{id}")
+    public void update(@PathVariable("id") int id, @RequestBody CourseDo course){
+        course.setId(id);
+        courseService.editCourse(course);
+    }
+
+    /**
+     * remove course
+     * DeleteMapping表示使用delete方法
+     */
+    @ApiOperation("删除课程")
+    @DeleteMapping("/course/{id}")
+    public void delete(@PathVariable("id") int id){
+        courseService.removeCourse(id);
+    }
+}
+
+```
+![swagger_schemas](../img/swagger_schemas.png)
+``` java
+// Schemas标记
+@ApiModel("CourseDo 课程基本信息")
+public class CourseDo {
+    /**
+     * course id
+     */
+    private int id;
+
+    /**
+     * course name
+     */
+    @ApiModelProperty("课程名称")
+    private String name;
+
+    /**
+     * course price
+     */
+    @ApiModelProperty("课程价格")
+    private String price;
+
+    /**
+     * course pic
+     */
+    private String pic;
+
+}
+```
+
+
+3. 生成api文档
+
+```
+http://localhost:8080/swagger-ui/index.html
+```
 
 ## CORS 跨域
 
@@ -200,6 +313,51 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 }
 ```
+
+## Docker安装java环境并部署jar包运行
+1. 安装java环境
+
+``` shell
+docker search java:8
+docker pull java:8
+docker images
+```
+2. 创建Dockerfile文件
+
+进入到你想要的目录 vi Dockerfile
+``` vi
+FROM java:8
+#作者
+MAINTAINER jingzhao
+#jar包添加到镜像中
+ADD spring-boot-learn-0.0.1-SNAPSHOT.jar start.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","start.jar"]
+```
+3. 创建镜像
+
+上传jar包到当前目录, 创建镜像
+```
+docker build -t jingzhao/start .(重点注意这个的点)
+```
+4. 运行镜像
+```
+docker run -d --name start -p 8087:8080  jingzhao/start
+```
+5. 查看
+```
+docker ps
+docker logs start
+```
+6. 修改jar
+```
+docker stop start  // 停止容器
+docker rm start  // 删除容器
+
+// 重新上传jar包创建镜像，运行镜像
+
+```
+
 
 
 ### 接口返回字符串
