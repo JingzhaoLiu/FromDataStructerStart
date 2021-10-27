@@ -9,6 +9,8 @@
 ## Spring Boot
 [Spring Boot](./SpringBoot/README.md)
 
+[Spring Boot Mybatis](./SpringBoot/SpringBootMybatis.md)
+
 # Array
 [实现动态数组](./Array/src/Array.java)
 # Stack
