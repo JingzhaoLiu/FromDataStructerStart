@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 本映射文件对应GoodsDao接口 -->
+<mapper namespace="com.example.springbootmybatis.Dao.GoodsDao">
+    <!-- 对应GoodsDao中的insert方法 -->
+    <insert id="insert" parameterType="com.example.springbootmybatis.Entity.GoodsDo">
+        insert into goods (name,price,pic) values (#{name},#{price},#{pic})
+    </insert>
+    <!-- 对应GoodsDao中的delete方法 -->
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from goods where id=#{id}
+    </delete>
+    <!-- 对应GoodsDao中的update方法 -->
+    <update id="update" parameterType="com.example.springbootmybatis.Entity.GoodsDo">
+        update goods set name=#{name},price=#{price},pic=#{pic} where id=#{id}
+    </update>
+    <!-- 对应GoodsDao中的selectOne方法 -->
+    <select id="selectOne" resultMap="resultMapBase" parameterType="java.lang.Long">
+        select <include refid="sqlBase" /> from goods where id = #{id}
+    </select>
+    <!-- 对应GoodsDao中的selectAll方法 -->
+    <select id="selectAll" resultMap="resultMapBase">
+        select <include refid="sqlBase" /> from goods
+    </select>
+    <!-- 可复用的sql模板 -->
+    <sql id="sqlBase">
+        id,name,price,pic
+    </sql>
+    <!-- 保存SQL语句查询结果与实体类属性的映射 -->
+    <resultMap id="resultMapBase" type="com.example.springbootmybatis.Entity.GoodsDo">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="price" property="price" />
+        <result column="pic" property="pic" />
+    </resultMap>
+</mapper>
