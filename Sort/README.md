@@ -1,5 +1,7 @@
 # Sort 排序
 
+![](../img/sort.png)
+
 ## 如何分析一个“排序算法”？
 
 `排序算法的执行效率`
@@ -139,6 +141,45 @@ public void insertSort(int[] arr, int n) {
 ```
 
 
+``` java 
+import java.util.Arrays;
+
+public class InsertSort {
+
+    public static void main(String[] args) {
+        //初始化需要排序的数组
+        int[] array = {9, 2, 11, 7, 12, 5};
+
+        //初始化一个与待排序数组大小相同的数组，用来存放排序好的序列
+        int[] sortArray = new int[array.length];
+
+        //步骤1：待排序数组中选择第一个元素作为已经排序好的元素（数组的下标0表示第一个元素）
+        sortArray[0] = array[0];
+
+        //步骤2：依次遍历未排序的元素，将其插入已排序序列中
+        for (int i = 1; i < array.length; i++) {
+            //待排序元素
+            int temp = array[i];
+            //记录待排序元素需要插入已排序数组中的位置
+            int index = i;
+            //从已排序好的数组右边依次遍历数组，直到找到待排序元素需要插入的位置
+            while( index > 0  && temp < sortArray[index-1] ){
+                sortArray[index] = sortArray[index-1];
+                index--;
+            }
+            //插入待排序元素
+            sortArray[index] = temp;
+        }
+
+        //打印出排序好的序列
+        System.out.println(Arrays.toString(sortArray));
+    }
+
+}
+
+```
+
+
 第一，插入排序是原地排序算法吗？
 
 从实现过程可以很明显地看出，插入排序算法的运行并不需要额外的存储空间，所以空间复杂度是 O(1)，也就是说，这是一个原地排序算法。
@@ -156,18 +197,8 @@ public void insertSort(int[] arr, int n) {
 还记得我们在数组中插入一个数据的平均时间复杂度是多少吗？没错，是 O(n)。所以，对于插入排序来说，每次插入操作都相当于在数组中插入一个数据，循环执行 n 次插入操作，所以平均时间复杂度为 O(n2)。
 
 
-## 选择排序(Selection Sort)
-选择排序算法的实现思路有点类似插入排序，也分已排序区间和未排序区间。但是选择排序每次会从未排序区间中找到最小的元素，将其放到已排序区间的末尾
 
-1. 原地排序
-2. n^2
-3. 不稳定
-
-5，8，5，2，9 这样一组数据，使用选择排序算法来排序的话，第一次找到最小元素 2，与第一个 5 交换位置，那第一个 5 和中间的 5 顺序就变了
-
-
-
-冒泡排序和插入排序的时间复杂度都是 O(n2)，都是原地排序算法，为什么插入排序要比冒泡排序更受欢迎呢？
+`冒泡排序和插入排序的时间复杂度都是 O(n2)，都是原地排序算法，为什么插入排序要比冒泡排序更受欢迎呢？`
 
 我们前面分析冒泡排序和插入排序的时候讲到，冒泡排序不管怎么优化，元素交换的次数是一个固定值，是原始数据的逆序度。插入排序是同样的，不管怎么优化，元素移动的次数也等于原始数据的逆序度。
 
@@ -188,8 +219,80 @@ if (a[j] > value) {
 }
 ```
 
-冒泡排序中数据的交换比插入排序中复杂，所以相同条件下多使用插入排序
+冒泡排序中数据的交换比插入排序中复杂，所以相同条件下多使用插入排序, 插入排序可以继续优化就是希尔排序
 
-插入排序可以优化就是希尔排序
+
+## 选择排序(Selection Sort)
+选择排序算法的实现思路有点类似插入排序，也分已排序区间和未排序区间。但是选择排序每次会从未排序区间中找到最小的元素，将其放到已排序区间的末尾
+
+1. 原地排序
+2. n^2
+3. 不稳定
+
+5，8，5，2，9 这样一组数据，使用选择排序算法来排序的话，第一次找到最小元素 2，与第一个 5 交换位置，那第一个 5 和中间的 5 顺序就变了
+
+``` java
+import java.util.Arrays;
+
+public class SelectSort {
+
+    public static void main(String[] args) {
+        //初始化需要排序的数组
+        int[] array = {9, 2, 11, 7, 12, 5};
+
+        //依次进行选择排序，每次找出最小的元素，放入待排序的序列中
+        for(int i=0;i<array.length;i++){
+            
+            //记录最小元素min和最小元素的数组下标索引minIndex
+            int min = array[i];
+            int minIndex = i;
+
+            //在未排序的序列中找出最小的元素和对应数组中的位置
+            for(int j=i+1;j<array.length;j++){
+                if(array[j] < min){
+                    min = array[j];
+                    minIndex = j;
+                }
+            }
+            
+            //交换位置
+            int temp = array[i];
+            array[i] = array[minIndex];
+            array[minIndex] = temp;
+        }
+
+        //打印出排序好的序列
+        System.out.println(Arrays.toString(array));
+    }
+
+}
+
+
+```
+
+``` java 
+public void selectionSort(){
+
+  int [] arr = { 9, 2, 11, 7, 12, 5};
+  for(int i = 0; i < arr.length; ++i) {
+    int min = arr[i];
+    int minIndex = i;
+    for(int j = i + 1; j < arr.length;++j) {
+      if(arr[j] < min) {
+        min = arr[j];
+        minIndex = j;
+      }
+    }
+
+    int temp = arr[i];
+    arr[i] = min;
+    arr[minIndex] = temp;
+
+  }
+
+}
+```
+
+
 
 ## 希尔排序（Shell Sort）
