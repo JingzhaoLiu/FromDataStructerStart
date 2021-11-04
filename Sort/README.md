@@ -311,3 +311,45 @@ public void selectionSort(){
 按增量序列个数 k，对序列进行 k 趟排序；
 
 每趟排序，根据对应的增量 ti，将待排序列分割成若干长度为 m 的子序列，分别对各子表进行直接插入排序。仅增量因子为 1 时，整个序列作为一个表来处理，表长度即为整个序列的长度。
+
+``` java
+
+import java.util.Arrays;
+
+public class ShellSort {
+
+    public static void main(String[] args) {
+
+        //初始化需要排序的数组
+        int[] array = {9, 2, 11, 7, 12, 5};
+        //初始化希尔排序的增量为数组长度
+        int gap = array.length;
+        //不断地进行插入排序，直至增量为1
+        while (true) {
+            //增量每次减半
+            gap = gap/2;
+            for (int i = 0; i < gap; i++) {
+                //内部循环是一个插入排序
+                for (int j = i + gap; j < array.length; j += gap) {
+                    int temp = array[j];
+                    int k = j - gap;
+                    while (k >= 0 && array[k] > temp) {
+                        array[k + gap] = array[k];
+                        k -= gap;
+                    }
+                    array[k + gap] = temp;
+                }
+            }
+            //增量为1之后，希尔排序结束，退出循环
+            if (gap == 1)
+                break;
+        }
+        //打印出排序好的序列
+        System.out.println(Arrays.toString(array));
+    }
+
+}
+
+
+
+```
