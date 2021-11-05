@@ -353,3 +353,55 @@ public class ShellSort {
 
 
 ```
+
+## 快速排序(Quick Sort)
+
+``` java
+import java.util.Arrays;
+
+public class QuickSort {
+
+    public static void main(String[] args) {
+        //初始化需要排序的数组
+        int array[] = {9, 2, 11, 7, 12, 5};
+        //快速排序
+        quickSort(array,0,array.length-1);
+        //打印出排序好的序列
+        System.out.println(Arrays.toString(array));
+    }
+
+    //快速排序
+   private static void quickSort(int[] array,int low, int high){
+        if(low < high){
+            //找到分区的位置，左边右边分别进行快速排序
+            int index = partition(array,low,high);
+            quickSort(array,0,index-1);
+            quickSort(array,index+1,high);
+        }
+   }
+
+   //快速排序分区操作
+   private static int partition(int[] array, int low, int high){
+        //选择基准
+        int pivot = array[low];
+        //当左指针小于右指针时，重复操作
+        while (low < high){
+            while(low < high && array[high] >= pivot){
+                high = high - 1;
+            }
+            array[low] = array[high];
+            while (low < high && array[low] <= pivot){
+                low = low + 1;
+            }
+            array[high] = array[low];
+        }
+        //最后赋值基准
+        array[low] = pivot;
+        //返回基准所在位置，基准位置已经排序好
+        return low;
+   }
+
+
+}
+
+```
