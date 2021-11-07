@@ -363,7 +363,7 @@ public class QuickSort {
 
     public static void main(String[] args) {
         //初始化需要排序的数组
-        int array[] = {9, 2, 11, 7, 12, 5};
+        int []array = {9, 2, 11, 7, 12, 5};
         //快速排序
         quickSort(array,0,array.length-1);
         //打印出排序好的序列
