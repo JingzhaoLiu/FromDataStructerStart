@@ -1,1 +1,1 @@
-# Divide
+# Divide 分治
