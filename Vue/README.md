@@ -112,4 +112,35 @@ data中数据放入vm._data，通过代理vm可以修改data
 - passive：事件的默认行为立即执行
 
 
+# Vue3
 
+``` js
+import { createApp } from 'vue'
+import App from './App.vue'
+
+createApp(App).mount('#app')
+
+```
+
+## setup
+
+``` js
+// 返回一个对象
+setup(){
+  return {
+    name: 'liu'
+  }
+}
+
+// 返回一个渲染函数
+
+setup(){
+  return ()=> h('h1', 'liu')
+}
+
+```
+1.和vue2的混合使用
+- Vue2.x配置（data、methos、computed...）可以访问到setup中的属性、方法。
+- 但在setup中不能访问到Vue2.x配置（data、methos、computed...）
+- 如果有重名, setup优先。
+2.不能是async函数
