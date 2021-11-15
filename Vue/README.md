@@ -247,3 +247,11 @@ setup(){
 }
 
 ```
+
+## watch
+
+``` js
+watch([person, info],(newValue,oldValue)=>{
+	console.log('person变化了',newValue,oldValue)
+},{immediate:true}) 
+```
