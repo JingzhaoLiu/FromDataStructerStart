@@ -251,6 +251,12 @@ setup(){
 ## watch
 
 ``` js
+watch(person,(newValue,oldValue)=>{
+	console.log('person变化了',newValue,oldValue)
+}) 
+```
+
+``` js
 watch([person, info],(newValue,oldValue)=>{
 	console.log('person变化了',newValue,oldValue)
 },{immediate:true}) 
