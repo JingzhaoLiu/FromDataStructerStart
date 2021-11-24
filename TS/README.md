@@ -64,7 +64,7 @@ function greeter (person: Person) {
   return 'Hello, ' + person.firstName + ' ' + person.lastName
 }
 
-let user = new User('Yee', 'Huang')
+let user = new User('liu', 'jingzhao')
 
 console.log(greeter(user))
 ```
