@@ -21,6 +21,12 @@ EOF
 sudo systemctl daemon-reload  //重新加载配置文件
 sudo systemctl restart docker //重启docker
 ```
+## 使用 inspect 命令查看镜像详细信息
+``` bash
+docker inspect mysql
+```
+
+通过 docker inspect 命令，我们可以获取镜像的详细信息，其中，包括创建者，各层的数字摘要等。
 
 ## docker安装mysql
 ``` bash
