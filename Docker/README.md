@@ -30,7 +30,8 @@ docker inspect mysql
 
 ## docker安装mysql
 ``` bash
-cd
+docker pull mysql:5.7
+docker pull mysql:latest
 ```
 ### docker启动mysql
 > 5.7的安装
