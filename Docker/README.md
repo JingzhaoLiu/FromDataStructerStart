@@ -30,9 +30,11 @@ docker inspect mysql
 
 ## docker安装mysql
 ``` bash
-docker pull mysql:5.7
+cd
 ```
 ### docker启动mysql
+> 5.7的安装
+
 ``` bash
 sudo docker run -p 3308:3306 --name mysql \
 -v /mydata/mysql/log:/var/log/mysql \
@@ -41,6 +43,18 @@ sudo docker run -p 3308:3306 --name mysql \
 -e MYSQL_ROOT_PASSWORD=root123 \
 -d mysql:5.7
 ```
+> 8.0.27 latest的安装
+
+``` bash
+sudo docker run -p 3380:3306 --name mysql80 \
+-v /mydata/mysql80/log:/logs \
+-v /mydata/mysql80/data:/var/lib/mysql \
+-v /mydata/mysql80/conf:/etc/mysql \
+-v /mydata/mysql80/mysql-files:/var/lib/mysql-files \
+-e MYSQL_ROOT_PASSWORD=root123 \
+-d mysql
+```
+
 参数：
 ● -p 3308:3306：将容器的3306端口映射到主机的3308端口，外部主机可以直接通过宿主机ip:3308访问到 MySQL 的服务
 ● --name：给容器命名
@@ -51,6 +65,7 @@ sudo docker run -p 3308:3306 --name mysql \
 每一个容器都是有完整的环境目录
 ```
 docker exec -it mysql bash   
+docker exec -it mysql /bin/bash  
 ```
 退出容器
 ```
