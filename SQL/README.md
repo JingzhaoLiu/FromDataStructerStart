@@ -249,6 +249,17 @@ SELECT * FROM employees WHERE last_name='King';
 SELECT * FROM employees WHERE last_name='king';   这个应该是查不出来的
 ```
 
+```
+-- 查询员工12个月的工资总和，并起别名为ANNUAL SALARY
+SELECT employee_id , last_name,salary * 12  "ANNUAL  SALARY"
+FROM employees;
+
+-- 查询工资大于12000的员工姓名和工资
+SELECT "中等收入" AS level, last_name, salary
+FROM employees
+WHERE salary > 12000;
+
+```
 
 ### DDL
 #### 操作数据库
