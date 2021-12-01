@@ -34,6 +34,9 @@ docker pull mysql:5.7
 docker pull mysql:latest
 ```
 ### docker启动mysql
+
+`注意在服务器上设置一定要开安全端口, 初始化不成功后，可能会出现各种问题`
+
 > 5.7的安装
 
 ``` bash
@@ -95,6 +98,15 @@ skip-character-set-client-handshake
 skip-name-resolve
 
 ```
+
+
+
+
+
+
+
+
+
 
 ## docker安装reids
 
