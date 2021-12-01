@@ -97,7 +97,7 @@ show variables like '%char%';
 ### 分类
 
 1. DDL(Data Definition Language)数据定义语言
-用来定义数据库对象：数据库，表，列等。关键字：create, drop,alter等
+用来定义数据库对象：数据库，表，列等。关键字：create, drop, alter等
 
 2. DML(Data Manipulation Language)数据操作语言
 用来对数据库中表的数据进行增删改。关键字：insert, delete, update等
@@ -109,6 +109,10 @@ show variables like '%char%';
 用来定义数据库的访问权限和安全级别，及创建用户。关键字：GRANT， REVOKE等
 
 
+
+> 还有单独将COMMIT、ROLLBACK 取出来称为TCL （Transaction Control Language，事务控制语言）。
+
+
 ### SQL通用语法
 
 1. SQL语句可以单行或多行书写，以分号结尾。
@@ -117,6 +121,19 @@ show variables like '%char%';
 
 3. MySQL数据库的SQL语句不区分大小写，关键字建议使用大写。
 
+## SQL规范
+- 推荐采用统一的书写规范：
+   - 数据库名、表名、表别名、字段名、字段别名等都小写
+   - SQL 关键字、函数名、绑定变量等都大写
+
+## 注 释
+
+```
+单行注释：#注释文字(MySQL特有的方式)
+单行注释：-- 注释文字(--后面必须包含一个空格。)
+多行注释：/* 注释文字  */
+
+```
 
 ### DDL
 #### 操作数据库
