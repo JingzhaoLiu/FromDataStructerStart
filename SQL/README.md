@@ -135,6 +135,121 @@ show variables like '%char%';
 
 ```
 
+### DQL
+
+```
+
+SELECT   标识选择哪些列
+FROM     标识从哪个表中选择
+SELECT * FROM student; 选择全部列
+```
+
+> 一般情况下，除非需要使用表中所有的字段数据，最好不要使用通配符‘*’。使用通配符虽然可以节省输入查询语句的时间，但是获取不需要的列数据通常会降低查询和所使用的应用程序的效率。通配符的优势是，当不知道所需要的列的名称时，可以通过它获取它们。
+
+> 在生产环境下，不推荐你直接使用SELECT *进行查询。
+
+```
+SELECT name, sex FROM student;
+
+```
+
+- 列的别名
+AS: alias 
+``` 
+SELECT user_id AS uid FROM student;
+``` 
+
+- 去除重复行
+distinct  distinct distinct  distinct
+
+distinct distinct  distinct
+
+```
+SELECT DISTINCT manager_id AS mid FROM employees;
+-- 在SELECT语句中使用关键字DISTINCT去除重复行
+
+-- DISTINCT 需要放到所有列名的前面 
+SELECT DISTINCT department_id,DISTINCT salary 
+FROM employees;
+
+-- 对后面所有列名的组合进行去重
+SELECT DISTINCT department_id,salary 
+FROM employees;
+```
+
+- 空值参与运算
+
+MySQL 里面， 空值不等于空字符串。一个空字符串的长度是 0，而一个空值的长度是空。而且，在 MySQL 里面，空值是占用空间的。
+
+
+- 着重号`` (解决和关键字相同的问题)
+
+```
+SELECT * FROM `ORDER`;
+```
+
+- 查询常数
+
+补全固定数据，数据联查时，需要返回固定的数据时使用
+
+``` mysql
+SELECT '哈佛' as school, last_name FROM employees;
+
+```
+
+- 显示表结构
+
+使用DESCRIBE 或 DESC 命令，表示表结构。
+
+```mysql
+DESCRIBE employees;
+或
+DESC employees;
+```
+
+```mysql
+mysql> desc employees;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| employee_id    | int(6)      | NO   | PRI | 0       |       |
+| first_name     | varchar(20) | YES  |     | NULL    |       |
+| last_name      | varchar(25) | NO   |     | NULL    |       |
+| email          | varchar(25) | NO   | UNI | NULL    |       |
+| phone_number   | varchar(20) | YES  |     | NULL    |       |
+| hire_date      | date        | NO   |     | NULL    |       |
+| job_id         | varchar(10) | NO   | MUL | NULL    |       |
+| salary         | double(8,2) | YES  |     | NULL    |       |
+| commission_pct | double(2,2) | YES  |     | NULL    |       |
+| manager_id     | int(6)      | YES  | MUL | NULL    |       |
+| department_id  | int(4)      | YES  | MUL | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+11 rows in set (0.00 sec)
+```
+
+其中，各个字段的含义分别解释如下：
+
+   - Field：表示字段名称。 
+   - Type：表示字段类型，这里 barcode、goodsname 是文本型的，price 是整数类型的。
+   - Null：表示该列是否可以存储NULL值。
+   - Key：表示该列是否已编制索引。PRI表示该列是表主键的一部分；UNI表示该列是UNIQUE索引的一部分；MUL表示在列中某个给定值允许出现多次。
+   - Default：表示该列是否有默认值，如果有，那么值是多少。
+   - Extra：表示可以获取的与给定列有关的附加信息，例如AUTO_INCREMENT等。
+
+- 过滤数据
+
+``` SQL
+SELECT * FROM employees WHERE manager_id=100;
+```
+
+`mysql在window中忽略大小写，包括对value的放水，不是标准的`
+
+```
+SELECT * FROM employees WHERE last_name='King';
+SELECT * FROM employees WHERE last_name='king';   这个应该是查不出来的
+```
+
+
 ### DDL
 #### 操作数据库
 
