@@ -324,6 +324,118 @@ WHERE manager_id % 2 = 0;
 100对3求模后的结果为3，对5求模后的结果为0。
 
 
+- 逻辑运算符
+
+逻辑运算符主要用来判断表达式的真假，在MySQL中，逻辑运算符的返回结果为1、0或者NULL。
+
+
+**1．逻辑非运算符**
+逻辑非（NOT或!）运算符表示当给定的值为0时返回1；当给定的值为非0值时返回0；当给定的值为NULL时，返回NULL。
+
+```mysql
+mysql> SELECT NOT 1, NOT 0, NOT(1+1), NOT !1, NOT NULL;    
++-------+-------+----------+--------+----------+
+| NOT 1 | NOT 0 | NOT(1+1) | NOT !1 | NOT NULL |
++-------+-------+----------+--------+----------+
+|     0 |     1 |        0 |      1 |     NULL |
++-------+-------+----------+--------+----------+
+```
+
+```mysql
+SELECT last_name, manager_id 
+FROM employees 
+WHERE manager_id NOT IN(100, 124,144);
+```
+
+**2．逻辑与运算符**
+逻辑与（AND或&&）运算符是当给定的所有值均为非0值，并且都不为NULL时，返回1；当给定的一个值或者多个值为0时则返回0；否则返回NULL。
+
+```mysql
+mysql> SELECT 1 AND -1, 0 AND 1, 0 AND NULL, 1 AND NULL;
++----------+---------+------------+------------+
+| 1 AND -1 | 0 AND 1 | 0 AND NULL | 1 AND NULL |
++----------+---------+------------+------------+
+|        1 |       0 |          0 |       NULL |
++----------+---------+------------+------------+
+1 row in set (0.00 sec)
+```
+
+```mysql
+SELECT employee_id, last_name, job_id, salary, manager_id
+FROM   employees
+WHERE  salary >=10000
+AND manager_id > 120;
+
+SELECT employee_id, last_name, job_id, salary, manager_id
+FROM   employees
+WHERE  salary >=10000 && manager_id < 120;
+
+SELECT employee_id, last_name, job_id, salary, manager_id
+FROM   employees
+WHERE  salary >=10000 
+AND manager_id < 120
+AND job_id LIKE "%VP%"
+```
+
+**3．逻辑或运算符**
+逻辑或（OR或||）运算符是当给定的值都不为NULL，并且任何一个值为非0值时，则返回1，否则返回0；当一个值为NULL，并且另一个值为非0值时，返回1，否则返回NULL；当两个值都为NULL时，返回NULL。
+
+```mysql
+mysql> SELECT 1 OR -1, 1 OR 0, 1 OR NULL, 0 || NULL, NULL || NULL;     
++---------+--------+-----------+-----------+--------------+
+| 1 OR -1 | 1 OR 0 | 1 OR NULL | 0 || NULL | NULL || NULL |
++---------+--------+-----------+-----------+--------------+
+|       1 |      1 |         1 |    NULL   |       NULL   |
++---------+--------+-----------+-----------+--------------+
+1 row in set, 2 warnings (0.00 sec)
+```
+
+```mysql
+#查询基本薪资不在9000-12000之间的员工编号和基本薪资
+SELECT employee_id,salary FROM employees 
+WHERE NOT (salary >= 9000 AND salary <= 12000);
+
+SELECT employee_id,salary FROM employees 
+WHERE salary < 9000 || salary > 12000;
+
+SELECT employee_id,salary FROM employees 
+WHERE salary NOT BETWEEN 9000 AND 12000;
+```
+
+```mysql
+SELECT employee_id, last_name, job_id, salary
+FROM   employees
+WHERE  salary >= 10000
+OR     job_id LIKE '%MAN%';
+
+SELECT employee_id, last_name, job_id, salary
+FROM   employees
+WHERE  salary >= 10000 || job_id LIKE '%VP%';
+```
+
+> 注意：
+> OR可以和AND一起使用，但是在使用时要注意两者的优先级，由于AND的优先级高于OR，因此先对AND两边的操作数进行操作，再与OR中的操作数结合。
+
+**4．逻辑异或运算符**
+逻辑异或（XOR）运算符是当给定的值中任意一个值为NULL时，则返回NULL；如果两个非NULL的值都是0或者都不等于0时，则返回0；如果一个值为0，另一个值不为0时，则返回1。
+
+```mysql
+mysql> SELECT 1 XOR -1, 1 XOR 0, 0 XOR 0, 1 XOR NULL, 1 XOR 1 XOR 1, 0 XOR 0 XOR 0;
++----------+---------+---------+------------+---------------+---------------+
+| 1 XOR -1 | 1 XOR 0 | 0 XOR 0 | 1 XOR NULL | 1 XOR 1 XOR 1 | 0 XOR 0 XOR 0 |
++----------+---------+---------+------------+---------------+---------------+
+|        0 |       1 |       0 |       NULL |             1 |             0 |
++----------+---------+---------+------------+---------------+---------------+
+1 row in set (0.00 sec)
+```
+
+```mysql
+select last_name,department_id,salary 
+from employees
+where department_id in (10,20) XOR salary > 8000;
+```
+
+
 ### DDL
 #### 操作数据库
 
