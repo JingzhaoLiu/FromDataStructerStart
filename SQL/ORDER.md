@@ -17,6 +17,9 @@ ORDER BY hire_date ;
 
 
 ```mysql
+SELECT * FROM employees
+ORDER BY employee_id DESC;
+
 SELECT   last_name, job_id, department_id, hire_date
 FROM     employees
 ORDER BY hire_date DESC ;
