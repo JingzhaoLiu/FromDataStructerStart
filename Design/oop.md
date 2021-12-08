@@ -23,6 +23,51 @@
 ### 继承
 继承是用来表示类之间的 is-a 关系，分为两种模式:单继承和多继承。单继承表示一个子 类只继承一个父类，多继承表示一个子类可以继承多个父类。为了实现继承这个特性，编程 语言需要提供特殊的语法机制来支持。继承主要是用来解决代码复用的问题。
 
+``` js
+// 类
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age
+  }
+
+  getName() {
+    return this.name;
+  }
+
+  getAge(){
+    return this.age;
+  }
+
+  speak() {
+    return 'say hello';
+  }
+}
+
+// 继承类
+class Student extends Person{
+  constructor(name, age , number) {
+    super(name, age);
+    this.number = number;
+  }
+
+  study(){
+    return `${this.name},今年${this.age}岁，学号${this.number},爱学习.`
+  }
+}
+
+// 实例
+const s = new Student('liu', 27, 21832190);
+const myName = s.getName();
+const lang = s.speak();
+const age = s.getAge();
+
+console.log(myName, lang, age);
+console.log(s.study());
+
+
+```
+
 ### 多态
 多态是指子类可以替换父类，在实际的代码运行过程中，调用子类的方法实现。多态这种特 性也需要编程语言提供特殊的语法机制来实现，比如继承、接口类和duck-typing。多态可 以提高代码的扩展性和复用性，是很多设计模式、设计原则、编程技巧的代码实现基础。
  
