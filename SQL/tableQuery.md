@@ -34,6 +34,22 @@ WHERE  e.department_id = d.department_id;
 
 对于数据库中表记录的查询和变更，只要涉及多个表，都需要在列名前加表的别名（或 表名）进行限定
 
+``` sql
+SELECT
+	e.employee_id,
+	e.last_name,
+	e.department_id,
+	d.location_id 
+FROM
+	employees e,
+	departments d,
+	locations l 
+WHERE
+	e.department_id = d.department_id 
+	AND d.location_id = l.location_id;
+
+``` 
+
 ### 聚合
 下面我们来看一下对记录进行汇总的操作，这类操作主要有
 
