@@ -33,3 +33,75 @@ WHERE  e.department_id = d.department_id;
 ```
 
 对于数据库中表记录的查询和变更，只要涉及多个表，都需要在列名前加表的别名（或 表名）进行限定
+
+### 聚合
+下面我们来看一下对记录进行汇总的操作，这类操作主要有
+
+- 汇总函数，比如 sum 求和、count 统计数量、max 最大值、min 最小值等
+``` sql
+SELECT SUM(salary) FROM employees;
+SELECT MAX(salary) FROM employees;
+SELECT MIN(salary) FROM employees;
+SELECT COUNT(salary) FROM employees;
+```
+`COUNT(常量) 和 COUNT(*)表示的是直接查询符合条件的数据库表的行数。而COUNT(列名)表示的是查询符合条件的列的值不为NULL的行数。
+
+除了查询得到结果集有区别之外，COUNT(*)相比COUNT(常量) 和 COUNT(列名)来讲，COUNT(*)是SQL92定义的标准统计行数的语法，因为他是标准语法，所以MySQL数据库对他进行过很多优化。
+相比COUNT(*)，COUNT(字段)多了一个步骤就是判断所查询的字段是否为NULL，所以他的性能要比COUNT(*)慢
+`
+
+``` sql
+SELECT COUNT(*) number, department_id
+FROM employees
+GROUP BY department_id 
+ORDER BY number DESC
+```
+
+- group by，关键字表示对分类聚合的字段进行分组，比如按照部门统计员工的数量，那么 group by 后面就应该跟上部门
+``` sql
+SELECT COUNT(last_name), department_id
+FROM employees
+GROUP BY department_id 
+ORDER BY COUNT(last_name) DESC
+
+
+SELECT COUNT(*), department_id
+FROM employees
+GROUP BY department_id 
+ORDER BY department_id DESC
+
+SELECT COUNT(*) number, department_id
+FROM employees
+GROUP BY department_id 
+ORDER BY COUNT(*) DESC
+
+SELECT COUNT(*) number, department_id
+FROM employees
+GROUP BY department_id 
+ORDER BY number DESC
+```
+- with 是可选的语法，它表示对汇总之后的记录进行再次汇总
+
+``` sql
+#使用 WITH ROLLUP
+#WITH ROLLUP 可以实现在分组统计数据基础上再进行相同的统计（SUM,AVG,COUNT…）。
+
+SELECT COUNT(*) number, department_id
+FROM employees
+GROUP BY department_id WITH ROLLUP
+ORDER BY number DESC
+
+``` 
+
+- having 关键字表示对分类后的结果再进行条件的过滤。
+
+> 看起来 where 和 having 意思差不多，不过它们用法不一样，where 是使用在统计之前，对统计前的记录进行过滤，having 是用在统计之后，是对聚合之后的结果进行过滤。也就是说 where 永远用在 having 之前，我们应该先对筛选的记录进行过滤，然后再对分组的记录进行过滤。
+
+``` sql
+SELECT COUNT(*) number, department_id
+FROM employees
+GROUP BY department_id WITH ROLLUP HAVING number > 7
+ORDER BY COUNT(*) DESC
+
+```
+
