@@ -121,3 +121,28 @@ ORDER BY COUNT(*) DESC
 
 ```
 
+#### 等值连接和非等值连接
+
+
+```mysql
+SELECT e.last_name, e.salary, j.grade_level
+FROM   employees e, job_grades j
+WHERE  e.salary BETWEEN j.lowest_sal AND j.highest_sal;
+```
+
+### 分类2：自连接 vs 非自连接
+
+
+- 当table1和table2本质上是同一张表，只是用取别名的方式虚拟成两张表以代表不同的意义。然后两个表再进行内连接，外连接等查询。
+
+**题目：查询employees表，返回“Xxx  works for Xxx”**
+
+```mysql
+SELECT CONCAT(worker.last_name ,' works for ' 
+       , manager.last_name)
+FROM   employees worker, employees manager
+WHERE  worker.manager_id = manager.employee_id ;
+```
+
+
+练习：查询出last_name为 ‘Chen’ 的员工的 manager 的信息。
