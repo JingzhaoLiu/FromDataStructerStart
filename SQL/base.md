@@ -49,10 +49,80 @@
 
 CREATE DATABASE teacher;
 
+# 如果MySQL中已经存在相关的数据库，则忽略创建语句，不再创建数据库。 (推荐)
 CREATE DATABASE IF NOT EXISTS teacher;
 
 CREATE DATABASE teacher CHARACTER SET 'utf8;
 
 
+
 ```
 charset是character set的简写，即字符集。
+
+> 注意：DATABASE 不能改名。一些可视化工具可以改名，它是建新库，把所有表复制到新库，再删旧库完成的。
+
+### 2.2 使用数据库
+
+- 查看当前所有的数据库
+
+```mysql
+SHOW DATABASES; #有一个S，代表多个数据库
+SHOW DATABASES LIKE '%a%'; 
+```
+
+- 查看当前正在使用的数据库
+
+```mysql
+SELECT DATABASE();  #使用的一个 mysql 中的全局函数
+```
+
+- 查看指定库下所有的表
+
+```mysql
+# 可以查看当前使用的数据库中的表 
+SHOW TABLES; 
+
+SHOW TABLES FROM 数据库名;
+
+```
+
+- 查看数据库的创建信息
+
+```mysql
+SHOW CREATE DATABASE 数据库名;
+或者：
+SHOW CREATE DATABASE 数据库名\G
+
+# CREATE DATABASE `shop` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */
+```
+
+
+- 使用/切换数据库
+
+```mysql
+USE 数据库名;
+```
+
+> 注意：要操作表格和数据之前必须先说明是对哪个数据库进行操作，否则就要对所有对象加上“数据库名.”。
+
+### 2.3 修改数据库
+
+- 更改数据库字符集
+
+```mysql
+ALTER DATABASE 数据库名 CHARACTER SET 字符集;  #比如：gbk、utf8等
+```
+
+### 2.4 删除数据库
+
+- 方式1：删除指定的数据库
+
+```mysql
+DROP DATABASE 数据库名;
+```
+
+- 方式2：删除指定的数据库（`推荐`）
+
+```mysql
+DROP DATABASE IF EXISTS 数据库名;
+```
