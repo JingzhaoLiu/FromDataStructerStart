@@ -126,3 +126,283 @@ DROP DATABASE 数据库名;
 ```mysql
 DROP DATABASE IF EXISTS 数据库名;
 ```
+
+
+## 3. 创建表
+
+### 3.1 创建方式1
+
+- **必须具备：**
+  - CREATE TABLE权限
+  - 存储空间
+- **语法格式：**
+
+```mysql
+CREATE TABLE [IF NOT EXISTS] 表名(
+	字段1, 数据类型 [约束条件] [默认值],
+	字段2, 数据类型 [约束条件] [默认值],
+	字段3, 数据类型 [约束条件] [默认值],
+	……
+	[表约束条件]
+);
+```
+
+> 加上了IF NOT EXISTS关键字，则表示：如果当前数据库中不存在要创建的数据表，则创建数据表；如果当前数据库中已经存在要创建的数据表，则忽略建表语句，不再创建数据表。
+
+- **必须指定：**
+  - 表名
+  - 列名(或字段名)，数据类型，**长度**
+- **可选指定：**
+  - 约束条件
+  - 默认值
+- 创建表举例1：
+
+```mysql
+-- 创建表
+CREATE TABLE emp (
+  -- int类型
+  emp_id INT,
+  -- 最多保存20个中英文字符
+  emp_name VARCHAR(20),
+  -- 总位数不超过15位
+  salary DOUBLE,
+  -- 日期类型
+  birthday DATE
+);
+```
+
+```mysql
+DESC emp;
+```
+
+ ![image-20211016160557995](images/image-20211016160557995.png)
+
+MySQL在执行建表语句时，将id字段的类型设置为int(11)，这里的11实际上是int类型指定的显示宽度，默认的显示宽度为11。也可以在创建数据表的时候指定数据的显示宽度。
+
+- 创建表举例2：
+
+```mysql
+CREATE TABLE dept(
+    -- int类型，自增
+	deptno INT(2) AUTO_INCREMENT,
+	dname VARCHAR(14),
+	loc VARCHAR(13),
+    -- 主键
+    PRIMARY KEY (deptno)
+);
+```
+
+```mysql
+DESCRIBE dept;
+```
+
+![image-20211016160643445](images/image-20211016160643445.png)
+
+> 在MySQL 8.x版本中，不再推荐为INT类型指定显示长度，并在未来的版本中可能去掉这样的语法。
+
+### 3.2 创建方式2
+
+- 使用 AS subquery 选项，**将创建表和插入数据结合起来**
+
+  ![1554997882872](images/1554997882872.png)
+
+- 指定的列和子查询中的列要一一对应
+
+- 通过列名和默认值定义列
+
+```mysql
+CREATE TABLE emp1 AS SELECT * FROM employees;
+
+CREATE TABLE emp2 AS SELECT * FROM employees WHERE 1=2; -- 创建的emp2是空表
+```
+
+```mysql
+CREATE TABLE dept80
+AS 
+SELECT  employee_id, last_name, salary*12 ANNSAL, hire_date
+FROM    employees
+WHERE   department_id = 80;
+
+```
+
+```mysql
+DESCRIBE dept80;
+```
+
+ ![1554997998148](images/1554997998148.png)
+
+ ![1554998004494](images/1554998004494.png)
+
+### 3.3 查看数据表结构
+
+在MySQL中创建好数据表之后，可以查看数据表的结构。MySQL支持使用`DESCRIBE/DESC`语句查看数据表结构，也支持使用`SHOW CREATE TABLE`语句查看数据表结构。
+
+语法格式如下：
+
+```mysql
+SHOW CREATE TABLE 表名\G
+```
+
+使用SHOW CREATE TABLE语句不仅可以查看表创建时的详细语句，还可以查看存储引擎和字符编码。
+
+## 4. 修改表
+
+修改表指的是修改数据库中已经存在的数据表的结构。
+
+**使用 ALTER TABLE 语句可以实现：**
+
+- 向已有的表中添加列
+
+- 修改现有表中的列
+
+- 删除现有表中的列
+
+- 重命名现有表中的列
+
+### 4.1 追加一个列
+
+语法格式如下：
+
+```mysql
+ALTER TABLE 表名 ADD 【COLUMN】 字段名 字段类型 【FIRST|AFTER 字段名】;
+```
+
+举例：
+
+```mysql
+ALTER TABLE dept80 
+ADD job_id varchar(15);
+```
+
+![1554998139815](images/1554998139815.png)
+
+### 4.2 修改一个列
+
+- 可以修改列的数据类型，长度、默认值和位置
+
+- 修改字段数据类型、长度、默认值、位置的语法格式如下：
+
+```mysql
+ALTER TABLE 表名 MODIFY 【COLUMN】 字段名1 字段类型 【DEFAULT 默认值】【FIRST|AFTER 字段名2】;
+```
+
+- 举例：
+
+```mysql
+ALTER TABLE	dept80
+MODIFY last_name VARCHAR(30);
+```
+
+```mysql
+ALTER TABLE	dept80
+MODIFY salary double(9,2) default 1000;
+```
+
+- 对默认值的修改只影响今后对表的修改
+- 此外，还可以通过此种方式修改列的约束。这里暂先不讲。
+
+### 4.3 重命名一个列
+
+使用 CHANGE old_column  new_column  dataType子句重命名列。语法格式如下：
+
+```mysql
+ALTER TABLE 表名 CHANGE 【column】 列名 新列名 新数据类型;
+```
+
+举例：
+
+```mysql
+ALTER TABLE  dept80
+CHANGE department_name dept_name varchar(15); 
+```
+
+### 4.4 删除一个列
+
+删除表中某个字段的语法格式如下：
+
+```mysql
+ALTER TABLE 表名 DROP 【COLUMN】字段名
+```
+
+举例：
+
+```mysql
+ALTER TABLE  dept80
+DROP COLUMN  job_id; 
+```
+
+## 5. 重命名表
+
+- 方式一：使用RENAME
+
+```mysql
+RENAME TABLE emp
+TO myemp;
+```
+
+- 方式二：
+
+```mysql
+ALTER table dept
+RENAME [TO] detail_dept;  -- [TO]可以省略
+```
+
+- 必须是对象的拥有者
+
+## 6. 删除表
+
+- 在MySQL中，当一张数据表`没有与其他任何数据表形成关联关系`时，可以将当前数据表直接删除。
+
+- 数据和结构都被删除
+- 所有正在运行的相关事务被提交
+- 所有相关索引被删除
+- 语法格式：
+
+```mysql
+DROP TABLE [IF EXISTS] 数据表1 [, 数据表2, …, 数据表n];
+```
+
+`IF EXISTS`的含义为：如果当前数据库中存在相应的数据表，则删除数据表；如果当前数据库中不存在相应的数据表，则忽略删除语句，不再执行删除数据表的操作。
+
+- 举例：
+
+```mysql
+DROP TABLE dept80;
+```
+
+- DROP TABLE 语句不能回滚
+
+## 7. 清空表
+
+- TRUNCATE TABLE语句：
+  - 删除表中所有的数据
+  - 释放表的存储空间
+
+- 举例：
+
+```mysql
+TRUNCATE TABLE detail_dept;
+```
+
+- TRUNCATE语句**不能回滚**，而使用 DELETE 语句删除数据，可以回滚
+
+- 对比：
+
+```mysql
+SET autocommit = FALSE;
+  
+DELETE FROM emp2; 
+#TRUNCATE TABLE emp2;
+  
+SELECT * FROM emp2;
+  
+ROLLBACK;
+  
+SELECT * FROM emp2;
+```
+
+> 阿里开发规范：
+>
+> 【参考】TRUNCATE TABLE 比 DELETE 速度快，且使用的系统和事务日志资源少，但 TRUNCATE 无事务且不触发 TRIGGER，有可能造成事故，故不建议在开发代码中使用此语句。 
+>
+> 说明：TRUNCATE TABLE 在功能上与不带 WHERE 子句的 DELETE 语句相同。
