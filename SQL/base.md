@@ -229,10 +229,6 @@ WHERE   department_id = 80;
 DESCRIBE dept80;
 ```
 
- ![1554997998148](images/1554997998148.png)
-
- ![1554998004494](images/1554998004494.png)
-
 ### 3.3 查看数据表结构
 
 在MySQL中创建好数据表之后，可以查看数据表的结构。MySQL支持使用`DESCRIBE/DESC`语句查看数据表结构，也支持使用`SHOW CREATE TABLE`语句查看数据表结构。
