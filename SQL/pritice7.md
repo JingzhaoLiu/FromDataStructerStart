@@ -92,7 +92,7 @@ SELECT * FROM books;
 
 ```mysql
 # 7、统计书名中包含a字母的书
-
+SELECT * FROM books WHERE name LIKE '%a%';
 # 8、统计书名中包含a字母的书的数量和库存总量
 
 # 9、找出“novel”类型的书，按照价格降序排列
