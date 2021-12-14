@@ -93,15 +93,24 @@ SELECT * FROM books;
 ```mysql
 # 7、统计书名中包含a字母的书
 SELECT * FROM books WHERE name LIKE '%a%';
+
 # 8、统计书名中包含a字母的书的数量和库存总量
+SELECT COUNT(*) book, SUM(num) number  FROM books WHERE name LIKE '%a%';
 
 # 9、找出“novel”类型的书，按照价格降序排列
+SELECT * FROM books WHERE note = 'novel' ORDER BY price DESC;
 
 # 10、查询图书信息，按照库存量降序排列，如果库存量相同的按照note升序排列
+SELECT * FROM books ORDER BY num DESC, note ASC; 
 
 # 11、按照note分类统计书的数量
+SELECT note , COUNT(*) FROM books GROUP BY note;
+
+# 按照价格分类统计书的数量并降序排序
+SELECT price, COUNT(*) AS number FROM books GROUP BY price ORDER BY price DESC; 
 
 # 12、按照note分类统计书的库存量，显示库存量超过30本的
+SELECT note, SUM(num) AS number FROM books GROUP BY note HAVING number > 30
 
 # 13、查询所有图书，每页显示5本，显示第二页
 
