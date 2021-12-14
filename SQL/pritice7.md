@@ -15,7 +15,7 @@ USE test03_library;
 
 ```
 
-``` mysql
+```mysql
 # 2、创建表 books，表结构如下：
 
 | 字段名  | 字段说明 | 数据类型     |
@@ -29,13 +29,13 @@ USE test03_library;
 | num     | 库存     | INT          |
 
 CREATE TABLE IF NOT EXISTS books(
- id       INT,        
+ id       INT,
  `name`    VARCHAR(50) ,
  `authors`  VARCHAR(100),
- price    FLOAT,    
- pubdate  YEAR,      
+ price    FLOAT,
+ pubdate  YEAR,
  note     VARCHAR(100),
- num      INT        
+ num      INT
 )
 ```
 
@@ -44,17 +44,17 @@ CREATE TABLE IF NOT EXISTS books(
 # 3、向books表中插入记录
 
 # 1）不指定字段名称，插入第一条记录
-INSERT INTO books 
+INSERT INTO books
 VALUES(1, 'Tal of AAA','Dickes' ,23   , 1995  ,'novel'   , 11 )
 SELECT * FROM books;
 
 # 2）指定所有字段名称，插入第二记录
-INSERT INTO books(id,`name`,`authors`,price,pubdate,note,num) 
+INSERT INTO books(id,`name`,`authors`,price,pubdate,note,num)
 VALUES(2, 'EmmaT','Jane lura' ,35   , 1993  ,'joke'   , 22 )
 SELECT * FROM books;
 
 # 3）同时插入多条记录（剩下的所有记录）
-INSERT INTO books(id,`name`,`authors`,price,pubdate,note,num) 
+INSERT INTO books(id,`name`,`authors`,price,pubdate,note,num)
 VALUES( 3    , 'Story of Jane' , 'Jane Tim'        , 40    , 2001    , 'novel'    , 0  ),
 ( 4    , 'Lovey Day'     , 'George Byron'    , 20    , 2005    , 'novel'    , 30 ),
 ( 5    , 'Old land'      , 'Honore Blade'    , 30    , 2010    , 'law'      , 0  ),
@@ -65,15 +65,15 @@ SELECT * FROM books;
 
 ```
 
-| id   | name          | authors         | price | pubdate | note     | num  |
-| ---- | ------------- | --------------- | ----- | ------- | -------- | ---- |
-| 1    | Tal of AAA    | Dickes          | 23    | 1995    | novel    | 11   |
-| 2    | EmmaT         | Jane lura       | 35    | 1993    | joke     | 22   |
-| 3    | Story of Jane | Jane Tim        | 40    | 2001    | novel    | 0    |
-| 4    | Lovey Day     | George Byron    | 20    | 2005    | novel    | 30   |
-| 5    | Old land      | Honore Blade    | 30    | 2010    | law      | 0    |
-| 6    | The Battle    | Upton Sara      | 30    | 1999    | medicine | 40   |
-| 7    | Rose Hood     | Richard haggard | 28    | 2008    | cartoon  | 28   |
+| id  | name          | authors         | price | pubdate | note     | num |
+| --- | ------------- | --------------- | ----- | ------- | -------- | --- |
+| 1   | Tal of AAA    | Dickes          | 23    | 1995    | novel    | 11  |
+| 2   | EmmaT         | Jane lura       | 35    | 1993    | joke     | 22  |
+| 3   | Story of Jane | Jane Tim        | 40    | 2001    | novel    | 0   |
+| 4   | Lovey Day     | George Byron    | 20    | 2005    | novel    | 30  |
+| 5   | Old land      | Honore Blade    | 30    | 2010    | law      | 0   |
+| 6   | The Battle    | Upton Sara      | 30    | 1999    | medicine | 40  |
+| 7   | Rose Hood     | Richard haggard | 28    | 2008    | cartoon  | 28  |
 
 ```mysql
 # 4、将小说类型(novel)的书的价格都增加5。
@@ -101,22 +101,32 @@ SELECT COUNT(*) book, SUM(num) number  FROM books WHERE name LIKE '%a%';
 SELECT * FROM books WHERE note = 'novel' ORDER BY price DESC;
 
 # 10、查询图书信息，按照库存量降序排列，如果库存量相同的按照note升序排列
-SELECT * FROM books ORDER BY num DESC, note ASC; 
+SELECT * FROM books ORDER BY num DESC, note ASC;
 
 # 11、按照note分类统计书的数量
 SELECT note , COUNT(*) FROM books GROUP BY note;
 
 # 按照价格分类统计书的数量并降序排序
-SELECT price, COUNT(*) AS number FROM books GROUP BY price ORDER BY price DESC; 
+SELECT price, COUNT(*) AS number FROM books GROUP BY price ORDER BY price DESC;
 
 # 12、按照note分类统计书的库存量，显示库存量超过30本的
 SELECT note, SUM(num) AS number FROM books GROUP BY note HAVING number > 30
 
-# 13、查询所有图书，每页显示5本，显示第二页
-
+# 13、查询所有图书，每页显示1本，显示第二页
+SELECT * FROM books LIMIT 1, 1
 # 14、按照note分类统计书的库存量，显示库存量最多的
+SELECT note, SUM(num) AS number FROM books GROUP BY note ORDER BY number DESC LIMIT 0, 1
+# 20、统计库存量前三名的图书
+SELECT * FROM books ORDER BY num DESC LIMIT 0, 3
+# 21、找出最早出版的一本书
+SELECT * FROM books ORDER BY pubdate LIMIT 0, 1
+SELECT * FROM books ORDER BY pubdate ASC LIMIT 0, 1
+# 22、找出novel中价格最高的一本书
+SELECT * FROM books WHERE note='novel' ORDER BY price DESC LIMIT 0, 1
 
 # 15、查询书名达到10个字符的书，不包括里面的空格
+
+# 23、找出书名中字数最多的一本书，不含空格
 
 # 16、查询书名和类型，其中note值为novel显示小说，law显示法律，medicine显示医药，cartoon显示卡通，joke显示笑话
 
@@ -126,12 +136,5 @@ SELECT note, SUM(num) AS number FROM books GROUP BY note HAVING number > 30
 
 # 19、统计每一种note的数量，并合计总量
 
-# 20、统计库存量前三名的图书
 
-# 21、找出最早出版的一本书
-
-# 22、找出novel中价格最高的一本书
-
-# 23、找出书名中字数最多的一本书，不含空格
 ```
-
