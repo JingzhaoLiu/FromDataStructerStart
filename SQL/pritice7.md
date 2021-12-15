@@ -125,8 +125,10 @@ SELECT * FROM books ORDER BY pubdate ASC LIMIT 0, 1
 SELECT * FROM books WHERE note='novel' ORDER BY price DESC LIMIT 0, 1
 
 # 15、查询书名达到10个字符的书，不包括里面的空格
+SELECT * FROM books WHERE CHAR_LENGTH(REPLACE(name,' ',''))>=10;
 
 # 23、找出书名中字数最多的一本书，不含空格
+SELECT * FROM books ORDER BY CHAR_LENGTH(REPLACE(name,' ','')) DESC LIMIT 0, 1
 
 # 16、查询书名和类型，其中note值为novel显示小说，law显示法律，medicine显示医药，cartoon显示卡通，joke显示笑话
 
