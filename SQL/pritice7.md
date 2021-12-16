@@ -130,13 +130,31 @@ SELECT * FROM books WHERE CHAR_LENGTH(REPLACE(name,' ',''))>=10;
 # 23、找出书名中字数最多的一本书，不含空格
 SELECT * FROM books ORDER BY CHAR_LENGTH(REPLACE(name,' ','')) DESC LIMIT 0, 1
 
-# 16、查询书名和类型，其中note值为novel显示小说，law显示法律，medicine显示医药，cartoon显示卡通，joke显示笑话
-
-# 17、查询书名、库存，其中num值超过30本的，显示滞销，大于0并低于10的，显示畅销，为0的显示需要无货
-
 # 18、统计每一种note的库存量，并合计总量
+SELECT IFNULL(note,'合计总库存量') note, SUM(num) FROM books GROUP BY note WITH ROLLUP
 
 # 19、统计每一种note的数量，并合计总量
+SELECT IFNULL(note, '合计总数') note, COUNT(*) FROM books GROUP BY note WITH ROLLUP
+
+# 16、查询书名和类型，其中note值为novel显示小说，law显示法律，medicine显示医药，cartoon显示卡通，joke显示笑话
+SELECT name AS "书名" ,note, CASE note 
+ WHEN 'novel' THEN '小说'
+ WHEN 'law' THEN '法律'
+ WHEN 'medicine' THEN '医药'
+ WHEN 'cartoon' THEN '卡通'
+ WHEN 'joke' THEN '笑话'
+ END AS "类型"
+FROM books;
+# 17、查询书名、库存，其中num值超过30本的，显示滞销，大于0并低于10的，显示畅销，为0的显示需要无货
+SELECT name, num, CASE 
+  WHEN num>30 THEN '滞销'
+  WHEN num>0 AND num<10 THEN '畅销'
+  WHEN num=0 THEN '无货'
+  ELSE '正常'
+  END AS "库存状态"
+FROM books;
+
+
 
 
 ```
