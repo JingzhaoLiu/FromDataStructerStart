@@ -1,3 +1,154 @@
+# 单行函数
+
+- 操作数据对象
+- 接受参数返回一个结果
+  - **只对一行进行变换**
+  - **每行返回一个结果**
+- 可以嵌套
+- 参数可以是一列或一个值
+
+## 2.1 基本函数
+
+| 函数                | 用法                                                         |
+| ------------------- | ------------------------------------------------------------ |
+| ABS(x)              | 返回x的绝对值                                                 |
+| FLOOR(x)            | 返回小于或等于某个值的最大整数                                   |
+| LEAST(e1,e2,e3…)    | 返回列表中的最小值                                             |
+| GREATEST(e1,e2,e3…) | 返回列表中的最大值                                             |
+| FORMAT(value,n)     dian| 返回对数字value进行格式化后的结果数据。n表示`四舍五入`后保留到小数点后n位 |
+
+### 2.5 进制间的转换
+
+| 函数          | 用法                     |
+| ------------- | ------------------------ |
+| BIN(x)        | 返回x的二进制编码        |
+| HEX(x)        | 返回x的十六进制编码      |
+| OCT(x)        | 返回x的八进制编码        |
+| CONV(x,f1,f2) | 返回f1进制数变成f2进制数 |
+
+```mysql
+mysql> SELECT BIN(10),HEX(10),OCT(10),CONV(10,2,8)
+    -> FROM DUAL;
++---------+---------+---------+--------------+
+| BIN(10) | HEX(10) | OCT(10) | CONV(10,2,8) |
++---------+---------+---------+--------------+
+| 1010    | A       | 12      | 2            |
++---------+---------+---------+--------------+
+```
+
+## 5. 流程控制函数
+
+流程处理函数可以根据不同的条件，执行不同的处理流程，可以在SQL语句中实现不同的条件选择。MySQL中的流程处理函数主要包括IF()、IFNULL()和CASE()函数。
+
+| 函数                                                         | 用法                                            |
+| ------------------------------------------------------------ | ----------------------------------------------- |
+| IF(value,value1,value2)                                      | 如果value的值为TRUE，返回value1，否则返回value2 |
+| IFNULL(value1, value2)                                       | 如果value1不为NULL，返回value1，否则返回value2  |
+| CASE WHEN 条件1 THEN 结果1 WHEN 条件2 THEN 结果2 .... [ELSE resultn] END | 相当于Java的if...else if...else...              |
+| CASE  expr WHEN 常量值1 THEN 值1 WHEN 常量值1 THEN 值1 .... [ELSE 值n] END | 相当于Java的switch...case...                    |
+
+```mysql
+SELECT IF(1 > 0,'正确','错误')    
+->正确
+```
+
+```mysql
+SELECT IFNULL(null,'Hello Word')
+->Hello Word
+```
+
+```mysql
+SELECT CASE 
+　　WHEN 1 > 0
+　　THEN '1 > 0'
+　　WHEN 2 > 0
+　　THEN '2 > 0'
+　　ELSE '3 > 0'
+　　END
+->1 > 0
+```
+
+```mysql
+SELECT CASE 1 
+　　WHEN 1 THEN '我是1'
+　　WHEN 2 THEN '我是2'
+ELSE '你是谁'
+```
+
+```mysql
+SELECT employee_id,salary, CASE WHEN salary>=15000 THEN '高薪' 
+				  WHEN salary>=10000 THEN '潜力股'  
+				  WHEN salary>=8000 THEN '屌丝' 
+				  ELSE '草根' END  "描述"
+FROM employees; 
+```
+
+```mysql
+SELECT oid,`status`, CASE `status` WHEN 1 THEN '未付款' 
+								   WHEN 2 THEN '已付款' 
+								   WHEN 3 THEN '已发货'  
+								   WHEN 4 THEN '确认收货'  
+								   ELSE '无效订单' END 
+FROM t_order;
+```
+
+```mysql
+mysql> SELECT CASE WHEN 1 > 0 THEN 'yes' WHEN 1 <= 0 THEN 'no' ELSE 'unknown' END;
++---------------------------------------------------------------------+
+| CASE WHEN 1 > 0 THEN 'yes' WHEN 1 <= 0 THEN 'no' ELSE 'unknown' END |
++---------------------------------------------------------------------+
+| yes                                                                  |
++---------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CASE WHEN 1 < 0 THEN 'yes' WHEN 1 = 0 THEN 'no' ELSE 'unknown' END;  
++--------------------------------------------------------------------+
+| CASE WHEN 1 < 0 THEN 'yes' WHEN 1 = 0 THEN 'no' ELSE 'unknown' END |
++--------------------------------------------------------------------+
+| unknown                                                             |
++--------------------------------------------------------------------+
+1 row in set (0.00 sec)
+```
+
+```mysql
+mysql> SELECT CASE 1 WHEN 0 THEN 0 WHEN 1 THEN 1 ELSE -1 END;
++------------------------------------------------+
+| CASE 1 WHEN 0 THEN 0 WHEN 1 THEN 1 ELSE -1 END |
++------------------------------------------------+
+|                                               1 |
++------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CASE -1 WHEN 0 THEN 0 WHEN 1 THEN 1 ELSE -1 END;
++-------------------------------------------------+
+| CASE -1 WHEN 0 THEN 0 WHEN 1 THEN 1 ELSE -1 END |
++-------------------------------------------------+
+|                                               -1 |
++-------------------------------------------------+
+1 row in set (0.00 sec)
+```
+
+```mysql
+SELECT employee_id,12 * salary * (1 + IFNULL(commission_pct,0))
+FROM employees;
+```
+
+```mysql
+SELECT last_name, job_id, salary,
+       CASE job_id WHEN 'IT_PROG'  THEN  1.10*salary
+                   WHEN 'ST_CLERK' THEN  1.15*salary
+                   WHEN 'SA_REP'   THEN  1.20*salary
+       			   ELSE      salary END     "REVISED_SALARY"
+FROM   employees;
+```
+
+**练习：查询部门号为 10,20, 30 的员工信息, 若部门号为 10, 则打印其工资的 1.1 倍, 20 号部门, 则打印其工资的 1.2 倍, 30 号部门打印其工资的 1.3 倍数。**
+
+
+
+
+
+
 # 聚合函数
 聚合函数作用于一组数据，并对一组数据返回一个值。
 
