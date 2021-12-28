@@ -67,3 +67,61 @@ div ~ p {
 <p>段落 4。</p>  
 <!-- // 变颜色 -->
 ```
+
+## :nth-child
+
+``` html
+p:nth-child(2)
+{
+background:#ff0000;
+}
+<!-- 不起作用 第二个元素是div -->
+
+p:nth-child(3)
+{
+background:#ff0000;
+}
+<!-- 起作用 -->
+
+<h1>这是标题</h1>
+<div>第一个段落。</div>
+<p>第二个段落。</p>
+<!-- 起作用变颜色 -->
+<p>第三个段落。</p>
+<p>第四个段落。</p>
+```
+
+## :nth-of-type(n)
+
+p:nth-of-type(2)	选择作为其父的第二个 <p> 元素的每个 <p> 元素。
+
+## :not(selector)	
+:not(p)	选择每个并非p元素的元素
+
+``` html
+p {
+    color: #000000;
+}
+
+:not(p) {
+    color: #ff0000;
+}
+
+
+<h1>这是一个标题</h1>
+<!-- 起作用变颜色 -->
+<p>这是一个段落.</p>
+<p>这是另一个段落.</p>
+
+<div>这是div元素的一些文本。</div>
+<!-- 起作用变颜色 -->
+<a href="//www.runoob.com/" target="_blank">链接到菜鸟教程</a>
+<!-- 起作用变颜色 -->
+```
+
+## ::first-letter	
+p::first-letter	选择每个 <p> 元素的首字母。
+## ::first-line	
+p::first-line	选择每个 <p> 元素的首行。
+## ::selection	
+p::selection	选择用户选择的元素部分。
