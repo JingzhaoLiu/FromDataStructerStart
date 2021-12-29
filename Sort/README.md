@@ -92,8 +92,8 @@ public void bubbleSort(int[] arr, int n) {
         arr[j + 1] = temp;
         flag = true; // 数据未交换
       }
-      if (!flag) break;
     }
+    if (!flag) break;
   }
 
 }
