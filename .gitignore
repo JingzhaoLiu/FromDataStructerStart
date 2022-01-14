@@ -7,6 +7,7 @@
 # Editor-based HTTP Client requests
 /httpRequests/
 .idea
+node_modules/
 out/
 .vscode
 **/mvnw
