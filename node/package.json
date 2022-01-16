@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "koa": "^2.13.4",
+    "koa-generic-session": "^2.3.0",
     "koa-route": "^3.2.0",
     "lodash": "^4.17.21"
   },
