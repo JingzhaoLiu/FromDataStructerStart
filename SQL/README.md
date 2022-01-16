@@ -791,3 +791,22 @@ INSERT INTO `Score` VALUES
 #### 查询
 
 
+
+
+
+
+## MongoDB
+
+``` shell
+# 
+docker pull mongo:latest
+
+# 安装完成后，我们可以使用以下命令来运行 mongo 容器
+docker run -itd --name mongo -p 27017:27017 mongo --auth
+
+# 接着使用以下命令添加用户和设置密码，并且尝试连接。
+docker exec -it mongo mongo admin
+
+db.createUser({ user:'admin',pwd:'root777',roles:[ { role:'userAdminAnyDatabase', db: 'admin'},"readWriteAnyDatabase"]});
+``` 
+
