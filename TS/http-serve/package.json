@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.prod.json",
-    "start": "ts-node src/cli.ts -p 9010",
+    "start": "ts-node src/cli.ts" ,  
     "test": "jest --all"
   },
   "keywords": [],
