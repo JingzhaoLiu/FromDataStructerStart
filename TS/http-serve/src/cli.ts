@@ -21,3 +21,14 @@ program
   });
 
 program.parse(process.argv);
+
+
+let lastInArray = <T>(arr: T[]) => {
+  return arr[arr.length - 1];
+}
+
+let n = lastInArray([1, 2, 3, 5]);
+let str = lastInArray<string | number>(['1', '2', '3', '5']);
+
+
+
