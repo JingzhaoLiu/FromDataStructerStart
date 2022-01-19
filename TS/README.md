@@ -63,9 +63,28 @@ const arr : Teacher[] = [
 
 ```
 ## 类型别名 type
+起别名不会新建一个类型 - 它创建了一个新名字来引用那个类型
+
 ``` ts
 type TPerson = { name: string, age: number }
 ```
+
+``` ts
+// 和接口的区别
+type TString = 'string';
+
+// 可以给普通类型声明别名
+type TPerson = { 
+  name: string, 
+  age: number 
+}
+
+interface IPerson { 
+  name: string; 
+  age: number;
+}
+```
+
 
 ## Array
 ``` ts
@@ -203,6 +222,32 @@ let user = {
 }
 
 console.log(greeter(user))
+
+// 属性
+interface IStudent {
+  readonly firstName: string;  // 只能读 不能修改
+  lastName: string;
+  age?: number  // 可以不存在
+
+}
+
+const getProp = (p: IStudent):void => {
+  p.lastName = 'jia';
+}
+
+const prop = {
+  firstName: 'l',
+  lastName: 'ming', 
+  sex: 1
+}
+
+getProp(prop)  // 不报错
+
+getProp({
+  firstName: 'l',
+  lastName: 'ming',
+  sex: 1  // 报错
+})
 
 ```
 
