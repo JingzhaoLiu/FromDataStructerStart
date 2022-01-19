@@ -25,6 +25,48 @@ console.log(sayHello('Tom'));
 TS自动分析变量类型，无法分析类型时要主动添加类型注解
 
 
+## 基础类型
+boolean string number undefined symbol  null  
+
+
+## 对象类型
+
+{}  Class function []  Date
+
+``` ts
+// function类型
+const fn = (str: string): number => {
+  return parseInt(str, 10)
+}
+
+const fnc: (str: string) => number = (str) => {
+  return parseInt(str, 10)
+}
+
+const fn = (str: string) => {
+  return parseInt(str, 10)
+}
+
+// Date 类型
+const date = new Date();
+
+
+class Teacher {
+  name: string, 
+  age: number
+}
+
+const arr : Teacher[] = [
+  new Teacher(), 
+  { name: 't', age: 20}
+]
+
+```
+## 类型别名 type
+``` ts
+type TPerson = { name: string, age: number }
+```
+
 ## Array
 ``` ts
 let arr : string[] = ['a','b']
@@ -32,6 +74,21 @@ let arr2 : Array<string> = ['a','b']
 let arr3 : number[] = [1,2]
 let arr3 : Array<number> = [1,2]
 let arr3 : any[] = [1,2,'123']
+
+
+let arr4 : undefined[] = [undefined]
+
+
+const objectArr: { name: string }[] = [
+  { name: 'liu' },
+  { name: 'ming' },
+]
+
+type TPerson = { name: string, age: number }
+const personArr1: TPerson[] = [
+  { name: 'liu', age: 12 },
+  { name: 'ming', age: 21 },
+]
 ```
 
 ## tuple （申明类型的固定长度的数组，区分联合类型）  位置类型不可更改 长度不可更改
@@ -40,6 +97,15 @@ let tup : [string,number] = ['a',111]
 tup[0] = 111; // 报错
 tup[1] = '111'; // 报错
 tup[2] = 111; // 报错 长度超过
+
+const t : [string, number,number] = ['1',2, 3]
+const t1 : [string, number,number][] = [
+  ['1',2, 3],
+  ['1',2, 3],
+  ['1',2, 3],
+  ['1', 2, 3],
+  ['1', 2, 3],
+]
 
 ```
 
