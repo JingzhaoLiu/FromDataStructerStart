@@ -199,6 +199,12 @@ function say (person: string, lastName: string = 'liu') {
   
 }
 
+// 函数类型声明
+
+interface SayHi {
+  ( keyword: string) : string
+}
+
 ```
 
 
