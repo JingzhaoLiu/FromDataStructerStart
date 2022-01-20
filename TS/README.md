@@ -211,6 +211,7 @@ interface SayHi {
 
 
 ## 接口
+编译后并不会产生JavaScript代码，只是编写的时候做代码提示、验证的作用
 
 ``` ts
 interface Person {
