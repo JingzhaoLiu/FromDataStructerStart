@@ -1,6 +1,6 @@
 interface IPerson {
-  name: string
-  age: number
+  name: string;
+  age: number;
 }
 
 enum EColor {
@@ -76,25 +76,61 @@ const t1: [string, number, number][] = [
 ];
 
 interface IStudent {
-  readonly firstName: string;  // 只能读 不能修改
+  readonly firstName: string; // 只能读 不能修改
   lastName: string;
-  age?: number  // 可以不存在
-
+  age?: number; // 可以不存在
 }
 
-const getProp = (p: IStudent):void => {
+const getProp = (p: IStudent): void => {
   p.lastName = 'jia';
-}
+};
 
 const prop = {
   firstName: 'l',
-  lastName: 'ming', 
-  sex: 1
-}
+  lastName: 'ming',
+  sex: 1,
+};
 
-getProp(prop)
+getProp(prop);
 getProp({
   firstName: 'l',
   lastName: 'ming',
   // sex: 1
-})
+});
+
+interface ITeacher {
+  readonly firstName: string; // 只能读 不能修改
+  lastName: string;
+  age?: number; // 可以不存在
+  say(): string; // 可以加方法
+  [propName: string]: any;  // 可以添加别的属性
+}
+
+const teacher: ITeacher = {
+  firstName: 'l',
+  lastName: 'ming',
+  age: 24,
+  say() {
+    return 'I am a Teacher.';
+  },
+};
+
+interface ITeach extends ITeacher {  // 接口继承
+  speak(): string;
+}
+
+class Teach implements ITeach { // 类实现接口
+  firstName: 'liu';
+  lastName: 'ao';
+  say() {
+    return 'I can teach';
+  }
+
+  speak() {
+    return 'I speak';
+  }
+}
+
+new Teach();
+
+
