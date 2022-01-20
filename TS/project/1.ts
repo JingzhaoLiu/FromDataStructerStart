@@ -96,5 +96,5 @@ getProp(prop)
 getProp({
   firstName: 'l',
   lastName: 'ming',
-  sex: 1
+  // sex: 1
 })
