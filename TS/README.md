@@ -296,6 +296,22 @@ public: 类内外都可以使用
 private: 类内部使用
 protected: 类以及继承的子类内部使用
 
+## constructor
+new 对象的时候会自动执行
+
+``` ts
+// 简化版
+constructor(public age: number) {
+
+}
+
+// 原版
+public age: number;
+constructor(age: number) {
+  this.age = age;
+}
+```
+
 ## generics 泛型
 
 ``` ts
