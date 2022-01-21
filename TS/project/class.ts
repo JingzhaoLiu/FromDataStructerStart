@@ -6,12 +6,16 @@ class Person{
   }
 }
 
+// 类继承
 class Teacher extends Person{
   getTeacherName(){
-    return 'Ary'
+    
+    return super.getName() + '_Ary'
   }
 
+  // 类重写
   getName() {
+    // super调用父类方法
     return (super.getName() + ' lee')
   }
 
