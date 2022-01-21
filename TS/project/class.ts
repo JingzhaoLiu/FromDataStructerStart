@@ -10,6 +10,12 @@ class Teacher extends Person{
   getTeacherName(){
     return 'Ary'
   }
+
+  getName() {
+    return (super.getName() + ' lee')
+  }
+
+
 }
 
 const ming = new Teacher();
