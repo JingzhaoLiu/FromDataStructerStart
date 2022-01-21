@@ -292,6 +292,9 @@ console.log(greeter(user))
 
 
 ## public、private、protected
+public: 类内外都可以使用
+private: 类内部使用
+protected: 类以及继承的子类内部使用
 
 ## generics 泛型
 
