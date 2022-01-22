@@ -299,6 +299,8 @@ protected: 类以及继承的子类内部使用
 ## constructor
 new 对象的时候会自动执行
 
+设置私有 constructor  可以禁止 new 对象
+
 ``` ts
 // 简化版
 constructor(public age: number) {
@@ -360,3 +362,7 @@ tup<string, number>('2',2);
 let tup1 = <T,Y=number>(x: T, y: Y)=>[x,y]
 tup<string>('2',2);
 ```
+
+## abstract
+
+抽象类只能继承
