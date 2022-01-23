@@ -367,3 +367,4 @@ tup<string>('2',2);
 ## abstract
 
 抽象类只能继承
+
