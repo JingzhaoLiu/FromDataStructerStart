@@ -12,16 +12,15 @@ interface Course {
 }
 
 interface ICourseItem {
-  time: number,
-  data: Course[]
+  time: number;
+  data: Course[];
 }
-
-
-
 
 class Spider {
   private secret = 'secretKey';
   private url = `http://www.dell-lee.com/typescript/demo.html?secret=${this.secret}`;
+  private dirPath = path.join(__dirname, '../data');
+  private filePath = path.resolve(this.dirPath, 'course.json');
 
   async getHtml() {
     // const result = await axios.get(this.url)
@@ -81,28 +80,33 @@ class Spider {
     };
   }
 
-  saveCourse(course: ICourseItem) {
-    const filePath = path.resolve(__dirname, '../data/course.json');
+  getJsonCourse(course: ICourseItem) {
     let courseJson: ICourseItem[] = [];
-    if (fs.existsSync(filePath)) {
-      const text = fs.readFileSync(filePath, 'utf-8');
+    if (fs.existsSync(this.filePath)) {
+      const text = fs.readFileSync(this.filePath, 'utf-8');
       courseJson = JSON.parse(text);
     } else {
-      fs.mkdir(path.join(__dirname, '../data'), (err) => {
+      fs.mkdir(this.dirPath, err => {
         if (err) {
-          return console.error(err);
+          console.error(err);
+          return {};
         }
-      })
+      });
     }
 
     courseJson.push(course);
-    fs.writeFileSync(filePath, JSON.stringify(courseJson));
+    return courseJson;
+  }
+
+  writeCourse(courseJson: string) {
+    fs.writeFileSync(this.filePath, courseJson);
   }
 
   async start() {
     const html: string = await this.getHtml();
     const course = this.getCourse(html);
-    this.saveCourse(course)
+    const courseJson = this.getJsonCourse(course);
+    this.writeCourse(JSON.stringify(courseJson));
   }
 }
 
