@@ -26,3 +26,16 @@ function myInstanceOf(left, right){
 
 console.log(myInstanceOf(new Number(1), Number));
 console.log(myInstanceOf(123, Number));
+
+
+
+var u = new User('Liu', '123456');
+
+console.log(Object.getPrototypeOf(u)); 
+// User { toString: [Function], checkPassword: [Function] }
+
+console.log(u.__proto__); 
+// User { toString: [Function], checkPassword: [Function] }
+
+console.log(User.prototype); 
+// User { toString: [Function], checkPassword: [Function] }
