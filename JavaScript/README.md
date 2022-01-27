@@ -1,3 +1,4 @@
+Javascript 的执行环境： 浏览器、Node
 ## 类型转换
 
 
