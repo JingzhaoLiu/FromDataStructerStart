@@ -169,6 +169,9 @@ let protagonist : 'Sherlock' = 'Sherlock';
 ```
 
 ## enum
+方法参数不能定义为具体类型，只能初级使用number，string 基本类型替代，降低了代码的可读性和可维护性
+
+
 ``` ts
 enum Color{
   red = 6,
@@ -176,11 +179,22 @@ enum Color{
   blue
 }
 
+生成：
+
+type[type["red"] = 6] = "red"
+
+数字枚举双重映射
+type["red"] // 6
+type[10] // "green"
+可以取值 可以取key
+
 enum type{
   s = 'school',
   t = 'teacher,
   p = 'parents'
 }
+
+生成普通对象
 
 ```
 
