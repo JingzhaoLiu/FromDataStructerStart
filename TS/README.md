@@ -1,5 +1,7 @@
 # Typescript
 
+
+
 ``` shell
 npm install -g typescript
 
@@ -17,7 +19,20 @@ console.log(sayHello('Tom'));
 
 ```
 
+
+
  TypeScript `只会在编译时对类型进行静态检查`，如果发现有错误，编译的时候就会报错
+
+
+## 配置文件 tsconfig
+
+``` json
+"outDir": "./"
+"rootDir": "./",
+
+"target": "es2020",  
+
+```
 
 ## 类型注解
 我们明确告诉变量是什么类型
