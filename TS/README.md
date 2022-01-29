@@ -307,6 +307,9 @@ new 对象的时候会自动执行
 constructor(public age: number) {
 
 }
+// 构造器的参数加上public这个参数就变成了一个属性
+// 第一步 定义了一个属性
+// 第二步 默认构造函数给这个属性赋值【隐式操作】
 
 // 原版
 public age: number;
