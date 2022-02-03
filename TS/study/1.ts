@@ -22,3 +22,5 @@ const student2 = new Student('hong');
 const studentList = [student1, student2];
 const shool = new Shool('shool', studentList);
 console.log('shool: ', shool);
+
+
