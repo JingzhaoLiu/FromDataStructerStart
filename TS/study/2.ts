@@ -33,10 +33,10 @@ console.log("rIndex: ", rIndex);
 const rObj: object = arrList.remove(1);
 console.log("rObj: ", rObj);
 
-const arr: number[] = [21, 13, 24, 5, 16, 1];
-const target = 16;
+const arr: Array<number> = [21, 13, 24, 5, 16, 1];
+const target:number = 16;
 
-function getTargetIndex(arr: number[]) {
+function getTargetIndex<T>(target:T, arr: Array<T>): number {
   for (let i = 0; i < arr.length; i++) {
     if (target === arr[i]) {
       return i;
@@ -45,5 +45,5 @@ function getTargetIndex(arr: number[]) {
   return -1;
 }
 
-const targetIndex = getTargetIndex(arr);
+const targetIndex = getTargetIndex<number>(target, arr);
 console.log("targetIndex: ", targetIndex);
