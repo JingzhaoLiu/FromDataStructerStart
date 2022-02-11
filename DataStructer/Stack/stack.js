@@ -53,9 +53,9 @@ function twoCoverTen(n){
     }
   }
 
-  // 小数处理
+  // 小数处理  乘以2  顺序排列
 
-  
+
 
 
 
