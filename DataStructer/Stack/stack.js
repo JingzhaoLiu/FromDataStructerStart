@@ -35,6 +35,39 @@ let result = arrStack.reduce((res, cur) => cur + res, "");
 
 console.log("result: ", result);
 
+
+function twoCoverTen(n){
+  let result = "";
+  const arrStack = [];
+
+  const numArr = n.toString().split(".");
+  let inter = numArr[0];
+  let decimal = numArr[1];
+
+  // 整数处理
+  while (inter >= 2) {
+    arrStack.push(inter % 2);
+    inter = Math.floor(inter / 2);
+    if (inter < 2) {
+      arrStack.push(inter);
+    }
+  }
+
+  // 小数处理
+
+  
+
+
+
+
+
+
+
+  return result;
+}
+
+
+
 // 判断字符串的括号是否有效：有效的括号
 
 // 函数的调用堆栈 callStack.js
