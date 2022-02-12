@@ -36,25 +36,59 @@ let result = arrStack.reduce((res, cur) => cur + res, "");
 console.log("result: ", result);
 
 
-function twoCoverTen(n){
-  let result = "";
-  const arrStack = [];
+function tenCoverTwo(n){
+  // 自带的方法
+  // return n.toString(2)
 
-  const numArr = n.toString().split(".");
-  let inter = numArr[0];
-  let decimal = numArr[1];
+  // let result = "";
+  // const arrStack = [];
 
-  // 整数处理
-  while (inter >= 2) {
-    arrStack.push(inter % 2);
-    inter = Math.floor(inter / 2);
-    if (inter < 2) {
-      arrStack.push(inter);
+  // const numArr = n.toString().split(".");
+  // let inter = numArr[0];
+  // let decimal = numArr[1];
+
+  // // 整数处理
+  // while (inter >= 2) {
+  //   arrStack.push(inter % 2);
+  //   inter = Math.floor(inter / 2);
+  //   if (inter < 2) {
+  //     arrStack.push(inter);
+  //   }
+  // }
+
+  // 小数处理  乘以2  顺序排列 0.111
+
+  // 0.111 * 2 = 0.222 
+  // 0.222 * 2 = 0.444
+  // 0.444 * 2 = 0.888
+  // 0.888 * 2 = 1.776
+
+  let res = "0.";
+  let n = 0.11;
+  let time = 0;
+
+  while (n !== 0) {
+    n = n * 2;
+    // 整数
+    let p = Math.trunc(n);
+    // 小数
+    n = n % 1;
+    // 结果顺序相加
+    res += p;
+
+    if (res.length == 22) {
+      break;
     }
   }
+  console.log("res: ", res);
 
-  // 小数处理  乘以2  顺序排列
 
+
+
+
+
+
+  
 
 
 
