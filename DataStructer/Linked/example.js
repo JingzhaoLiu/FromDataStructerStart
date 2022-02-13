@@ -15,3 +15,13 @@ while(fast?.next) {
   fast = fast.next.next;
   slow = slow.next;
 }
+
+
+// 是否有环 快慢指针
+while (fast?.next) {
+  fast = fast.next.next;
+  slow = slow.next;
+  if(fast === slow) {
+    return true
+  }
+} 
