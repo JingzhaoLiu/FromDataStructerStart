@@ -31,9 +31,7 @@ console.log("d1: ", d1);
 const { e: e1 = 5, f = 6 } = obj;
 console.log("e1: ", e1);
 console.log("f: ", f);
-console.log('obj: ', obj); // { a: 'a', b: 'b', c: 'c', d: 'd' }
-
-
+console.log("obj: ", obj); // { a: 'a', b: 'b', c: 'c', d: 'd' }
 
 // 合并数据
 const arr1 = [1, 2, 3];
@@ -76,9 +74,11 @@ function spaceValue(all, val) {
   return all - val;
 }
 // 支持变量 支持表达式 支持函数调用
-const result = `${name}的考试成绩${score > 60 ? "及格" : "不及格"},差${spaceValue(100, 59)}就满分了`;
-console.log('result: ', result);
-
+const result = `${name}的考试成绩${score > 60 ? "及格" : "不及格"},差${spaceValue(
+  100,
+  59
+)}就满分了`;
+console.log("result: ", result);
 
 // includes 改进if判断
 let type = 3;
@@ -149,4 +149,15 @@ const fn = () => {
   });
 };
 // 如果并发请求时，只要其中一个异步函数处理完成，就返回结果，要用到Promise.race()
+
+/****对象扩展******/ 
+
+// 比较值相等 Same-value equality 同值相等 比较两个值是否严格相等
+console.log(NaN === NaN); // false
+console.log(0 === -0);     // true
+
+Object.is(NaN, NaN); // true
+Object.is(+0, -0); // false
+
+// Object.assign()
 
