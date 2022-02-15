@@ -1,4 +1,5 @@
 /**数组结构**/
+
 // 以前获取数组里面值得方式
 var names = ["abc", "cba", "nba"];
 // var item1 = names[0]
@@ -24,6 +25,10 @@ console.log(itemx, newNames); // abc ['cba', 'nba']
 let [itema, itemb, itemc, itemd = "aaa"] = names;
 console.log(itemd); // aaa
 
+let arr1 = 1;
+let [aaa] = Array.isArray(arr1)?arr1 : []; // 数组解构赋值必须保证是数组
+console.log('aaa: ', aaa);
+
 // 通过解构交换变量
 let a = 1;
 let b = 3;
@@ -45,12 +50,17 @@ function move({ x = 0, y = 0 } = {}) {
 move({ x: 3, y: 8 }); //? [3, 8]
 move({ x: 3 }); //? [3, 0]
 move({}); //? [0, 0]
-move(); //? [0, 0]
+move(); //? [0, 0]   // 对象解构赋值必须保证是对象 参数默认设置了 {}
 
 
 
 console.log(...[1, 2, 3]);
-const namesList = ["abc", "cba", "nba"];
+const namesList = ["abc", "cba", "nba"];  // 数组可以解构为对象
 const info = { name: "why", age: 18 };
 const obj1111 = { ...info, address: "成都市", ...namesList }; //?
 // {0: 'abc', 1: 'cba', 2: 'nba', name: 'why', age: 18, address: '成都市'}
+
+const testObj = { name: "why", age: 18 };
+let testArr = ["abc", "cba", "nba"];
+const testData2 = [...testArr,...Object.values(testObj)]; //?
+// const testData1 = [...testArr,...testObj]; //? 对象不能解构赋值给数组
