@@ -135,7 +135,7 @@ if ((value ?? "") !== "") {
 // 不加括号的情况下 不能和 ||  && 组合使用
 
 // 异步调用
-const fn = async () => {
+const fn1 = async () => {
   const res1 = await fn1();
   const res2 = await fn2();
   console.log(res1); // 1
@@ -143,21 +143,156 @@ const fn = async () => {
 };
 
 // 但是要做并发请求时，还是要用到Promise.all()。
-const fn = () => {
+const fn2 = () => {
   Promise.all([fn1(), fn2()]).then(res => {
     console.log(res); // [1,2]
   });
 };
 // 如果并发请求时，只要其中一个异步函数处理完成，就返回结果，要用到Promise.race()
 
-/****对象扩展******/ 
+/****对象扩展******/
 
 // 比较值相等 Same-value equality 同值相等 比较两个值是否严格相等
 console.log(NaN === NaN); // false
-console.log(0 === -0);     // true
+console.log(0 === -0); // true
 
 Object.is(NaN, NaN); // true
 Object.is(+0, -0); // false
 
-// Object.assign()
+// Object.assign() 浅拷贝
+// 目标对象与源对象有同名属性，或多个源对象有同名属性，则后面的属性会覆盖前面的属性。
+const target = { a: 1, b: 2 };
+const source1 = { b: 4, c: 5 };
+const source2 = { d: 4, e: 5 };
 
+Object.is(target, Object.assign(target)); // 不合并源对象 返回目标对象
+
+const returnedTarget = Object.assign(target, source1, source2); // 多个源对象
+
+console.log(target); // { a: 1, b: 4, c: 5 } 注意目标对象自身也会改变
+console.log(returnedTarget); //{ a: 1, b: 4, c: 5 }
+// Object.assign()的返回值其实就是目标对象
+Object.is(target, returnedTarget); // true
+
+// target不是对象会转成对象
+Object.assign(2); // Number{2}
+// undefined和null无法转成对象 会报错
+Object.assign(undefined); // 报错
+Object.assign(null); // 报错
+// 源对象无效会忽略
+Object.assign(target, source1, null, undefined, 1, source2); // null, undefined, 1 都会过滤掉
+
+// 对象的遍历方式（扩展）
+let obj = {
+  name: "jimmy",
+  age: 18,
+  like: "girl",
+};
+// for...in的作用是用于遍历对象的。
+for (let key in obj) {
+  console.log(key, obj[key]);
+}
+
+// Object.keys()用于返回对象所有key组成的数组。
+Object.keys(obj).forEach(key => {
+  console.log(key, obj[key]);
+});
+
+// Object.getOwnPropertyNames()用于返回对象所有key组成的数组。
+Object.getOwnPropertyNames(obj).forEach(key => {
+  console.log(key, obj[key]);
+});
+
+// Reflect.ownKeys()用于返回对象所有key组成的数组。
+
+Reflect.ownKeys(obj).forEach(key => {
+  console.log(key, obj[key]);
+});
+
+// 箭头函数
+// 箭头函数中没有this，内部的this就是定义时上层作用域中的this。也就是说，箭头函数内部的this指向是固定的
+// 不可以当作构造函数，也就是说，不可以对箭头函数使用new命令，否则会抛出一个错误。
+// 箭头函数不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。
+// 不可以使用yield命令，因此箭头函数不能用作 Generator 函数。
+
+// length属性
+// function foo(a, b = 1, c) {
+//     console.log(arguments.length)
+// }
+// foo('a', 'b') //2
+
+// function foo(a, b = 1, c) {
+//     console.log(foo.length)
+// }
+// foo('a', 'b', 'c') // 1 函数指定了默认值以后，函数的length属性，将返回没有指定默认值的参数个数。
+
+// function foo(a = 2, b = 1, c) {
+//     console.log(foo.length)
+// }
+// foo('a', 'b', 'c') // 0
+
+// Array.from方法用于将两类对象转为真正的数组：类似数组的对象（array-like object）和可遍历（iterable）的对象（包括 ES6 新增的数据结构 Set 和 Map）
+
+// for...of
+// ES6中新增的数组遍历方式
+for (let val of [1, 2, 3]) {
+  console.log(val); // 1,2,3
+}
+
+// Array.prototype.find()
+// Array.prototype.findIndex()
+// Array.prototype.fill(val,start,end)
+// 如果 start 是个负数, 则开始索引会被自动计算成为 length+start, 其中 length 是 this 对象的 length 属性值。如果 end 是个负数, 则结束索引会被自动计算成为 length+end
+
+// const array1 = [1, 2, 3, 4];
+// console.log(array1.fill(0, 2, 4)); // [1, 2, 0, 0]
+// console.log(array1.fill(5, 1)); //  [1, 5, 5, 5]
+// // 只有一个参数，说明其他两项都是默认值，会替换数组全部内容
+// console.log(array1.fill(6)); // [6, 6, 6, 6]
+
+
+// Array.prototype.copyWithin();
+// Array.prototype.copyWithin(target, (start = 0), (end = this.length));
+// target（必需）：从该位置开始替换数据。如果为负值，表示倒数。
+// start（可选）：从该位置开始读取数据，默认为 0。如果为负值，表示从末尾开始计算。
+// end（可选）：到该位置前停止读取数据，默认等于数组长度。如果为负值，表示从末尾开始计算。
+// 将3号位复制到0号位
+[1, 2, 3, 4, 5].copyWithin(0, 3, 4)
+// [4, 2, 3, 4, 5]
+
+// -2相当于3号位，-1相当于4号位
+[1, 2, 3, 4, 5].copyWithin(0, -2, -1) // [4, 2, 3, 4, 5]
+
+// 参数不足三个，没有的参数就是默认值
+[1, 2, 3, 4, 5].copyWithin(-2) // [1, 2, 3, 1, 2]
+[1, 2, 3, 4, 5].copyWithin(0, 3) // [4, 5, 3, 4, 5]
+
+
+// Array.of()
+// Array.of()方法用于将一组值，转换为数组。
+Array.of(3, 11, 8) // [3,11,8]
+Array.of(3) // [3]
+Array.of(3).length // 1
+
+// Number扩展
+Number.isFinite()
+Number.isNaN()
+Number.isInteger();
+
+// String扩展
+console.log("jimmy".includes("mm")); // true
+
+// 区分大小写
+'Blue Whale'.includes('blue'); // returns false
+String.prototype.startsWith()
+// 判断参数字符串是否在原字符串的头部, 返回boolean类型的值。
+console.log("jimmy".startsWith("ji")); // true
+
+String.prototype.endsWith()
+// 判断参数字符串是否在原字符串的尾部, 返回boolean类型的值。
+
+console.log("jimmy".endsWith("my")); // true
+String.prototype.repeat()
+// repeat方法返回一个新字符串，表示将原字符串重复n次。
+const newStr = "jimmy".repeat(2);
+console.log(newStr) // jimmyjimmy
