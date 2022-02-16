@@ -296,3 +296,33 @@ String.prototype.repeat()
 // repeat方法返回一个新字符串，表示将原字符串重复n次。
 const newStr = "jimmy".repeat(2);
 console.log(newStr) // jimmyjimmy
+
+let s1 = Symbol('far')
+let s2 = Symbol('far')
+console.log(s1) //Symbol(far)
+console.log(s2) // Symbol(far)
+// `Symbol`函数的参数只是表示对当前 Symbol 值的描述，因此相同参数的`Symbol`函数的返回值是不相等的。
+console.log(s1 === s2) // false
+
+// 接受一个字符串作为参数，然后搜索有没有以该参数作为名称的 Symbol 值。如果有，就返回这个 Symbol 值，否则就新建一个以该字符串为名称的 Symbol 值，并将其注册到全局
+let s11 = Symbol.for('far')
+let s22 = Symbol.for('far')
+console.log(s11 === s22) // true
+
+// Symbol.keyFor()方法返回一个已登记的 Symbol 类型值的key。
+console.log(Symbol.keyFor(s1)) // undefined
+console.log(Symbol.keyFor(s11)) // far
+
+// Set本身是一个构造函数，用来生成 Set 数据结构  add delete clear has size
+// 初始化的参数必须是可遍历的，可以是数组或者自定义遍历的数据结构
+
+// WeakSet成员只能是对象，而不能是其他类型的值
+
+
+
+// WeakSet 中的对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用，也就是说，如果其他对象都不再引用该对象，那么垃圾回收机制会自动回收该对象所占用的内存，不考虑该对象还存在于 WeakSet 之中。
+// add delete clear has size
+
+
+// WeakMap 键必须是对象
+
