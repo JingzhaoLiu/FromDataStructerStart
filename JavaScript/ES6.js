@@ -324,5 +324,9 @@ console.log(Symbol.keyFor(s11)) // far
 // add delete clear has size
 
 
-// WeakMap 键必须是对象
+// WeakMap 键必须是对象 原始数据类型  Symbol不可以  WeakMap的键是不可枚举的
+
+// codePointAt 字符串查询
+
+// padStart()  padEnd();
 
