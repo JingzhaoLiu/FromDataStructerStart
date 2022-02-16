@@ -82,21 +82,6 @@ function tenCoverTwo(n){
   }
   console.log("res: ", res);
 
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
   return result;
 }
 

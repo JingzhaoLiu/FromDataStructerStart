@@ -328,5 +328,12 @@ console.log(Symbol.keyFor(s11)) // far
 
 // codePointAt 字符串查询
 
-// padStart()  padEnd();
+// padStart()  padEnd();  补齐数据  padStart(10, '-')   10位缺位用-补齐
+
+// startWith() endWith();  
+
+
+
+
+
 
