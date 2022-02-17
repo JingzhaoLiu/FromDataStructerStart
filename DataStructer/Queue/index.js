@@ -7,6 +7,6 @@ const item2 = queue.shift();
 
 // 场景
 
-排队
-js异步中任务队列  Callback Queue
-计算最近请求次数
+// 排队
+// js异步中任务队列  Callback Queue
+// 计算最近请求次数 [[],[1],[100],[3001],[3002]]
