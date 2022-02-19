@@ -56,4 +56,14 @@ let reverseList = (head) =>{
 }
 
 
+// 遍历json
+const json = {
+  a: {b: {c: 1}},
+  d: {e: 2}
+}
 
+const path = ['d','e']
+let p = json;
+path.forEach(key=>{
+  p = p[key]
+})
