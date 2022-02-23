@@ -104,3 +104,42 @@ const func3 = () => {};
 func1();
 
 // 打断点可以查看数据流动
+
+
+class Stack {
+  
+  constructor() {
+    this.stack = [];
+  }
+
+  push(e) {
+    this.stack.push(e);
+  }
+
+  pop() {
+    return this.stack.pop();
+  }
+
+  isEmpty() {
+    return this.stack.length === 0;
+  }
+}
+
+
+//输入需要转化的十进制数
+function d2b(number) {
+    let stack = new Stack()
+    while (number > 0) {
+        stack.push(number % 2)
+        number = Math.floor(number / 2)
+    }
+
+    let string = ''
+    while (!stack.isEmpty()) {
+        string += stack.pop()
+    }
+
+    return string
+}
+
+console.log(d2b(168)) // 10101000
