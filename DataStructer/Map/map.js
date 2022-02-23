@@ -11,7 +11,7 @@ var intersection = function(nums1, nums2) {
     nums2.forEach(e=>{
         if(map.get(e)){
             result.push(e)
-            map.delete()
+            map.delete(e)
         }
     })
     return result
