@@ -1,6 +1,10 @@
 // 字典
-var myMap = new Map();
-myMap.get(key);
+var myMap = new Map([["b",2],["a",1]]);  // 添加多个值
+console.log('myMap: ', myMap);
+// myMap.get(key);
+
+
+
 
 // 返回一个 Map 对象中与指定键相关联的值，如果找不到这个键则返回 undefined。
 
