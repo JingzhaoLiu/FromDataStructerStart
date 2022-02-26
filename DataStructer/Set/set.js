@@ -16,3 +16,7 @@ for (const iterator of mySet) {
 
 const myArr = Array.from(mySet)
 
+
+new Set(1) // 报错 1不可以迭代
+new Set('12')
+new Set([1,2])

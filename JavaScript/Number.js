@@ -18,3 +18,5 @@ parseFloat("314是圆周率") // 314
 parseFloat("31.5") // 31.5
 parseFloat("-31.5") // -31.5
 parseFloat("圆周率是3.14") // NaN // ?
+parseFloat(true) // NaN // ?  先转成字符串 
+parseFloat(false) // NaN // ?
