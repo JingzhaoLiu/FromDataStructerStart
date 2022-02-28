@@ -111,7 +111,6 @@ func1();
 
 
 class Stack {
-  
   constructor() {
     this.items = [];
   }
@@ -121,6 +120,10 @@ class Stack {
   }
 
   pop() {
+    if (this.isEmpty()) {
+      // {1}
+      return undefined;
+    }
     return this.items.pop();
   }
 
@@ -128,16 +131,34 @@ class Stack {
     return this.items.length === 0;
   }
 
-  peek(){
+  peek() {
+    if (this.isEmpty()) {
+      return undefined;
+    }
     return this.items[this.items.length - 1];
   }
 
-  size(){
+  size() {
     return this.items.length;
   }
 
-  clear(){
+  clear() {
     this.items = [];
+
+    // while (!this.isEmpty()) {
+    //   this.pop();
+    // }
+  }
+
+  toString() {
+    if (this.isEmpty()) {
+      return "";
+    }
+    let objString = `${this.items[0]}`; 
+    for (let i = 1; i < this.count; i++) {
+      objString = `${objString},${this.items[i]}`; 
+    }
+    return objString;
   }
 }
 
