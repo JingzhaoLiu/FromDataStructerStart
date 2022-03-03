@@ -333,7 +333,7 @@ console.log(Symbol.keyFor(s11)) // far
 // startWith() endWith();  
 
 
-
+// 一个错误 对象声明成数组 可以存值 但是JSON字符串化 变成 null
 
 
 
