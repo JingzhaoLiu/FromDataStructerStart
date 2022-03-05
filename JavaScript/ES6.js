@@ -331,7 +331,7 @@ console.log(Symbol.keyFor(s11)) // far
 // padStart()  padEnd();  补齐数据  padStart(10, '-')   10位缺位用-补齐
 
 // startWith() endWith();  
-
+// 时间去零
 
 // 一个错误 对象声明成数组 可以存值 但是JSON字符串化 变成 null
 
