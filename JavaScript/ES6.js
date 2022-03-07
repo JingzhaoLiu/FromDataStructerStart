@@ -336,4 +336,5 @@ console.log(Symbol.keyFor(s11)) // far
 // 一个错误 对象声明成数组 可以存值 但是JSON字符串化 变成 null
 
 // 基础知识记忆不牢固 需要查手册
+// dash 
 
