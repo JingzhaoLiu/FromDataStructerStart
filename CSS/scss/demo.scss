@@ -1,0 +1,68 @@
+@import './_viriables';
+@import './mixin';
+
+
+.header {
+  font-size: $small-font;
+  color: $text-color;
+}
+
+.title {
+  font-size: $small-font;
+  color: lighten($text-color, 30%);
+}
+
+.footer {
+  width: $w100;
+  height: $h100;
+  font-size: $small-font;
+  color: darken($text-color, 30%);
+  span{
+    width: $w100;
+  }
+  &:hover{
+    color:aqua;
+  }
+}
+
+.section{
+  // width: $w100;
+  // height: $h100;
+  // font-size: $small-font;
+  // color: darken($text-color, 50%);
+  @include section-block;
+  text-align: left;
+}
+
+.slide{
+  // width: $w100;
+  // height: $h100;
+  // font-size: $small-font;
+  // color: darken($text-color, 50%);
+  @include section-block-1(1500px);
+  text-align: center;
+}
+
+
+
+@mixin ipad($height) {
+  @media screen and (min-width: 768px) {
+    height: $height;
+    @content;
+
+  }
+}
+
+.time{
+  width: $w100;
+  @include ipad(200px){
+    width: 500px;
+  }
+}
+
+.year{
+  width: $w100;
+  @include ipad(400px){
+    width: 500px;
+  }
+}

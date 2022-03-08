@@ -1,0 +1,12 @@
+@mixin section-block {
+  width: $w100;
+  height: $h100;
+  font-size: $small-font;
+  color: darken($text-color, 50%);
+}
+
+@mixin section-block-1($w) {
+  width: $w;
+  font-size: $small-font;
+  color: darken($text-color, 50%);
+}
