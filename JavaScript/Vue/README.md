@@ -211,6 +211,102 @@ data中数据放入vm._data，通过代理vm可以修改data
 ## $slots
 收到的插槽内容
 
+## props
+
+1. 传入一个对象的所有 property
+
+如果你想要将一个对象的所有 property 都作为 prop 传入(可以选择接入需要的 property)，你可以使用不带参数的 `v-bind (取代 v-bind:prop-name)`。例如，对于一个给定的对象 post：
+
+``` js
+post: {
+  id: 1,
+  title: 'My Journey with Vue',
+  age: 27
+}
+
+// 下面的模板：
+
+<blog-post v-bind="post"></blog-post>
+// 等价于：
+
+<blog-post
+  v-bind:id="post.id"
+  v-bind:title="post.title"
+  v-bind:age="post.age"
+></blog-post>
+
+
+// 可以只接入其中的部分 这里就没有接收age  直接this.age就undefined
+props: {
+    id: Number,
+    title: String
+},
+
+```
+
+2. 单向数据流
+
+所有的 prop 都使得其父子 prop 之间形成了一个单向下行绑定：父级 prop 的更新会向下流动到子组件中，但是反过来则不行。这样会防止从子组件意外变更父级组件的状态，从而导致你的应用的数据流向难以理解。
+
+额外的，每次父级组件发生变更时，子组件中所有的 prop 都将会刷新为最新的值。这意味着你不应该在一个子组件内部改变 prop。如果你这样做了，Vue 会在浏览器的控制台中发出警告。
+
+这里有两种常见的试图变更一个 prop 的情形：
+
+这个 prop 用来传递一个初始值；这个子组件接下来希望将其作为一个本地的 prop 数据来使用。在这种情况下，最好定义一个本地的 data property 并将这个 prop 用作其初始值：
+
+``` js
+props: ['initialCounter'],
+data: function () {
+  return {
+    counter: this.initialCounter
+  }
+}
+
+// 这个 prop 以一种原始的值传入且需要进行转换。在这种情况下，最好使用这个 prop 的值来定义一个计算属性：
+
+props: ['size'],
+computed: {
+  normalizedSize: function () {
+    return this.size.trim().toLowerCase()
+  }
+}
+``` 
+
+``` js
+Vue.component('my-component', {
+  props: {
+    // 基础的类型检查 (`null` 和 `undefined` 会通过任何类型验证)
+    propA: Number,
+    // 多个可能的类型
+    propB: [String, Number],
+    // 必填的字符串
+    propC: {
+      type: String,
+      required: true
+    },
+    // 带有默认值的数字
+    propD: {
+      type: Number,
+      default: 100
+    },
+    // 带有默认值的对象
+    propE: {
+      type: Object,
+      // 对象或数组默认值必须从一个工厂函数获取
+      default: function () {
+        return { message: 'hello' }
+      }
+    },
+    // 自定义验证函数
+    propF: {
+      validator: function (value) {
+        // 这个值必须匹配下列字符串中的一个
+        return ['success', 'warning', 'danger'].indexOf(value) !== -1
+      }
+    }
+  }
+})
+```
 
 # Vue3
 
