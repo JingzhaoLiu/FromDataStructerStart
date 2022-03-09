@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+  <div id="root">
+    <!-- <div v-for="(v,name,index) of obj">
+      val:{{v}}
+      name:{{name}}
+      index:{{index}}
+    </div> -->
+     <div v-for="(val,index) in arr">
+      val:{{val}}
+      index:{{index}}
+    </div>
+  <!-- <div v-for="(val,index) of arr">
+      val:{{val}}
+      index:{{index}}
+    </div> -->
+  </div>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          content: 'hello world',
+          obj: { a: [1,2,3], b: {b:3}, c: 3 },
+          arr: ['a', 'b', 'c', 'd']
+        }
+      },
+      mounted() {
+
+        this.arr.splice(5);
+        console.log('this.arr: ', this.arr);
+        // setInterval(val=>{
+        //   this.content += 1
+        // }, 1000)
+        // this.content = this.content.split('').reverse().join('');
+      },
+    })
+    app.mount("#root");
+  </script>
+</body>
+
+</html>

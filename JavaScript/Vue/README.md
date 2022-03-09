@@ -57,6 +57,101 @@ Object.defineProperty(person, 'age', {
 
 ```
 
+## for循环
+- V-for循环遍历数组时推荐使用of，语法格式为(item，index)
+  - item:迭代时不同的数组元素的值
+  - index:当前元素的索引
+
+- V-for循环遍历对象时推荐使用in，语法格式为(item,name,index)
+  - item:迭代时对象的键名键值
+  - name:迭代时对象的键名
+  - index:当前元素的索引
+
+List item在遍历对象时，会按 Object.keys() 的结果遍历，但是不能保证它的结果在不同的 JavaScript 引擎下都一致，v-for也可以在实现了可迭代协议的值上使用，包括原生的Map和Set。
+
+## 数组更新检测
+1. 变异方法
+变异方法(mutation method)，顾名思义，会改变被这些方法调用的原始数组。
+
+Vue 包含一组观察数组的变异方法，所以它们也将会触发视图更新。这些方法如下：
+ - push()      
+ - pop()
+ - shift()
+ - unshift()
+ - splice()
+ - sort()
+ - reverse()
+
+2.非变异方法
+
+相非变异(non-mutating method)方法，例如： filter(), concat() 和 slice() 。这些不会改变原始数组，但总是返回一个新数组
+
+
+## 显示过滤 / 排序结果
+有时，我们想要显示一个数组的过滤或排序副本，而不实际改变或重置原始数据。在这种情况下，可以创建返回过滤或排序数组的计算属性。
+``` vue
+<!-- 取到 numbers 里面的偶数位的值 -->
+<li v-for="n in evenNumbers">{{ n }}</li>
+
+
+data: {
+    numbers: [ 1, 2, 3, 4, 5 ]
+},
+computed: {
+    evenNumbers: function () {
+        return this.numbers.filter(function (number) {
+        return number % 2 === 0
+        })
+    }
+}
+```
+在计算属性不适用的情况下 (例如，在嵌套 v-for 循环中) 你可以使用一个 method 方法：
+``` vue
+<li v-for="n in even(numbers)">{{ n }}</li>
+data: {
+    numbers: [ 1, 2, 3, 4, 5 ]
+},
+methods: {
+    even: function (numbers) {
+        return numbers.filter(function (number) {
+        return number % 2 === 0
+        })
+    }
+}
+```
+
+## 对象更新检测
+我们可以用以下三种方法对对象进行更新：
+
+如果你需要为对象属性之中添加新的属性，那么我么你可以利用以下两种方法
+``` js
+Vue.set("目标对象","属性","值")
+vm.$set("目标对象","属性","值")
+```
+如果我们想更新对象中的属性，以下这种方法可以满足你
+```
+this.userProfile = Object.assign({}, this.userProfile, {
+    age: 27,
+    favoriteColor: 'Vue Green'
+})
+this.userProfile   //对象本身的属性
+
+Object.assign()    //es6新增加的方法，用来将源对象的所有可枚举属性，复制到目标对象。它至少需要两个对象作为参数，第一个参数是目标对象，后面的参数都是源对象
+
+{
+    age: 27,
+    favoriteColor: 'Vue Green'
+}                 
+//你需要增加的属性
+```
+
+如果目标对象与源对象有同名属性，或多个源对象有同名属性，则后面的属性会覆盖前面的属性。
+注意！我们不更改根属性的属性，只能更改跟属性以下的子属性的属性
+
+
+
+
+
 ## 数据代理
 通过一个对象代理对另一个对象中属性的操作（读|写）
 
