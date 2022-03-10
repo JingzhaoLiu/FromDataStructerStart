@@ -57,6 +57,18 @@ Object.defineProperty(person, 'age', {
 
 ```
 
+## 生命周期
+
+beforeCreate
+created
+beforeMount
+mounted
+beforeUpdate
+updated
+beforeUnMount
+unMounted
+
+
 ## for循环
 - V-for循环遍历数组时推荐使用of，语法格式为(item，index)
   - item:迭代时不同的数组元素的值
@@ -208,6 +220,7 @@ data中数据放入vm._data，通过代理vm可以修改data
 
 ## $attrs
 组件外部传递过来，但没有在props配置中声明的属性, 相当于 ```this.$attrs```(捡漏)
+
 ## $slots
 收到的插槽内容
 
