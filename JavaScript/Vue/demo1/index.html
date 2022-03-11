@@ -16,11 +16,11 @@
       name:{{name}}
       index:{{index}}
     </div> -->
-     <div v-for="(val,index) in arr">
+    <div v-for="(val,index) in arr">
       val:{{val}}
       index:{{index}}
     </div>
-  <!-- <div v-for="(val,index) of arr">
+    <!-- <div v-for="(val,index) of arr">
       val:{{val}}
       index:{{index}}
     </div> -->
@@ -28,21 +28,23 @@
   <script>
     const app = Vue.createApp({
       data() {
-        return {
-          content: 'hello world',
-          obj: { a: [1,2,3], b: {b:3}, c: 3 },
-          arr: ['a', 'b', 'c', 'd']
-        }
+        return { count: 1, count1: 1 }
       },
-      mounted() {
+      template: `<counter v-model:app="count" v-model:web="count1" />`
+    })
 
-        this.arr.splice(5);
-        console.log('this.arr: ', this.arr);
-        // setInterval(val=>{
-        //   this.content += 1
-        // }, 1000)
-        // this.content = this.content.split('').reverse().join('');
+    app.component('counter', {
+
+      props: ['app', 'web'],
+      methods: {
+        handleClick() {
+          this.$emit('update:app', this.app + 1)
+        },
+        handleClick1() {
+          this.$emit('update:web', this.web + 1)
+        },
       },
+      template: `<div @click="handleClick">{{app}}</div><div @click="handleClick1">{{web}}</div>`
     })
     const vm = app.mount("#root");
     console.log('vm: ', vm);
