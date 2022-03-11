@@ -321,6 +321,23 @@ Vue.component('my-component', {
 })
 ```
 
+
+## 非 prop 的 attribute
+传递了 没有接受 会直接加在子组件的属性上 
+可以使用  ` inheritAttrs: false, ` 禁用
+你可以使用组件的 $attrs property 将 attribute 应用到其它元素上
+
+``` js
+app.component('date-picker', {
+  inheritAttrs: false,
+  template: `
+    <div class="date-picker">
+      <input type="datetime-local" v-bind="$attrs" />
+    </div>
+  `
+})
+```
+
 # Vue3
 
 ``` js
