@@ -125,3 +125,30 @@ p::first-letter	选择每个 <p> 元素的首字母。
 p::first-line	选择每个 <p> 元素的首行。
 ## ::selection	
 p::selection	选择用户选择的元素部分。
+
+
+什么是width和height？它们是元素的实际大小么
+width 当块级元素（div、h系列、li等）没有设置width属性时，它
+将自动撑满，但这并不意味着width可以继承
+
+height 
+盒子的属性如果不设置，它将自动被其内容撑开
+没有内容，则默认是0
+
+元素实际大小和元素空间尺寸分别指什么？
+
+元素实际大小： width + padding + border
+元素空间尺寸： 加上margin
+
+
+box-sizing属性的作用是什么？
+
+块级元素 width自动撑满
+行内元素 width自动收缩
+
+display: none;
+visibility: hidden;
+
+### margin的塌陷
+
+- 竖直方向的margin有塌陷现象：小的margin会塌陷到大的margin中，从而不叠加，只以大值为准
