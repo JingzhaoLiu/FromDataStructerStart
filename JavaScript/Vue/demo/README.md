@@ -9,6 +9,13 @@ transform: scale(0.5, 0.5);
 transform-origin: center top;
 ```
 
+省略
+``` css
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
+```
+
 ### scss: 
 
 - & 的用法  外层的占位符
