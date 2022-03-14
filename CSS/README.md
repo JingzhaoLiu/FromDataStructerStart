@@ -90,10 +90,24 @@ background:#ff0000;
 <p>第三个段落。</p>
 <p>第四个段落。</p>
 ```
+## 除了最后第一个元素加下划线
+``` css
+:not(:nth-last-child(1)){
+    border-bottom: 1px solid red;
+}
+
+/* 除了最后第二个元素加下划线 */
+:not(:nth-last-child(2)){
+    border-bottom: 1px solid red;
+}
+```
+
 
 ## :nth-of-type(n)
 
 p:nth-of-type(2)	选择作为其父的第二个 <p> 元素的每个 <p> 元素。
+
+
 
 ## :not(selector)	
 :not(p)	选择每个并非p元素的元素
