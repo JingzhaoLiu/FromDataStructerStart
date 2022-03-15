@@ -1,5 +1,14 @@
 # css容易混淆的点
 
+
+## 伪类
+顺序不对，伪类不生效
+
+:ink
+:visited
+:hover
+:active
+
 ## 子选择器 (>)
 只有子元素才起作用
 ``` html
@@ -107,6 +116,11 @@ background:#ff0000;
 
 p:nth-of-type(2)	选择作为其父的第二个 <p> 元素的每个 <p> 元素。
 
+
+span:nth-child(2)：
+选中是第二个孩子而且是span标签；
+p:nth-of-type(2)
+将所有孩子中的p标签拎出来，找到第2个。
 
 
 ## :not(selector)	
