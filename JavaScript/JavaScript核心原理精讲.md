@@ -49,6 +49,60 @@ console.log(person.age);    // 1
 
 
 
+## 数组原理
+
+数组的构造器有哪几种？
+```
+new Array(3); // [empty × 3]
+new Array(3,4,5);
+let arr2 = [];  // []
+arr2.length = 6 // [undefined × 6]
+Array.of(3,4,5)
+Array.from([1,2,4])
+```
+
+new Array(arg1, arg2,…)，参数长度为 0 或长度大于等于 2 时，传入的参数将按照顺序依次成为新数组的第 0 至第 N 项（参数长度为 0 时，返回空数组）；
+
+new Array(len)，当 len 不是数值时，处理同上，返回一个只包含 len 元素一项的数组；当 len 为数值时，len 最大不能超过 32 位无符号整型，（len 最大为 Math.pow(2,32) - 1），否则将抛出 RangeError。
+If the only argument passed to the Array constructor is an integer between 0 and 2^32 - 1 (inclusive). If the argument is any other number, a RangeError exception is thrown;
+
+
+哪些是改变自身的方法？
+``` js
+shift
+unshift
+pop
+push
+splice
+```
+
+
+
+哪些是不改变自身的方法？
+slice
+
+
+遍历的方法有哪些？
+for
+for in
+for of
+forEach
+map
+filter
+every
+reduce
+
+
+
+
+## 数组排序
+
+
+## 数组方法实现
+
+
+
+
 ## 前端的知识体系
 1.关于岗位
 无论你是否处于求职阶段，都一定要对自己的职业规划有一个清晰的定位,对于目标公司的选人标准你首先要搞清楚
