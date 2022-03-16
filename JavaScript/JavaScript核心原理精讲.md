@@ -1,9 +1,9 @@
-# JavaScript核心原理精讲    2/26
+# JavaScript核心原理精讲    3/26
 
 ## 开篇
 扎实掌握并加强原生 JavaScript 的核心原理及编码功底、深入理解前端框架源代码，对于提升自己的前端技术能力、提高职业生涯天花板是非常有必要的。
 
-希望你不仅跟着我的思路去理解内容本身，还能在学习过程中在 IDE 里面亲自动手实现一遍，从而深刻体会程序实现逻辑的一些细节，进而加深对每一部分知识点的理解，做到融会贯通。
+希望你不仅跟着我的思路去理解内容本身，还能在学习过程中亲自动手实现一遍，从而深刻体会程序实现逻辑的一些细节，进而加深对每一部分知识点的理解，做到融会贯通。
 
 你也不妨给自己养成一个好习惯，每看完一篇文章就对知识点进行总结，形成自己的学习思维脑图，等到学完全部课程以后再来回顾，以便加深知识理解。
 
@@ -51,7 +51,7 @@ console.log(person.age);    // 1
 
 ## 数组原理
 
-数组的构造器有哪几种？
+1. 数组的构造器有哪几种？
 ```
 new Array(3); // [empty × 3]
 new Array(3,4,5);
@@ -67,32 +67,194 @@ new Array(len)，当 len 不是数值时，处理同上，返回一个只包含 
 If the only argument passed to the Array constructor is an integer between 0 and 2^32 - 1 (inclusive). If the argument is any other number, a RangeError exception is thrown;
 
 
-哪些是改变自身的方法？
+Array.from 拥有 3 个参数：
+
+1. 类似数组的对象，必选；
+
+2. 加工函数，新生成的数组会经过该函数的加工再返回；
+
+3. this 作用域，表示加工函数执行时 this 的值。
+
+这三个参数里面第一个参数是必选的，后两个参数都是可选的
+
+Array.from() lets you create Arrays from:
+
+- array-like objects (objects with a length property and indexed elements); 
+- or iterable objects (objects such as Map and Set).
+
+
+``` js
+var obj = {0: 'a', 1: 'b', 2:'c', length: 3};
+Array.from(obj, function(value, index){
+  console.log(value, index, this, arguments.length);   
+  return value.repeat(3);   //必须指定返回值，否则返回 undefined
+}, obj);
+
+Array.from(obj, (value) => value.repeat(3));
+Array.from(obj);
+
+
+
+Array.from('abc');         // ["a", "b", "c"]
+// Set
+Array.from(new Set(['abc', 'def'])); // ["abc", "def"]
+// Map
+Array.from(new Map([[1, 'ab'], [2, 'de']])); 
+
+
+
+const map = new Map([[1, 2], [2, 4], [4, 8]]);
+Array.from(map);
+// [[1, 2], [2, 4], [4, 8]]
+
+const mapper = new Map([['1', 'a'], ['2', 'b']]);
+Array.from(mapper.values());
+// ['a', 'b'];
+
+Array.from(mapper.keys());
+// ['1', '2'];
+
+```
+
+2. 数组的判断
+``` js
+var a = [];
+// 1.基于instanceof
+a instanceof Array;
+// 2.基于constructor
+a.constructor === Array;
+// 3.基于Object.prototype.isPrototypeOf
+Array.prototype.isPrototypeOf(a);
+// 4.基于getPrototypeOf
+Object.getPrototypeOf(a) === Array.prototype;
+// 5.基于Object.prototype.toString
+Object.prototype.toString.apply(a) === '[object Array]';
+// 6
+Array.isArray(a);
+
+
+if (!Array.isArray){
+  Array.isArray = function(arg){
+    return Object.prototype.toString.call(arg) === '[object Array]';
+  };
+}
+```
+
+3. 哪些是改变自身的方法？
 ``` js
 shift
 unshift
 pop
 push
 splice
+reverse
+sort
+copyWithin
+fill
+```
+
+``` js
+copyWithin(target, start, end)
+[1, 2, 3, 4, 5].copyWithin(-2)
+// [1, 2, 3, 1, 2]
+
+[1, 2, 3, 4, 5].copyWithin(0, 3)
+// [4, 5, 3, 4, 5]
+
+[1, 2, 3, 4, 5].copyWithin(0, 3, 4)
+// [4, 2, 3, 4, 5]
+
+[1, 2, 3, 4, 5].copyWithin(-2, -3, -1)
+// [1, 2, 3, 3, 4]
+```
+
+``` js
+[1, 2, 3].fill(4);               // [4, 4, 4]
+[1, 2, 3].fill(4, 1);            // [1, 4, 4]
+[1, 2, 3].fill(4, 1, 2);         // [1, 4, 3]
+[1, 2, 3].fill(4, 1, 1);         // [1, 2, 3]
+[1, 2, 3].fill(4, 3, 3);         // [1, 2, 3]
+[1, 2, 3].fill(4, -3, -2);       // [4, 2, 3]
+[1, 2, 3].fill(4, NaN, NaN);     // [1, 2, 3]
+[1, 2, 3].fill(4, 3, 5);         // [1, 2, 3]
+Array(3).fill(4);                // [4, 4, 4]
+[].fill.call({ length: 3 }, 4);  // {0: 4, 1: 4, 2: 4, length: 3}
+
+// Objects by reference.
+var arr = Array(3).fill({}) // [{}, {}, {}];
+// 需要注意如果fill的参数为引用类型，会导致都执行同一个引用类型
+// 如 arr[0] === arr[1] 为true
+arr[0].hi = "hi"; // [{ hi: "hi" }, { hi: "hi" }, { hi: "hi" }]
+
+```
+
+``` js
+var merge = function(nums1, m, nums2, n) {
+    nums1.splice(m);
+    nums2.splice(n);
+    nums1.push(...nums2);
+    nums1.sort((a,b) => a - b);  // nums1从小到大排列，所以是a-b
+    console.log('nums1: ', nums1);
+
+};
+
+let nums1 = [1,2,3,0,0,0],
+m = 3,
+nums2 = [2,5,6],
+n = 3;
+merge(nums1, m, nums2, n);
+
 ```
 
 
 
-哪些是不改变自身的方法？
-slice
+4. 哪些是不改变自身的方法？
+
+concat、join、slice、toString、toLocaleString、indexOf、lastIndexOf
+
+``` js
+// includes方法
+var array = [-0, 1, 2];
+console.log(array.includes(+0)); // true
+console.log(array.includes(1)); // true
+var array = [NaN];
+console.log(array.includes(NaN)); // true
+```
+
+5. 遍历的方法有哪些？
+
+forEach、every、some、filter、map、reduce、reduceRight，以及 ES6 新增的方法 entries、find、findIndex、keys、values
+
+``` js
+
+// entries方法
+var array = ["a", "b", "c"];
+var iterator = array.entries();
+console.log(iterator.next().value); // [0, "a"]
+console.log(iterator.next().value); // [1, "b"]
+console.log(iterator.next().value); // [2, "c"]
+console.log(iterator.next().value); // undefined, 迭代器处于数组末尾时, 再迭代就会返回undefined
+
+// keys方法
+[...Array(10).keys()];     // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[...new Array(10).keys()]; // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+// values方法
+var array = ["abc", "xyz"];
+var iterator = array.values();
+console.log(iterator.next().value);//abc
+console.log(iterator.next().value);//xyz
+```
+
+所有插入元素的方法，比如 push、unshift 一律返回数组新的长度；
+
+所有删除元素的方法，比如 pop、shift、splice 一律返回删除的元素，或者返回删除的多个元素组成的数组；
+
+部分遍历方法，比如 forEach、every、some、filter、map、find、findIndex，它们都包含 function(value,index,array){} 和 thisArg 这样两个形参。
 
 
-遍历的方法有哪些？
-for
-for in
-for of
-forEach
-map
-filter
-every
-reduce
 
-
+在日常的前端开发工作中，往往会忽视对数组 API 方法的系统性学习，但其实因为数组的方法较多，每个方法的参数和细节也比较零散，很难有一个系统的、整体的认识，在开发过程中还要频繁地查询 MDN 文档，造成效率低下以及代码能力难以进一步提升等问题。
+因此通过刻意的学习，很好地掌握数组的 API 方法，以便在开发中规避这些问题，提高效率，准点下班。
 
 
 ## 数组排序
