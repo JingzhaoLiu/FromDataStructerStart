@@ -1,4 +1,4 @@
-# JavaScript 核心原理精讲 4/26
+# JavaScript 核心原理精讲 5/26
 
 ## 开篇
 
@@ -12,7 +12,7 @@
 
 ## JS 数据类型的相关知识（概念、检测方法、转换方法）
 
-基础类型：
+1. 基础类型：
 null、undefined、string、number、boolean、symbol、bigInt
 基础类型存储在栈内存，被引用或拷贝时，会创建一个完全相等的变量
 
@@ -44,7 +44,102 @@ function change(o) {
 let student = change(person);
 console.log(student.age); // 第一个console  30
 console.log(person.age); // 1
+```  
+
+2. 检测
+
+``` js
+typeof 1 // 'number'
+typeof '1' // 'string'
+typeof undefined // 'undefined'
+typeof true // 'boolean'
+typeof Symbol() // 'symbol'
+typeof null // 'object'
+typeof [] // 'object'
+typeof {} // 'object'
+typeof console // 'object'
+typeof console.log // 'function'
+
+[] instanceof Array
+
+
+Object.prototype.toString({})       // "[object Object]"
+Object.prototype.toString.call({})  // 同上结果，加上call也ok
+Object.prototype.toString.call(1)    // "[object Number]"
+Object.prototype.toString.call('1')  // "[object String]"
+Object.prototype.toString.call(true)  // "[object Boolean]"
+Object.prototype.toString.call(function(){})  // "[object Function]"
+Object.prototype.toString.call(null)   //"[object Null]"
+Object.prototype.toString.call(undefined) //"[object Undefined]"
+Object.prototype.toString.call(/123/g)    //"[object RegExp]"
+Object.prototype.toString.call(new Date()) //"[object Date]"
+Object.prototype.toString.call([])       //"[object Array]"
+Object.prototype.toString.call(document)  //"[object HTMLDocument]"
+Object.prototype.toString.call(window)   //"[object Window]"
+
 ```
+
+``` js
+function myInstanceOf(left, right){
+
+  // 限定范围
+
+  if(left === null || typeof left !== 'object') return false;
+  
+  // 原型链判断
+  let proto = Object.getPrototypeOf(left);
+  while(true) {
+    // 找到最后了 没有找到
+    if (proto === null) return false;
+
+    // 找到了
+    // Object.getPrototypeOf(value) === Number.prototype;  
+    if (proto === right.prototype) return true;
+
+    // 当前没有找到 查找上一层
+    proto = Object.getPrototypeOf(proto);
+
+  }
+
+}
+
+
+console.log(myInstanceOf(new Number(1), Number));
+console.log(myInstanceOf(123, Number));
+
+```
+
+``` js
+function getType(obj){
+  let type  = typeof obj;
+  if (type !== "object") {    // 先进行typeof判断，如果是基础数据类型，直接返回
+    return type;
+  }
+  // 对于typeof返回结果是object的，再进行如下的判断，正则返回结果
+  return Object.prototype.toString.call(obj).replace(/^\[object (\S+)\]$/, '$1');  // 注意正则中间有个空格
+}
+/* 代码验证，需要注意大小写，哪些是typeof判断，哪些是toString判断？思考下 */
+getType([])     // "Array" typeof []是object，因此toString返回
+getType('123')  // "string" typeof 直接返回
+getType(window) // "Window" toString返回
+getType(null)   // "Null"首字母大写，typeof null是object，需toString来判断
+getType(undefined)   // "undefined" typeof 直接返回
+getType()            // "undefined" typeof 直接返回
+getType(function(){}) // "function" typeof能判断，因此首字母小写
+getType(/123/g)      //"RegExp" toString返回
+
+```
+
+3. 数据类型转换
+
+
+
+
+
+
+
+
+
 
 ## JS 闭包
 
@@ -400,6 +495,63 @@ console.log(iterator.next().value); //xyz
 ## 数组排序
 
 ## 数组方法实现
+
+
+## 异步编程
+回调函数、事件监听、Promise、Generator、async/await
+
+什么是同步？
+所谓的同步就是在执行某段代码时，在该代码没有得到返回结果之前，其他代码暂时是无法执行的，但是一旦执行完成拿到返回值之后，就可以执行其他代码了。换句话说，在此段代码执行完未返回结果之前，会阻塞之后的代码执行，这样的情况称为同步。
+
+什么是异步？
+所谓异步就是当某一代码执行异步过程调用发出后，这段代码不会立刻得到返回结果。而是在异步调用发出之后，一般通过回调函数处理这个调用之后拿到结果。异步调用发出后，不会影响阻塞后面的代码执行，这样的情形称为异步。
+
+
+## 垃圾回收
+
+对于简单的数据类型，内存是保存在栈（stack）空间中的；复杂数据类型，内存保存在堆（heap）空间中。简而言之，基本就是说明以下两点。
+
+基本类型：这些类型在内存中会占据固定的内存空间，它们的值都保存在栈空间中，直接可以通过值来访问这些；
+
+引用类型：由于引用类型值大小不固定（比如上面的对象可以添加属性等），栈内存中存放地址指向堆内存中的对象，是通过引用来访问的。
+
+栈内存中的基本类型，可以通过操作系统直接处理；而堆内存中的引用类型，正是由于可以经常变化，大小不固定，因此需要 JavaScript 的引擎通过垃圾回收机制来处理。
+
+1. 新生代内存回收
+
+from |  to
+
+图中左边部分表示正在使用的内存空间，右边是目前闲置的内存空间。当浏览器开始进行内存的垃圾回收时，JavaScript 的 V8 引擎会将左边的对象检查一遍。如果引擎检测是存活对象，那么会复制到右边的内存空间去；如果不是存活的对象，则直接进行系统回收。当所有左边的内存里的对象没有了的时候，等再有新生代的对象产生时，上面的部分左右对调（标记一下 比移动数据快），这样来循环处理。
+
+有的被清理 有的还保留 内存占用就是零散的（不规则排列）
+算法 Scavenge，它主要就是解决内存碎片的情况（规则排列）
+
+
+2. 老生代内存回收
+只要是已经经历过一次 Scavenge 算法回收的，就可以晋升为老生代内存的对象。那么在进入老生代的内存回收机制中，就不能再用 Scavenge 的算法了。
+Mark-Sweep（标记清除） 和 Mark-Compact（标记整理）的策略
+Mark-Sweep：标记阶段和清除阶段。
+
+首先它会遍历堆上的所有的对象，分别对它们打上标记；然后在代码执行过程结束之后，对使用过的变量取消标记。那么没取消标记的就是没有使用过的变量，因此在清除阶段，就会把还有标记的进行整体清除，从而释放内存空间。
+
+但是其实通过标记清除之后，还是会出现上面图中的内存碎片的问题。就需要标记整理。
+
+
+标记整理添加了活动对象整理阶段，处理过程中会将所有的活动对象往一端靠拢，整体移动完成后，直接清理掉边界外的内存
+
+- 内存泄漏的场景：
+
+  - 过多的缓存未释放；
+
+  - 闭包太多未释放；
+
+  - 定时器或者回调太多未释放；
+
+  - 太多无效的 DOM 未释放；
+
+  - 全局变量太多未被发现。
+
+
 
 ## 前端的知识体系
 
