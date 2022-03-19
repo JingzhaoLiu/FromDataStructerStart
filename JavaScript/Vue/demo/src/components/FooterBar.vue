@@ -2,7 +2,9 @@
   <div class="footer">
     <div>
       <div class="iconfont icon-dizhi"></div>
-      <nav class="footer__item" :class="{ 'footer__item--active': true }">index</nav>
+      <nav class="footer__item" :class="{ 'footer__item--active': true }">
+        index
+      </nav>
     </div>
     <div>
       <div class="iconfont icon-shouye1"></div>
