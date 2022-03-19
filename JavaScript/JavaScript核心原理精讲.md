@@ -132,9 +132,130 @@ getType(/123/g)      //"RegExp" toString返回
 
 3. 数据类型转换
 
+``` js
+'123' == 123   // false or true?
+'' == null    // false or true?
+'' == 0        // false or true?
+[] == 0        // false or true?
+[] == ''       // false or true?
+[] == ![]      // false or true?
+null == undefined //  false or true?
+Number(null)     // 返回什么？
+Number('')      // 返回什么？
+parseInt('');    // 返回什么？
+{}+10           // 返回什么？
+let obj = {
+    [Symbol.toPrimitive]() {
+        return 200;
+    },
+    valueOf() {
+        return 300;
+    },
+    toString() {
+        return 'Hello';
+    }
+}
+console.log(obj + 200); // 这里打印出来是多少？
+
+```
+
+
+3.1 强制转换
+<!-- Number()、parseInt()、parseFloat()、toString()、String()、Boolean() -->
+
+
+3.1.1 Number() 方法的强制转换规则
+
+如果是布尔值，true 和 false 分别被转换为 1 和 0；
+
+如果是数字，返回自身；
+
+如果是 null，返回 0；
+
+如果是 undefined，返回 NaN；
+
+如果是字符串，遵循以下规则：如果字符串中只包含数字（或者是 0X / 0x 开头的十六进制数字字符串，允许包含正负号），则将其转换为十进制；如果字符串中包含有效的浮点格式，将其转换为浮点数值；如果是空字符串，将其转换为 0；如果不是以上格式的字符串，均返回 NaN；
+
+如果是 Symbol，抛出错误；
+
+如果是对象，并且部署了 [Symbol.toPrimitive] ，那么调用此方法，否则调用对象的 valueOf() 方法，然后依据前面的规则转换返回的值；如果转换的结果是 NaN ，则调用对象的 toString() 方法，再次依照前面的顺序转换返回对应的值。
+
+``` js
+Number(true);        // 1
+Number(false);       // 0
+Number('0111');      //111
+Number(null);        //0
+Number('');          //0
+Number('1a');        //NaN
+Number(-0X11);       //-17
+Number('0X11')       //17
+```
+
+3.1.2 Boolean() 方法的强制转换规则
+
+这个方法的规则是：除了 undefined、 null、 false、 ''、 0（包括 +0，-0）、 NaN 转换出来是 false，其他都是 true。
+``` js
+Boolean(0)          //false
+Boolean(null)       //false
+Boolean(undefined)  //false
+Boolean(NaN)        //false
+Boolean('')        //false
+Boolean(false)        //false
+Boolean(1)          //true
+Boolean(13)         //true
+Boolean('12')       //true
+```
+
+3.1.3 parseInt()
+
+数字：返回整数  10进制
+字符串：以数字开始（或者是 0X / 0x 开头的十六进制数字字符串，允许包含正负号）  返回整数  
+其他（空字符串、null、undefined、true、false 等等） NaN
+
+3.1.4 parseFloat()
+
+数字：返回浮点数  10进制
+字符串：以数字开始（或者是 0X / 0x 开头的十六进制数字字符串，允许包含正负号）  返回浮点数  
+其他（空字符串、null、undefined、true、false 等等） NaN
+
+3.1.5 String()
+
+原始类型值
+    number
+    string
+    null
+    undefined
+    boolean
+对象
+    ToPrimitive·得到原始值再转换
+    对象
+        String({a: 1}) // "[object Object]"      
+        类型字符串
+    数组
+        String([1, 2, 3]) // "1,2,3"
+        该数组的字符串形式
+        String([1,2,[4,3,[3,4,5]],])
+            "1,2,4,3,3,4,5"
+            可以铺平纯数字数组
 
 
 
+3.2 隐式类型转换
+
+
+
+
+
+
+
+
+
+
+
+
+![隐式转换](../img/js_tag_chang.png)
+
+![隐式转换思维导图](../img/js_tag_change_xmind.png)
 
 
 
