@@ -377,6 +377,15 @@ app.component("date-picker", {
 });
 ```
 
+## mixin
+局部mixin
+全局自定义
+this.$options  可以获取所有属性 包括自定义属性
+
+app.config.optionMergeStrategies.number = (mixinVal,appValue)=>{
+  return mixinVal || appValue
+}
+
 # Vue3
 
 ```js
