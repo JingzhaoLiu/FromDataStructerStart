@@ -1,6 +1,6 @@
 ## css
 
-BEM: footer(块) footer**item（**元素） footer\_\_item--active（--修饰）
+BEM: footer(块) footer__item（__元素） footer__item--active（--修饰）
 
 字体缩小：
 
@@ -79,6 +79,125 @@ class="footer__item" :class="{'footer__item--active': true}"
 
 // 但是多个条件会报错
 class="footer__item" :class="{'footer__item--active': true}" :class="{'footer__item--style': true}"
+```
+
+``` js
+const userInfo = reactive({
+    name: "",
+    password: "",
+  });
+
+  const { name, password } = toRefs(userInfo);
+  const age = toRef(userInfo,'age') // userInfo没有age属性 会赋一个空的响应式数据  toRefs不会 取没有的数据赋不上值
+
+```
+
+``` js
+
+export const useToastEffect = () => {
+  const data = reactive({
+    toastMessage: "",
+    showToast: false,
+  });
+
+  const showToastFn = txt => {
+    data.showToast = true;
+    data.toastMessage = txt;
+    setTimeout(() => {
+      data.showToast = false;
+      data.toastMessage = "";
+    }, 2000);
+  };
+
+  const { toastMessage, showToast } = toRefs(data);
+
+  return [toastMessage, showToast, showToastFn];
+};
+
+const useSubmitEffect = showToastFn => {
+  const router = useRouter();
+  const userInfo = reactive({
+    name: "",
+    password: "",
+  });
+
+  const { name, password } = toRefs(userInfo);
+
+  const submit = () => {
+    if (name.value === "admin" && password.value === "root") {
+      localStorage.setItem("isLogin", true);
+      router.push({ path: "/" });
+    } else {
+      showToastFn("登录错误");
+      localStorage.setItem("isLogin", false);
+    }
+  };
+
+  return { name, password, submit };
+};
+
+
+  setup() {
+    const [toastMessage, showToast, showToastFn] = useToastEffect();
+
+    const { name, password, submit } = useSubmitEffect(showToastFn);
+
+    return { name, password, submit, toastMessage, showToast };
+  }
+
+
+```
+
+[Vue Router 提供了懒加载支持](https://v3.cn.vuejs.org/guide/ssr/routing.html#%E4%BB%A3%E7%A0%81%E5%88%86%E7%A6%BB)
+
+
+``` js
+
+const routes = [
+  {
+    path: "/",
+    component: Home,  // 直接加载
+  },
+  {
+    path: "/home",
+    component: () => import("../views/Home.vue"), // 按需加载
+  },
+  {
+    path: "/shop/:id",  // 传递id
+    component: () => import("../views/Shop.vue"), 
+  },
+  {
+    path: "/login",
+    // name: "Login",
+    component: () => import("../views/Login.vue"),
+    beforeEnter: (to, from, next) => {
+      const { isLogin } = localStorage;
+      isLogin === "true" ? next({ path: "/" }) : next();
+    },
+  }
+];
+
+
+// vue页面路由跳转
+<router-link :to="`/shop/${item.id}`" />
+
+// 返回上一页
+router.back();
+
+
+// main.js
+
+router.isReady().then(() => {
+  app.mount('#app')
+})
+```
+
+<!-- 获取路径信息 -->
+``` js
+const route = useRoute()
+const id = route.params.id;
+
+
 ```
 
 ## js

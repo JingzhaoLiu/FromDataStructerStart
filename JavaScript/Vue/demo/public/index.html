@@ -7,6 +7,11 @@
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_3240791_ed8wvssg7nl.css">
+    <script>
+      var width = document.documentElement.clientWidth || document.body.clientWidth;
+      var fontSize = width / 750 * 100;
+      document.getElementsByTagName('html')[0].style['font-size'] = fontSize + 'px';
+    </script>
   </head>
   <body>
     <noscript>

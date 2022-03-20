@@ -34,7 +34,7 @@ const useSubmitEffect = showToastFn => {
     }
   };
 
-  return [name, password, submit];
+  return { name, password, submit };
 };
 
 export default {
@@ -46,7 +46,7 @@ export default {
   setup() {
     const [toastMessage, showToast, showToastFn] = useToastEffect();
 
-    const [name, password, submit] = useSubmitEffect(showToastFn);
+    const { name, password, submit } = useSubmitEffect(showToastFn);
 
     return { name, password, submit, toastMessage, showToast };
   },

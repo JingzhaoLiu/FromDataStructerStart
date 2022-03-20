@@ -4,7 +4,7 @@
       <i class="iconfont icon-gouwuche"></i>
     </div>
     <div class="banner">
-      <img
+      <img v-show="'name'"
         src="https://img1.baidu.com/it/u=3042160575,2573878710&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500"
       />
     </div>

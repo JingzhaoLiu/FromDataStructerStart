@@ -1,23 +1,23 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
-import Home from "../views/Home.vue";
-import Login from "../views/Login.vue";
+// import Home from "../views/Home.vue";
+// import Login from "../views/Login.vue";
 
 const routes = [
   {
     path: "/",
     // name: "Home",
-    component: Home,
+    component: () => import("../views/Home.vue"),
   },
   {
     path: "/home",
     // name: "Home",
-    component: Home,
+    component: () => import("../views/Home.vue"),
   },
   {
     path: "/login",
     // name: "Login",
-    component: Login,
+    component: () => import("../views/Login.vue"),
     beforeEnter: (to, from, next) => {
       const { isLogin } = localStorage;
       isLogin === "true" ? next({ path: "/" }) : next();

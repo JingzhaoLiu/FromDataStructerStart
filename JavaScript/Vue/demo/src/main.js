@@ -5,4 +5,9 @@ import store from "./store";
 import "normalize.css";
 import "./assets/base.scss";
 // import "./assets/iconfont.css"
-createApp(App).use(store).use(router).mount("#app");
+const app = createApp(App)
+app.use(store).use(router)
+
+router.isReady().then(()=>{
+  app.mount("#app");
+})
