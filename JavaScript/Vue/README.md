@@ -386,6 +386,20 @@ app.config.optionMergeStrategies.number = (mixinVal,appValue)=>{
   return mixinVal || appValue
 }
 
+
+## provide
+
+##  inject
+
+## ref
+``` js
+const hello = ref(null)
+onMounted(()=>{
+  console.log(hello.value)
+})
+
+<div ref="hello"></div>
+```
 # Vue3
 
 ```js

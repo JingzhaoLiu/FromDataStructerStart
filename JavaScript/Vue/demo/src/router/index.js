@@ -15,6 +15,16 @@ const routes = [
     component: () => import("../views/Home.vue"),
   },
   {
+    path: "/todo",
+    // name: "Home",
+    component: () => import("../views/Todo.vue"),
+  },
+  {
+    path: "/todo1",
+    // name: "Home",
+    component: () => import("../views/Todo1.vue"),
+  },
+  {
     path: "/login",
     // name: "Login",
     component: () => import("../views/Login.vue"),
