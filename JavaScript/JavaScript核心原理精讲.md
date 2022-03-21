@@ -130,32 +130,36 @@ getType(/123/g)      //"RegExp" toString返回
 
 ```
 
-3. 数据类型转换
+3. 数据类型转换 (todo:可以参考红宝书里的相关篇幅)
 
 ``` js
-'123' == 123   // false or true?
-'' == null    // false or true?
-'' == 0        // false or true?
-[] == 0        // false or true?
-[] == ''       // false or true?
-[] == ![]      // false or true?
-null == undefined //  false or true?
-Number(null)     // 返回什么？
-Number('')      // 返回什么？
-parseInt('');    // 返回什么？
-{}+10           // 返回什么？
+'123' == 123   //  true
+'' == null    // false 
+'' == 0        // true
+
+[] == 0        // true
+[] == ''       // true
+[] == ![]      // true
+
+null == undefined //  true
+Number(null)     // 0
+Number('')      // 0
+parseInt('');    // NaN
+{}+10           // 返回什么？  10
+10+{}           // 返回什么？  '10[object Object]'
 let obj = {
-    [Symbol.toPrimitive]() {
+    [Symbol.toPrimitive]() {   // 优先级最高
         return 200;
     },
-    valueOf() {
+    valueOf() {  // 优先级第二
+        
         return 300;
     },
-    toString() {
+    toString() {    // 优先级最低
         return 'Hello';
     }
 }
-console.log(obj + 200); // 这里打印出来是多少？
+console.log(obj + 200); // 400
 
 ```
 
@@ -242,16 +246,106 @@ Boolean('12')       //true
 
 3.2 隐式类型转换
 
+凡是通过逻辑运算符 (&&、 ||、 !)、运算符 (+、-、*、/)、关系操作符 (>、 <、 <= 、>=)、相等运算符 (==) 或者 if/while 条件的操作，如果遇到两个数据类型不一样的情况，都会出现隐式类型转换
 
 
+3.2.1 '==' 的隐式类型转换规则
+
+如果类型相同，无须进行类型转换；
+
+如果其中一个操作值是 null 或者 undefined，那么另一个操作符必须为 null 或者 undefined，才会返回 true，否则都返回 false；
+
+如果其中一个是 Symbol 类型，那么返回 false；
+
+两个操作值如果为 string 和 number 类型，那么就会将字符串转换为 number；
+
+如果一个操作值是 boolean，那么转换成 number；
+
+如果一个操作值为 object 且另一方为 string、number 或者 symbol，就会把 object 转为原始类型再进行判断（调用 object 的 valueOf/toString 方法进行转换）。
+
+``` js
+null == undefined       // true  规则2
+null == 0               // false 规则2
+'' == null              // false 规则2
+'' == 0                 // true  规则4 字符串转隐式转换成Number之后再对比
+'123' == 123            // true  规则4 字符串转隐式转换成Number之后再对比
+0 == false              // true  e规则 布尔型隐式转换成Number之后再对比
+1 == true               // true  e规则 布尔型隐式转换成Number之后再对比
+var a = {
+  value: 0,
+  valueOf: function() {
+    this.value++;
+    return this.value;
+  }
+};
+// 注意这里a又可以等于1、2、3
+console.log(a == 1 && a == 2 && a ==3);  //true f规则 Object隐式转换
+// 注：但是执行过3遍之后，再重新执行a==3或之前的数字就是false，因为value已经加上去了，这里需要注意一下
+```
 
 
+3.2.2 '+' 的隐式类型转换规则
 
+'+' 号操作符，不仅可以用作数字相加，还可以用作字符串拼接。仅当 '+' 号两边都是数字时，进行的是加法运算；如果两边都是字符串，则直接拼接，无须进行隐式类型转换。
 
+除了上述比较常规的情况外，还有一些特殊的规则，如下所示。
 
+如果其中有一个是字符串，另外一个是 undefined、null 或布尔型，则调用 toString() 方法进行字符串拼接；如果是纯对象、数组、正则等，则默认调用对象的转换方法会存在优先级（下一讲会专门介绍），然后再进行拼接。
 
+如果其中有一个是数字，另外一个是 undefined、null、布尔型或数字，则会将其转换成数字进行加法运算，对象的情况还是参考上一条规则。
 
+如果其中一个是字符串、一个是数字，则按照字符串规则进行拼接。
 
+``` js
+'1' + undefined   // "1undefined" 规则1，undefined转换字符串
+'1' + null        // "1null" 规则1，null转换字符串
+'1' + true        // "1true" 规则1，true转换字符串
+'1' + 1n          // '11' 比较特殊字符串和BigInt相加，BigInt转换为字符串
+1 + undefined     // NaN  规则2，undefined转换数字相加NaN
+1 + null          // 1    规则2，null转换为0
+1 + true          // 2    规则2，true转换为1，二者相加为2
+1 + 1n            // 错误  不能把BigInt和Number类型直接混合相加
+'1' + 3           // '13' 规则3，字符串拼接
+```
+
+3.2.3 Object 的转换规则
+
+对象转换的规则，会先调用内置的 [ToPrimitive] 函数，其规则逻辑如下：
+
+如果部署了 Symbol.toPrimitive 方法，优先调用再返回；
+
+调用 valueOf()，如果转换为基础类型，则返回；
+
+调用 toString()，如果转换为基础类型，则返回；
+
+如果都没有返回基础类型，会报错。
+
+``` js
+var obj = {
+  value: 1,
+  valueOf() {
+    return 2;
+  },
+  toString() {
+    return '3'
+  },
+  [Symbol.toPrimitive]() {
+    return 4
+  }
+}
+console.log(obj + 1); // 输出5
+
+10 + {}
+// "10[object Object]"，注意：{}会默认调用valueOf是{}，不是基础类型继续转换，调用toString，返回结果"[object Object]"，于是和10进行'+'运算，按照字符串拼接规则来，
+参考'+'的规则C
+
+// {}+10与10+{}
+// 结果不一样，是因为js引擎在执行{}+10时，会将{}当作空的代码块忽略，所以实际上运行的是+10，相当于Number(10)结果就是10;而10+{}会将{}调用toString()成[object Object]字符串(valueOf()返回的不是基本类型)，结果为10[object Object]
+
+[1,2,undefined,4,5] + 10
+// "1,2,,4,510"，注意[1,2,undefined,4,5]会默认先调用valueOf结果还是这个数组，不是基础数据类型继续转换，也还是调用toString，返回"1,2,,4,5"，然后再和10进行运算，还是按照字符串拼接规则，参考'+'的第3条规则
+
+```
 
 ![隐式转换](../img/js_tag_chang.png)
 
