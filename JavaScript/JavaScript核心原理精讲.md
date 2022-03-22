@@ -140,10 +140,13 @@ getType(/123/g)      //"RegExp" toString返回
 [] == 0        // true
 [] == ''       // true
 [] == ![]      // true
+// const a = []; a.valueOf() //[] a.toString() // ''   
 
+ 
 null == undefined //  true
 Number(null)     // 0
 Number('')      // 0
+Number(undefined)      // NaN
 parseInt('');    // NaN
 {}+10           // 返回什么？  10
 10+{}           // 返回什么？  '10[object Object]'
