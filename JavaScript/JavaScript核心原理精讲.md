@@ -355,13 +355,45 @@ console.log(obj + 1); // 输出5
 ![隐式转换思维导图](../img/js_tag_change_xmind.png)
 
 
+## 深浅拷贝
 
+1. object.assign 方法有几点需要注意：
 
+它不会拷贝对象的继承属性；
 
+它不会拷贝对象的不可枚举的属性；
+
+可以拷贝 Symbol 类型的属性。
+``` js
+let obj1 = { a:{ b:1 }, sym:Symbol(1)}; 
+Object.defineProperty(obj1, 'innumerable' ,{
+    value:'不可枚举属性',
+    enumerable:false
+});
+let obj2 = {};
+Object.assign(obj2,obj1)
+obj1.a.b = 2;
+console.log('obj1',obj1);
+console.log('obj2',obj2);
+```
+
+2. 扩展运算符方式
+``` js
+/* 对象的拷贝 */
+let obj = {a:1,b:{c:1}}
+let obj2 = {...obj}
+obj.a = 2
+console.log(obj)  //{a:2,b:{c:1}} console.log(obj2); //{a:1,b:{c:1}}
+obj.b.c = 2
+console.log(obj)  //{a:2,b:{c:2}} console.log(obj2); //{a:1,b:{c:2}}
+/* 数组的拷贝 */
+let arr = [1, 2, 3];
+let newArr = [...arr]; //跟arr.slice()是一样的效果
+```
 
 ## JS 闭包
 
-1. JavaScript 中的作用域是什么意思?
+1. JavaScript 中的作用域是什么意思? 
 
    - 全局作用域
    - 函数作用域
