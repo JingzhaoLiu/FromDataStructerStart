@@ -421,74 +421,78 @@ const shallowClone = target => {
 };
 ```
 
-
 ### 深拷贝的原理和实现
+
 方法一：乞丐版（JSON.stringify）
-``` js
+
+```js
 let obj1 = { a:1, b:[1,2,3] }
 let str = JSON.stringify(obj1)；
 let obj2 = JSON.parse(str)；
-console.log(obj2);   //{a:1,b:[1,2,3]} 
+console.log(obj2);   //{a:1,b:[1,2,3]}
 obj1.a = 2；
 obj1.b.push(4);
 console.log(obj1);   //{a:2,b:[1,2,3,4]}
 console.log(obj2);   //{a:1,b:[1,2,3]}
 ```
+
 但是使用 JSON.stringify 实现深拷贝还是有一些地方值得注意，我总结下来主要有这几点：
 
 - 拷贝的对象的值中如果有函数、undefined、symbol 这几种类型，经过 JSON.stringify 序列化之后的字符串中这个键值对会消失；
-- 
+-
 - 拷贝 Date 引用类型会变成字符串；
-- 
+-
 - 无法拷贝不可枚举的属性；
-- 
+-
 - 无法拷贝对象的原型链；
-- 
+-
 - 拷贝 RegExp 引用类型会变成空对象；
-- 
+-
 - 对象中含有 NaN、Infinity 以及 -Infinity，JSON 序列化的结果会变成 null；
-- 
+-
 - 无法拷贝对象的循环应用，即对象成环 (obj[key] = obj)。
 
-``` js
-function Obj() { 
-  this.func = function () { alert(1) }; 
-  this.obj = {a:1};
-  this.arr = [1,2,3];
-  this.und = undefined; 
-  this.reg = /123/; 
-  this.date = new Date(0); 
+```js
+function Obj() {
+  this.func = function () {
+    alert(1);
+  };
+  this.obj = { a: 1 };
+  this.arr = [1, 2, 3];
+  this.und = undefined;
+  this.reg = /123/;
+  this.date = new Date(0);
   this.NaN = NaN;
   this.infinity = Infinity;
   this.sym = Symbol(1);
-} 
+}
 let obj1 = new Obj();
-Object.defineProperty(obj1,'innumerable',{ 
-  enumerable:false,
-  value:'innumerable'
+Object.defineProperty(obj1, "innumerable", {
+  enumerable: false,
+  value: "innumerable",
 });
-console.log('obj1',obj1);
+console.log("obj1", obj1);
 let str = JSON.stringify(obj1);
 let obj2 = JSON.parse(str);
-console.log('obj2',obj2);
-
+console.log("obj2", obj2);
 ```
 
 方法二：基础版（手写递归实现）
-``` js
-let obj1 = {
-  a:{
-    b:1
-  }
-}
 
-function deepClone(target){
+```js
+let obj1 = {
+  a: {
+    b: 1,
+  },
+};
+
+function deepClone(target) {
   let cloneObj = Array.isArray(target) ? [] : {};
 
-  for(let prop in target) {
-    if(typeof target[prop] === 'object' && target[prop] !== null) {
+  for (let prop in target) {
+    if (typeof target[prop] === "object" && target[prop] !== null) {
       cloneObj[prop] = deepClone(target[prop]);
-    } else{
+    } else {
       cloneObj[prop] = target[prop];
     }
   }
@@ -497,12 +501,66 @@ function deepClone(target){
 
 let obj2 = deepClone(obj1);
 obj1.a.b = 2;
-console.log(obj2);   //  {a:{b:1}}
-
+console.log(obj2); //  {a:{b:1}}
 ```
 
+```js
+const isComplexDataType = obj =>
+  (typeof obj === "object" || typeof obj === "function") && obj !== null;
+const deepClone = function (obj, hash = new WeakMap()) {
+  if (obj.constructor === Date) return new Date(obj); // 日期对象直接返回一个新的日期对象
+  if (obj.constructor === RegExp) return new RegExp(obj); //正则对象直接返回一个新的正则对象
+  //如果循环引用了就用 weakMap 来解决
+  if (hash.has(obj)) return hash.get(obj);
+  let allDesc = Object.getOwnPropertyDescriptors(obj);
+  //遍历传入参数所有键的特性
+  let cloneObj = Object.create(Object.getPrototypeOf(obj), allDesc);
+  //继承原型链
+  hash.set(obj, cloneObj);
+  for (let key of Reflect.ownKeys(obj)) {
+    cloneObj[key] =
+      isComplexDataType(obj[key]) && typeof obj[key] !== "function"
+        ? deepClone(obj[key], hash)
+        : obj[key];
+  }
+  return cloneObj;
+};
+// 下面是验证代码
+let obj = {
+  num: 0,
+  str: "",
+  boolean: true,
+  unf: undefined,
+  nul: null,
+  obj: { name: "我是一个对象", id: 1 },
+  arr: [0, 1, 2],
+  func: function () {
+    console.log("我是一个函数");
+  },
+  date: new Date(0),
+  reg: new RegExp("/我是一个正则/ig"),
+  [Symbol("1")]: 1,
+};
+Object.defineProperty(obj, "innumerable", {
+  enumerable: false,
+  value: "不可枚举属性",
+});
+obj = Object.create(obj, Object.getOwnPropertyDescriptors(obj));
+obj.loop = obj; // 设置loop成循环引用的属性
+let cloneObj = deepClone(obj);
+cloneObj.arr.push(4);
+console.log("obj", obj);
+console.log("cloneObj", cloneObj);
+```
 
+<!-- weakMap 和 Map 区别 -->
 
+<!-- 还是没有懂为什么要用weakMap，而且let cloneObj = Object.create(Object.getPrototypeOf(obj), allDesc)，这行代码不就已经复制出了一份新的对象了吗，为什么后面还要重新使用循环重新赋值对象属性，希望有人能够解答一下，谢谢！
+
+  
+weakmap 防止内存泄漏，循环引用复制起来会比较吃内存如果不用weakmap会有问题 -->
+
+可以看到通过这一个问题能考察的能力有很多，因此千万不要用最低的标准来要求自己，应该用类似的方法去分析每个问题深入考察的究竟是什么，这样才能更好地去全面提升自己的基本功。
 ## JS 闭包
 
 1. JavaScript 中的作用域是什么意思?
