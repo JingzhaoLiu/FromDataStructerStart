@@ -1,24 +1,22 @@
-'123' == 123   // false or true?
-console.log( '123' == 123 );
-'' == null    // false or true?
-'' == 0        // false or true?
-[] == 0        // false or true?
-[] == ''       // false or true?
-[] == ![]      // false or true?
-null == undefined //  false or true?
-Number(null)     // 返回什么？
-Number('')      // 返回什么？
-parseInt('');    // 返回什么？
-{}+10           // 返回什么？
-let obj = {
-    [Symbol.toPrimitive]() {
-        return 200;
-    },
-    valueOf() {
-        return 300;
-    },
-    toString() {
-        return 'Hello';
-    }
+let obj1 = {
+  a:{
+    b:1
+  }
 }
-console.log(obj + 200); // 这里打印出来是多少？
+
+function deepClone(target){
+  let cloneObj = Array.isArray(target) ? [] : {};
+
+  for(let prop in target) {
+    if(typeof target[prop] === 'object' && target[prop] !== null) {
+      cloneObj[prop] = deepClone(target[prop]);
+    } else{
+      cloneObj[prop] = target[prop];
+    }
+  }
+  return cloneObj;
+}
+
+let obj2 = deepClone(obj1);
+obj1.a.b = 2;
+console.log(obj2);   //  {a:{b:1}}
