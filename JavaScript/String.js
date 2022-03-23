@@ -1,22 +1,12 @@
-let obj1 = {
-  a:{
-    b:1
-  }
-}
+const products =  [
+  { name: "鼠标", price: 20 },
+  { name: "键盘", price: 40 },
+  { name: "耳机", price: 60 },
+  { name: "显示屏", price: 80 },
+];
 
-function deepClone(target){
-  let cloneObj = Array.isArray(target) ? [] : {};
-
-  for(let prop in target) {
-    if(typeof target[prop] === 'object' && target[prop] !== null) {
-      cloneObj[prop] = deepClone(target[prop]);
-    } else{
-      cloneObj[prop] = target[prop];
-    }
-  }
-  return cloneObj;
-}
-
-let obj2 = deepClone(obj1);
-obj1.a.b = 2;
-console.log(obj2);   //  {a:{b:1}}
+const prices = products.forEach(item => {
+    item.price -= 3
+})
+console.log('prices: ', prices);
+console.log("prices: ", products);
