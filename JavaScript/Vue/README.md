@@ -101,7 +101,7 @@ Vue 包含一组观察数组的变异方法，所以它们也将会触发视图�
 - sort()
 - reverse()
 
-2.非变异方法
+  2.非变异方法
 
 相非变异(non-mutating method)方法，例如： filter(), concat() 和 slice() 。这些不会改变原始数组，但总是返回一个新数组
 
@@ -378,21 +378,22 @@ app.component("date-picker", {
 ```
 
 ## mixin
-局部mixin
-全局自定义 app.mixins 
-this.$options  可以获取所有属性 包括自定义属性
+
+局部 mixin
+全局自定义 app.mixins
+this.$options 可以获取所有属性 包括自定义属性
 
 app.config.optionMergeStrategies.number = (mixinVal,appValue)=>{
-  return mixinVal || appValue
+return mixinVal || appValue
 }
-
 
 ## provide
 
-##  inject
+## inject
 
 ## ref
-``` js
+
+```js
 const hello = ref(null)
 onMounted(()=>{
   console.log(hello.value)
@@ -400,6 +401,7 @@ onMounted(()=>{
 
 <div ref="hello"></div>
 ```
+
 # Vue3
 
 ```js
@@ -626,3 +628,66 @@ watch(
 ## Fragment
 
 在 Vue3 中: 组件可以没有根标签, 内部会将多个标签包含在一个 Fragment 虚拟元素中
+
+## Vuex
+
+```js
+// commit 和 dispatch 的区别在于 commit 是提交mutations的同步操作, dispatch 是分发actions的异步操作 dispatch :含有异步操作
+
+const state = {
+  products: [
+    { name: "鼠标", price: 20 },
+    { name: "键盘", price: 40 },
+    { name: "耳机", price: 60 },
+    { name: "显示屏", price: 80 },
+  ],
+};
+
+// 类似计算属性 返回计算修改值
+const getters = {
+  saleProducts: state => {
+    let saleProducts = state.products.map(product => {
+      return {
+        name: product.name,
+        price: product.price / 2,
+      };
+    });
+    return saleProducts;
+  },
+};
+
+// 同步执行 修改state
+const mutations = {
+  minusPrice(state, payload) {
+    state.products.forEach(product => {
+      product.price -= payload;
+    });
+  },
+};
+
+// 可以异步 再执行 mutations中方法
+const actions = {
+  minusPriceAsync({ commit }, payload) {
+    setTimeout(() => {
+      commit("minusPrice", payload); // 再调用 mutations方法
+    }, 2000);
+  },
+};
+
+export default {
+  data() {
+    return {
+      products: this.$store.state.products,
+      saleProducts: this.$store.getters.saleProducts
+    };
+  },
+  methods: {
+    minusPrice() {
+      this.$store.commit("minusPrice", 2);  // 直接调用mutations方法 
+    },
+    minusPriceAsync() {
+      this.$store.dispatch("minusPriceAsync", 5); // 分发actions中的minusPriceAsync这个异步函数
+    },
+  },
+};
+```
