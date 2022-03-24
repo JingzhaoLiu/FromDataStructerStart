@@ -690,4 +690,19 @@ export default {
     },
   },
 };
+
+
+// vue3
+```
+``` js
+import { useStore } from 'vuex'
+
+setup(){
+  const store = useStore();
+  const {name} = toRefs(store.state)
+  const handleClick = ()=>{
+    store.commit('changeName', 'hello');
+  }
+  return {name, handleClick}
+}
 ```
