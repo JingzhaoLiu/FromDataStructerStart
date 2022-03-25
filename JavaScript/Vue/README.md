@@ -706,3 +706,5 @@ setup(){
   return {name, handleClick}
 }
 ```
+
+## Vue3.2
