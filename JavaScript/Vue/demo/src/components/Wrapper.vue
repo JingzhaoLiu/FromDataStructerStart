@@ -10,7 +10,7 @@
     </div>
     <div :class="{ shake: noActivated }">
       <button @click="noActivated = true">Click me</button>
-      <span v-if="noActivated">Oh no! css </span>
+      <span v-if="noActivated">Oh no! css！！！ </span>
     </div>
   </div>
 </template>
