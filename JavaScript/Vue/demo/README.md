@@ -23,7 +23,13 @@ text-overflow: ellipsis;
   item-space: center;
   color: dark;
   padding-top: 500px;
-  
+
+}
+
+.center{
+  display: flex; 
+  justify-content: center;
+  align-item: center;
 }
 
 ```
