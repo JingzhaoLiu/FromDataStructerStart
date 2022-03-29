@@ -17,6 +17,17 @@ white-space: nowrap;
 text-overflow: ellipsis;
 ```
 
+```
+.div{
+  position: relative;
+  item-space: center;
+  color: dark;
+  padding-top: 500px;
+  
+}
+
+```
+
 调整位置 也可以用 relative 定位的
 
 ```css
