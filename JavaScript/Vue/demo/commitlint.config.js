@@ -16,10 +16,10 @@ module.exports = {
         'subject-full-stop': [2, 'never', '.'],
         'type-case': [2, 'always', 'lower-case'],
         'type-empty': [2, 'never'],
-        'type-enum': [
-            2,
-            'always',
-            [
+        'type-enum': [ //type的类型定义
+            2, // 验证的错误级别
+            'always', // 什么情况下验证
+            [   // 泛型内容
                 'build',
                 'chore',
                 'ci',
