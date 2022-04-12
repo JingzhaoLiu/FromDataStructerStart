@@ -14,6 +14,7 @@ const path = require('path')
 const inquirer = require("inquirer");
 const ejs = require("ejs");
 const fs = require('fs');
+
 inquirer.prompt([{ type: "input", name: "name", message: "Project name?" }]).then(res=>{
   console.log('res: ', res);
   // 模板目录
@@ -33,3 +34,4 @@ inquirer.prompt([{ type: "input", name: "name", message: "Project name?" }]).the
   })
 
 })
+
