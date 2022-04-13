@@ -1,0 +1,16 @@
+{
+  "name": "npmscript",
+  "version": "1.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "liujingzhao",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.13.0"
+  }
+}
