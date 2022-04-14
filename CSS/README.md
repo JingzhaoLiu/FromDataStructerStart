@@ -187,3 +187,50 @@ visibility: hidden;
 什么是行高？如何制作单行文本垂直居中？
 如何使用font属性快速设置加粗、字号、行高、字体
 什么是继承性？哪些属性有继承性？什么是就近原则？
+
+
+## 2D
+
+- translate()
+- rotate()
+- scale()
+- skew()
+- matrix()
+
+``` css
+transform: translate(50px,100px);
+transform: rotate(30deg);
+transform: scale(2,3);  // 宽 2倍 高 3倍
+```
+
+## 3D
+
+
+
+
+
+
+
+
+## 过渡
+
+``` css
+transition: all 1s linear 1s;
+transition: all 1s;
+transition: width 1s, transform 2s;
+```
+## 动画
+``` css
+
+@keyframes myfirst
+{
+    from {background: red;}
+    to {background: yellow;}
+}
+
+animation: myfirst 2s linear 2s infinite alternate;
+/* animation-iteration-count 规定动画被播放的次数。默认是 1  */
+/* animation-direction 规定动画是否在下一周期逆向地播放  默认是 "normal"*/
+/* animation-play-state:paused; */
+```
+
