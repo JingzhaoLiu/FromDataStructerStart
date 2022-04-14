@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    img {
+      width: 36rpx;
+      height: 36rpx;
+      margin-right: 10rpx;
+      opacity: 1;
+      transition: all 0.3s;
+    }
+
+    .comment-btn-active {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      margin-top: -18rpx;
+      transform: scale(2);
+      opacity: 0;
+    }
+
+    img.active {
+      opacity: 0;
+    }
+
+    .active.comment-btn-active {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .box1 {
+      width: 200px;
+      height: 200px;
+      background: #fa2855;
+      transition: width 5s;
+    }
+
+    .box1:hover {
+      width: 800px;
+    }
+
+    .box2 {
+      perspective: 800px;
+      
+    }
+
+    .box2 p {
+      position: relative;
+      left: 0;
+      width: 200px;
+      height: 200px;
+      background: #fa2855;
+      transform: rotateX(0deg);
+      transform-origin: 100% 0;
+      transition: transform 1s;
+    }
+
+    .box2:hover p {
+      /* left: 1000px; */
+      transform: rotateY(180deg)
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box1"></div>
+
+  <div class="box2">
+    <p></p>
+  </div>
+
+  <img class="comment-btn-active" src="https://image.renrenjiang.cn/shiquyun/hybrid/icons/icon_note_praised.png">
+  </img>
+  <script>
+    var imgObj = document.querySelector('img')
+
+    setTimeout(() => {
+      imgObj.setAttribute('class', 'active comment-btn-active')
+    }, 3000)
+
+  </script>
+</body>
+
+</html>
