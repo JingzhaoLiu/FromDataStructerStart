@@ -192,15 +192,52 @@ visibility: hidden;
 ## 2D
 
 - translate()
+``` css
+transform: translate(50px,100px);
+```
 - rotate()
+``` css
+/* 通过指定的角度参数对元素根据对象原点指定一个2D旋转 */
+
+
+/* transform-origin 属性重置元素的旋转原点 */
+/* transform-origin: x-axis y-axis z-axis; */
+/*  x-axis y-axis 
+
+left     top
+center   center 
+right    bottom
+length   length
+%        %
+*/
+
+
+```
 - scale()
+``` css
+
+transform: scale(2,3);  // 宽 2倍 高 3倍
+
+transform: scale(2, -2); // 垂直翻转 宽 2倍 高2倍
+transform: scale(-2, 2); // 水平翻转 宽 2倍 高2倍
+transform: scale(-2, -2); // 水平垂直翻转 宽 2倍 高2倍
+
+```
+
+
 - skew()
+
+
 - matrix()
 
 ``` css
 transform: translate(50px,100px);
 transform: rotate(30deg);
 transform: scale(2,3);  // 宽 2倍 高 3倍
+
+transform: scale(2, -2); // 垂直翻转 宽 2倍 高2倍
+transform: scale(-2, 2); // 水平翻转 宽 2倍 高2倍
+transform: scale(-2, -2); // 水平垂直翻转 宽 2倍 高2倍
 ```
 
 ## 3D

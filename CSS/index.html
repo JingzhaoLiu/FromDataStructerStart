@@ -64,10 +64,23 @@
       /* left: 1000px; */
       transform: rotateY(180deg)
     }
+
+    .praised{
+      margin: 50px;
+      opacity: 1;
+      transform: scale(-1, 1);
+    }
+    .praised1{
+      margin: 50px;
+      opacity: 1;
+      /* transform: scale(1); */
+    }
   </style>
 </head>
 
 <body>
+  <img class="praised1" src="https://image.renrenjiang.cn/shiquyun/hybrid/icons/icon_note_praised.png" />
+  <img class="praised" src="https://image.renrenjiang.cn/shiquyun/hybrid/icons/icon_note_praised.png" />
   <div class="box1"></div>
 
   <div class="box2">
@@ -79,9 +92,9 @@
   <script>
     var imgObj = document.querySelector('img')
 
-    setTimeout(() => {
-      imgObj.setAttribute('class', 'active comment-btn-active')
-    }, 3000)
+    // setTimeout(() => {
+    //   imgObj.setAttribute('class', 'active comment-btn-active')
+    // }, 3000)
 
   </script>
 </body>
