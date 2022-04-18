@@ -1,0 +1,9 @@
+{
+  "name": "test4",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "chalk-animation": "^1.6.0"
+  }
+}

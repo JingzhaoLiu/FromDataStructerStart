@@ -678,12 +678,12 @@ export default {
   data() {
     return {
       products: this.$store.state.products,
-      saleProducts: this.$store.getters.saleProducts
+      saleProducts: this.$store.getters.saleProducts,
     };
   },
   methods: {
     minusPrice() {
-      this.$store.commit("minusPrice", 2);  // 直接调用mutations方法 
+      this.$store.commit("minusPrice", 2); // 直接调用mutations方法
     },
     minusPriceAsync() {
       this.$store.dispatch("minusPriceAsync", 5); // 分发actions中的minusPriceAsync这个异步函数
@@ -691,10 +691,10 @@ export default {
   },
 };
 
-
 // vue3
 ```
-``` js
+
+```js
 import { useStore } from 'vuex'
 
 setup(){
@@ -708,3 +708,66 @@ setup(){
 ```
 
 ## Vue3.2
+
+```js
+import { getCurrentInstance } from "vue";
+// 获取当前组件实例
+const instance = getCurrentInstance();
+
+// 获取当前组件的上下文，下面两种方式都能获取到组件的上下文。
+const { ctx } = getCurrentInstance(); //  方式一，这种方式只能在开发环境下使用，生产环境下的ctx将访问不到
+const { proxy } = getCurrentInstance(); //  方式二，此方法在开发环境以及生产环境下都能放到组件上下文对象（推荐）
+// ctx 中包含了组件中由ref和reactive创建的响应式数据对象,以及以下对象及方法;
+proxy.$attrs;
+proxy.$data;
+proxy.$el;
+proxy.$emit;
+proxy.$forceUpdate;
+proxy.$nextTick;
+proxy.$options;
+proxy.$parent;
+proxy.$props;
+proxy.$refs;
+proxy.$root;
+proxy.$slots;
+proxy.$watch;
+```
+
+## 单文件组件 <script setup>
+
+```js
+<script setup>
+console.log('hello script setup')
+</script>
+```
+
+### 顶层的绑定会被暴露给模板
+
+
+``` js
+// 子组件
+import MyChild from '@/components/MyChild'
+
+// 方法
+import { getTime } from '@/utils/time'
+
+// 变量
+const msg = 'Javascript'
+
+
+
+
+```
+
+``` js 
+<script setup>
+import Foo from './Foo.vue'
+import Bar from './Bar.vue'
+</script>
+
+<template>
+  <component :is="Foo" />
+  <component :is="someCondition ? Foo : Bar" />
+</template>
+
+```
