@@ -20,10 +20,10 @@ app.use(cors({
 }))
 
 // session配置
-app.keys == ['0SD4@SD1A$S8G2H&03DG8H!1dbs92'] // 秘钥，用于加密
+app.keys = ['0SD4@SD1A$S8G2H&03DG8H!1dbs92'] // 秘钥，用于加密
 app.use(session({
   cookie:{
-    pat: '/', 
+    path: '/', 
     httpOnly: true,
     maxAge: 30 * 24 * 60 * 60 * 1000
   }
