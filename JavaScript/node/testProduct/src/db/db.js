@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 
 // 配置文件
 const config = {
-  url: 'mongodb://admin:root777@localhost:27017',
+  url: 'mongodb://admin:root@localhost:27017',
   dbName: 'admin',
 };
 
