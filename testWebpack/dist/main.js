@@ -1,0 +1,1 @@
+console.log(123),console.log("b: ",246),console.log("test"),console.log("res: ",1);
