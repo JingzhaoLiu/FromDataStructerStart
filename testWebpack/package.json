@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --config config/webpack.config.js",
-    "start": "webpack --config config/webpack.config.js --mode production",
+    "dev": "webpack",
+    "start": "webpack --config config/webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

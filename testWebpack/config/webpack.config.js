@@ -1,8 +1,9 @@
 const path = require("path");
 const config = {
+  mode: "development",
   context: path.resolve(__dirname, "../"),
   // entry: "./src/index.js",
-  entry: {
+  entry: {  // 打包入口地址
     //   foo: "./src/index.js",
     //   bar: "./src/test.js",
     //   // ...
