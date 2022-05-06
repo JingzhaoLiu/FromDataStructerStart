@@ -123,5 +123,79 @@ module.exports = {
 
 最后的例子，可以理解为多个文件作为一个入口，webpack 会解析两个文件的依赖后进行打包。
 
+### 输出
+
+webpack 的输出即指 webpack 最终构建出来的静态文件，可以看看上面 webpack 官方图片右侧的那些文件。当然，构建结果的文件名、路径等都是可以配置的，使用 `output` 字段：
+
+```js
+module.exports = {
+  // ...
+  output: {
+    path: path.resolve(__dirname, 'dist'), 
+    filename: 'bundle.js',   // 一个文件名 可以多个文件打包成这一个文件
+  },
+}
+
+// 或者多个入口生成不同文件
+module.exports = {
+  entry: {
+    index: './src/index.js',
+    test: './src/bar.js',
+  },
+  output: {
+    filename: '[name].js',
+    path: __dirname + '/dist',
+  },
+}
+
+// 路径中使用 hash，每次构建时会有一个不同 hash 值，避免发布新版本时线上使用浏览器缓存
+module.exports = {
+  // ...
+  output: {
+    filename: '[name].js',
+    path: __dirname + '/dist/[hash]',
+  },
+}
+```
+
+我们一开始直接使用 webpack 构建时，默认创建的输出内容就是 `./dist/main.js`。
+
+### loader
+
+webpack默认只支持js、json文件, 对于其它格式，它提供一种处理多种文件格式的机制，便是使用 loader。我们可以把 loader 理解为是一个转换器，负责把某种文件格式的内容转换成 webpack 可以支持打包的模块。
+
+举个例子，在没有添加额外插件的情况下，webpack 会默认把所有依赖打包成 js 文件，如果入口文件依赖 .css 的样式文件，那么我们需要 css-loader 来处理 .css 文件，最终把不同格式的文件都解析成 js 代码，以便打包后在浏览器中运行。
+
+当我们需要使用不同的 loader 来解析处理不同类型的文件时，我们可以在 `module.rules` 字段下来配置相关的规则：
+
+```js
+module.exports = {
+  entry: './src/index.js', 
+  module: {
+    rules: [
+      {
+        test: /\.css$/, //匹配所有的 css 文件
+        use: [  // use: 对应的 Loader 名称 先执行的放在数组中最后
+          'style-loader',  // 把css代码添加到document中（创建style便签，把css代码放入）
+          'css-loader' // css代码嵌入js代码中
+        ] 
+      },
+    ],
+  }
+}
+
+```
+
+上面的配置需要安装依赖后，才能运行
+
+```shell
+npm i css-loader style-loader -D // 安装依赖
+npm run start  // webpack打包
+
+# 或者
+yarn add css-loader style-loader  
+yarn start
+```
+
 
 
