@@ -264,3 +264,23 @@ webpack 的配置其实是一个 Node.js 的脚本，这个脚本对外暴露一
 创建了 webpack.config.js 后再执行 webpack 命令，webpack 就会使用这个配置文件的配置了。
 
 
+
+## 配置文件使用
+
+- 默认 
+  默认执行当前目录下的 webpack.config.js 文件
+
+- 指定配置文件
+  
+  ``` json
+  "scripts": {
+    "start": "webpack --config config/webpack.config.js"
+  },
+  ```
+
+
+## 小结
+
+webpack 的安装和使用和大多数使用 Node.js 开发的命令行工具一样，使用 npm 安装后执行命令即可。
+
+我们已经介绍了 webpack 的几个重要的概念：工作模式，入口，loader，plugin，输出，并且展示了一个简单的 webpack 配置例子，后续的会帮助你逐渐去深入，慢慢地，你会对 webpack 配置越来越得心应手。
