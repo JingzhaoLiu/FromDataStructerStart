@@ -1,4 +1,5 @@
 import './index.css';
+import './test.scss';
 
 const a = 123;
 

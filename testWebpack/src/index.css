@@ -2,4 +2,9 @@
   width: 100px;
   height: 100px;
   background: #fa2855;
+  transform: scale(2);
+  border-radius: 20px;
+
+  margin: 200px;
+  padding: 10px;
 }

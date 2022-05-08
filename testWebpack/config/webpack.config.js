@@ -1,20 +1,14 @@
 const path = require("path");
+const htmlWebpackPlugin = require('html-webpack-plugin');
 const config = {
+  // // development, production or none
+  // // default value production
   mode: "development",
   context: path.resolve(__dirname, "../"),
-  // entry: "./src/index.js",
-  // entry: {
-  //   // 打包入口地址
-  //   foo: "./src/index.js",
-  //   bar: "./src/test.js",
-  //   //   // ...
-
-  // },
-  entry: ["./src/index.css"],
-
+  entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "../dist"),
-    filename: "[name].js",
+    filename: "main.js",
   },
   // Loaders
   module: {
@@ -26,10 +20,12 @@ const config = {
     ],
   },
   // // plugins:
-  // plugins: [],
-  // // development, production or none
-  // // default value production
-  // mode: "development",
+  plugins: [
+    // 配置插件
+    new htmlWebpackPlugin({
+      template: './src/index.html'
+    }),
+  ],
 };
 
 module.exports = config;
