@@ -180,6 +180,14 @@ module.exports = {
     ],
   },
 };
+
+
+// style-loader 的本质
+const content = `${样式内容}`
+const style = document.createElement('style');
+style.innerHTML = content;
+document.head.appendChild(style);
+
 ```
 
 上面的配置需要安装依赖后，才能运行
